@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>NS AI - Bước 2: Điểm các môn học (GDPT 2018)</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-beam"></div>
+<div class="stars"></div>
+
+<header class="topbar">
+
+<a class="brand" href="index.html">
+<span>NS</span> NS AI
+</a>
+
+<nav>
+
+<a href="index.html">Trang chủ</a>
+
+<div class="nav-dropdown">
+  <button class="nav-dropdown-trigger">📊 Đánh giá năng lực ▾</button>
+  <div class="nav-dropdown-menu">
+    <a href="thongtin.html">📝 Bước 1: Thông tin</a>
+    <a class="active" href="diemso.html">📊 Bước 2: Điểm số</a>
+    <a href="sothich.html">❤️ Bước 3: Sở thích</a>
+    <a href="tinhcach.html">🧠 Bước 4: Tính cách</a>
+    <a href="muctieu.html">🎯 Bước 5: Mục tiêu</a>
+  </div>
+</div>
+
+<a href="truonghoc.html">Trường học</a>
+
+<a href="ketqua.html">Kết quả</a>
+
+<a href="chatbot.html">Chatbot</a>
+
+
+
+</nav>
+
+</header>
+
+
+<main class="page">
+
+<section class="glass form-card wide">
+
+<p class="eyebrow">BƯỚC 2</p>
+
+<h1>Điểm các môn học (Chương trình GDPT 2018)</h1>
+
+<p class="muted" style="line-height: 1.6; font-size: 14px;">
+Cấu trúc theo định dạng <b>Kỳ thi Tốt nghiệp THPT từ năm 2025 (Chương trình GDPT 2018)</b> của Bộ Giáo dục &amp; Đào tạo: gồm <b>2 môn thi bắt buộc</b> (Toán, Ngữ văn) và các <b>môn tự chọn định hướng nghề nghiệp</b>. Bạn chỉ cần nhập điểm các môn đang theo học hoặc là thế mạnh xét tuyển Đại học - Cao đẳng (thang điểm [0.0 - 10.0], môn không học có thể để trống).
+</p>
+
+<div id="scoresContainer" style="display: flex; flex-direction: column; gap: 24px;"></div>
+
+<!-- TIỆN ÍCH QUY ĐỔI ĐIỂM XÉT TUYỂN ĐH & CHỨNG CHỈ QUỐC TẾ -->
+<div id="scoreConverterSection" style="margin-top: 28px;"></div>
+
+
+<div class="actions" style="margin-top: 32px;">
+
+<a href="thongtin.html" class="btn secondary">
+← Quay lại Bước 1 (Thông tin)
+</a>
+
+<button
+class="btn primary"
+onclick="saveScores()">
+
+Lưu &amp; tiếp tục sang Bước 3 (Sở thích) →
+
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+
+<script src="main.js"></script>
+
+
+<script>
+
+// CẤU TRÚC PHÂN NHÓM MÔN THI THEO CHƯƠNG TRÌNH GDPT 2018 (ÁP DỤNG TỪ KỲ THI 2025)
+const subjectGroups = [
+  {
+    title: '🔴 1. Nhóm môn thi Bắt buộc (2 môn cốt lõi)',
+    badge: 'Bắt buộc tốt nghiệp',
+    badgeColor: '#ef4444',
+    desc: 'Theo phương án thi tốt nghiệp THPT từ năm 2025 (GDPT 2018), Toán và Ngữ văn là 2 môn thi tốt nghiệp bắt buộc đối với tất cả học sinh THPT.',
+    items: [
+      { name: 'Toán', icon: '📐', hint: 'Bắt buộc (Khối A, B, D, A01, A10...)' },
+      { name: 'Ngữ văn', icon: '📖', hint: 'Bắt buộc (Khối C, D, D01, C01, C14...)' }
+    ]
+  },
+  {
+    title: '🔵 2. Nhóm môn thi Tự chọn & Định hướng Nghề nghiệp (9 môn)',
+    badge: 'Tự chọn theo định hướng',
+    badgeColor: '#38bdf8',
+    desc: 'Học sinh chọn các môn học sở trường theo định hướng nghề nghiệp và tổ hợp xét tuyển Đại học - Cao đẳng. Chỉ cần nhập các môn có điểm hoặc theo học, môn khác để trống.',
+    items: [
+      { name: 'Tiếng Anh', icon: '🌐', hint: 'Ngoại ngữ (Khối A01, D01, D07, D09, D14, D15, T01...)' },
+      { name: 'Vật lý', icon: '⚡', hint: 'KHTN (Khối A00, A01, A02, C01, A10, T02, CN1...)' },
+      { name: 'Hóa học', icon: '🧪', hint: 'KHTN (Khối A00, B00, D07, Y Dược, Hóa sinh...)' },
+      { name: 'Sinh học', icon: '🧬', hint: 'KHTN (Khối B00, A02, Y đa khoa, CNSH, Nông nghiệp...)' },
+      { name: 'Tin học', icon: '💻', hint: 'Môn mới GDPT 2018 (CNTT, AI, Vi mạch, Bán dẫn...)' },
+      { name: 'Công nghệ', icon: '⚙️', hint: 'Môn mới GDPT 2018 (Kỹ thuật, Cơ khí, Tự động hóa...)' },
+      { name: 'Lịch sử', icon: '🏛️', hint: 'KHXH (Khối C00, D09, D14, Sư phạm, Báo chí, Luật...)' },
+      { name: 'Địa lý', icon: '🌍', hint: 'KHXH (Khối C00, D15, A09, Du lịch, Quản lý tài nguyên...)' },
+      { name: 'GDKT&PL', icon: '⚖️', hint: 'Môn mới GDPT 2018 (Khối C14, A10, Kinh tế, Luật...)' }
+    ]
+  }
+];
+
+// Lấy danh sách tất cả các môn
+const allSubjects = [];
+subjectGroups.forEach(g => {
+  g.items.forEach(it => allSubjects.push(it.name));
+});
+
+const rawOldScores = read('scores') || {};
+const oldScores = Object.assign({}, rawOldScores);
+
+// Tương thích ngược dữ liệu môn Công nghệ nếu học sinh từng lưu tên cũ
+if (oldScores['Công nghệ'] == null) {
+  if (oldScores['Công nghệ công nghiệp'] != null) oldScores['Công nghệ'] = oldScores['Công nghệ công nghiệp'];
+  else if (oldScores['Công nghệ nông nghiệp'] != null) oldScores['Công nghệ'] = oldScores['Công nghệ nông nghiệp'];
+}
+
+const container = document.getElementById('scoresContainer');
+
+// Render giao diện theo 2 nhóm môn học chuẩn GDPT 2018
+subjectGroups.forEach((group, gIdx) => {
+  const groupCard = document.createElement('div');
+  groupCard.style.cssText = 'background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px 20px;';
+
+  groupCard.innerHTML = `
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+      <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin: 0;">${group.title}</h3>
+      <span style="font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: rgba(255,255,255,0.07); color: ${group.badgeColor}; border: 1px solid ${group.badgeColor}40;">
+        ${group.badge}
+      </span>
+    </div>
+    <p style="font-size: 13px; color: #94a3b8; margin: 0 0 16px 0; line-height: 1.5;">${group.desc}</p>
+    <div class="score-grid" id="grid_group_${gIdx}"></div>
+  `;
+
+  container.appendChild(groupCard);
+  const gridEl = groupCard.querySelector(`#grid_group_${gIdx}`);
+
+  group.items.forEach(subj => {
+    const safeId = 'score_' + encodeURIComponent(subj.name).replace(/%/g, '_');
+    const label = document.createElement('label');
+    label.style.display = 'flex';
+    label.style.flexDirection = 'column';
+    label.style.gap = '6px';
+    label.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-weight: 600; font-size: 14px; color: #f1f5f9;">${subj.icon} ${subj.name}</span>
+        <span style="font-size: 11px; color: #64748b;">${subj.hint}</span>
+      </div>
+      <input
+        id="${safeId}"
+        data-subject="${subj.name}"
+        type="number"
+        min="0"
+        max="10"
+        step="0.1"
+        placeholder="Để trống nếu không học"
+        value="${oldScores[subj.name] != null ? oldScores[subj.name] : ''}"
+        oninput="handleScoreInput(this)"
+        onblur="handleScoreBlur(this)"
+        style="width: 100%; box-sizing: border-box;"
+      >
+    `;
+    gridEl.appendChild(label);
+  });
+});
+
+// ==========================================
+// KIỂM SOÁT ĐẦU VÀO NGHIÊM NGẶT (STRICT INPUT VALIDATION)
+// ==========================================
+function handleScoreInput(input) {
+  if (!input) return;
+  let val = input.value;
+  if (val === '') {
+    runScoreConversion();
+    return;
+  }
+
+  // Chặn dấu âm và ký tự lạ
+  if (val.includes('-')) {
+    val = val.replace(/-/g, '');
+    input.value = val;
+  }
+
+  let num = parseFloat(val);
+  if (isNaN(num)) {
+    input.value = '';
+    runScoreConversion();
+    return;
+  }
+
+  // Giới hạn trong khoảng [0.0 - 10.0]
+  if (num < 0) {
+    input.value = 0;
+  } else if (num > 10) {
+    // Hỗ trợ tự động chia 10 nếu học sinh gõ số nguyên 2 chữ số (VD: gõ 85 khi muốn nhập 8.5)
+    if (num > 10 && num <= 100 && !val.includes('.')) {
+      num = num / 10;
+      input.value = num;
+    } else {
+      input.value = 10;
+    }
+  }
+
+  runScoreConversion();
+}
+
+function handleScoreBlur(input) {
+  if (!input || input.value === '') return;
+  let num = parseFloat(input.value);
+  if (isNaN(num) || num < 0) {
+    input.value = '';
+  } else if (num > 10) {
+    input.value = '10.0';
+  } else {
+    input.value = Number(num.toFixed(1));
+  }
+  runScoreConversion();
+}
+
+function saveScores(redirect = true) {
+  const d = {};
+  allSubjects.forEach(s => {
+    const safeId = 'score_' + encodeURIComponent(s).replace(/%/g, '_');
+    const inp = document.getElementById(safeId);
+    if (inp && inp.value !== '') {
+      let num = parseFloat(inp.value);
+      if (!isNaN(num)) {
+        if (num < 0) num = 0;
+        if (num > 10) num = 10;
+        // Chỉ nhận điểm thực sự hợp lệ: 0 < điểm <= 10.
+        if (num > 0) {
+          d[s] = Number(num.toFixed(2));
+        } else {
+          showToast('Bỏ qua môn "' + s + '" vì điểm 0 không hợp lệ. Hãy để trống nếu bạn không học môn này.', 'info');
+        }
+      }
+    }
+  });
+
+  if (Object.keys(d).length === 0) {
+    showToast('Vui lòng nhập điểm của ít nhất 1 môn học thế mạnh (Toán, Ngữ văn, Tiếng Anh...) để NS AI phân tích!', 'error');
+    return;
+  }
+
+  save('scores', d);
+  if (typeof runScoreConversion === 'function') runScoreConversion();
+
+  if (redirect) {
+    location.href = 'sothich.html';
+  }
+}
+
+// ==========================================
+// TIỆN ÍCH QUY ĐỔI ĐIỂM XÉT TUYỂN ĐH & CHỨNG CHỈ QUỐC TẾ (GDPT 2018)
+// ==========================================
+const CONV_COMBOS = {
+  // ⚡ Khối Tự nhiên & Kỹ thuật
+  A00: ['Toán', 'Vật lý', 'Hóa học'],
+  A01: ['Toán', 'Vật lý', 'Tiếng Anh'],
+  A02: ['Toán', 'Vật lý', 'Sinh học'],
+  A10: ['Toán', 'Vật lý', 'GDKT&PL'],
+  B00: ['Toán', 'Hóa học', 'Sinh học'],
+
+  // 📚 Khối Xã hội, Pháp luật & Sư phạm
+  C00: ['Ngữ văn', 'Lịch sử', 'Địa lý'],
+  C01: ['Toán', 'Ngữ văn', 'Vật lý'],
+  C14: ['Toán', 'Ngữ văn', 'GDKT&PL'],
+  C19: ['Ngữ văn', 'Lịch sử', 'GDKT&PL'],
+  C20: ['Ngữ văn', 'Địa lý', 'GDKT&PL'],
+
+  // 🌐 Khối Ngoại ngữ, Kinh tế & Quốc tế
+  D01: ['Toán', 'Ngữ văn', 'Tiếng Anh'],
+  D07: ['Toán', 'Hóa học', 'Tiếng Anh'],
+  D09: ['Toán', 'Lịch sử', 'Tiếng Anh'],
+  D14: ['Ngữ văn', 'Lịch sử', 'Tiếng Anh'],
+  D15: ['Ngữ văn', 'Địa lý', 'Tiếng Anh'],
+  A09: ['Toán', 'Địa lý', 'GDKT&PL'],
+
+  // 💻 Khối Tin học & Công nghệ (Mới GDPT 2018)
+  T01: ['Toán', 'Tin học', 'Tiếng Anh'],
+  T02: ['Toán', 'Vật lý', 'Tin học'],
+  CN1: ['Toán', 'Vật lý', 'Công nghệ'],
+  CN2: ['Toán', 'Tiếng Anh', 'Công nghệ']
+};
+
+const AREA_POINTS = {
+  'KV1': 0.75,
+  'KV2-NT': 0.5,
+  'KV2': 0.25,
+  'KV3': 0.0
+};
+
+const POLICY_POINTS = {
+  'DT1': 2.0,
+  'DT2': 1.0,
+  'NONE': 0.0
+};
+
+function convertCertToScore(certType, val) {
+  const v = parseFloat(val);
+  if (isNaN(v) || v <= 0) return null;
+
+  if (certType === 'IELTS') {
+    if (v >= 7.0) return 10.0;
+    if (v >= 6.5) return 9.5;
+    if (v >= 6.0) return 9.0;
+    if (v >= 5.5) return 8.5;
+    if (v >= 5.0) return 8.0;
+    return 7.0;
+  }
+  if (certType === 'TOEFL') {
+    if (v >= 100) return 10.0;
+    if (v >= 90) return 9.5;
+    if (v >= 80) return 9.0;
+    if (v >= 70) return 8.5;
+    if (v >= 60) return 8.0;
+    return 7.0;
+  }
+  if (certType === 'SAT') {
+    if (v >= 1400) return 10.0;
+    if (v >= 1300) return 9.5;
+    if (v >= 1200) return 9.0;
+    if (v >= 1100) return 8.5;
+    if (v >= 1000) return 8.0;
+    return 7.5;
+  }
+  if (certType === 'JLPT') {
+    if (v === 1) return 10.0;
+    if (v === 2) return 9.5;
+    if (v === 3) return 9.0;
+    if (v === 4) return 8.0;
+    return 7.5;
+  }
+  if (certType === 'TOPIK') {
+    if (v >= 5) return 10.0;
+    if (v === 4) return 9.5;
+    if (v === 3) return 9.0;
+    if (v === 2) return 8.0;
+    return 7.5;
+  }
+  return null;
+}
+
+function calculateMoetPriority(rawScore, basePriority) {
+  if (basePriority <= 0 || isNaN(basePriority)) return 0;
+  if (isNaN(rawScore) || rawScore < 0) return 0;
+  if (rawScore < 22.5) return basePriority;
+  const factor = (30 - rawScore) / 7.5;
+  const actual = factor * basePriority;
+  return Math.max(0, Math.min(basePriority, Number(actual.toFixed(2))));
+}
+
+function renderScoreConverterUI() {
+  const el = document.getElementById('scoreConverterSection');
+  if (!el) return;
+
+  el.innerHTML = `
+    <div class="score-converter-card" style="padding: 22px 24px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(168, 85, 247, 0.1)); border: 1.5px solid rgba(129, 140, 248, 0.35); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+        <div>
+          <span style="font-size: 11px; font-weight: 700; color: #a5b4fc; letter-spacing: 0.8px; text-transform: uppercase;">
+            🧮 TIỆN ÍCH QUY ĐỔI ĐIỂM XÉT TUYỂN &amp; CHỨNG CHỈ QUỐC TẾ (GDPT 2018)
+          </span>
+          <h2 style="font-size: 19px; color: #ffffff; margin: 4px 0 2px;">
+            Quy đổi Điểm Tổ hợp Xét tuyển Đại học (Chuẩn Bộ GD&amp;ĐT)
+          </h2>
+          <p style="font-size: 13px; color: #94a3b8; margin: 0; line-height: 1.5;">
+            Tự động tính điểm tổ hợp, tích hợp môn Tin học, Công nghệ, GDKT&amp;PL mới, quy đổi chứng chỉ ngoại ngữ và tự động gợi ý tổ hợp đạt điểm cao nhất.
+          </p>
+        </div>
+        <span style="font-size: 12px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(129, 140, 248, 0.4); color: #c7d2fe; padding: 4px 12px; border-radius: 999px; font-weight: 600;">
+          Quy chế Tuyển sinh 2025 - 2026
+        </span>
+      </div>
+
+      <!-- KHỐI TỰ ĐỘNG GỢI Ý TỔ HỢP ĐẠT ĐIỂM CAO NHẤT -->
+      <div id="bestComboSuggestBox" style="margin-bottom: 18px; padding: 14px 18px; background: rgba(15, 23, 42, 0.65); border: 1.5px dashed rgba(129, 140, 248, 0.45); border-radius: 14px;"></div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 18px;">
+        <!-- CỘT 1: CHỌN TỔ HỢP XÉT TUYỂN -->
+        <div style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px 16px;">
+          <label style="font-weight: 600; font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 6px;">
+            🎯 1. Tổ hợp môn xét tuyển mục tiêu:
+          </label>
+          <select id="convComboSelect" onchange="runScoreConversion()" style="width: 100%; padding: 8px 12px; border-radius: 8px; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-size: 13px;">
+            <optgroup label="⚡ Khối Tự nhiên &amp; Kỹ thuật">
+              <option value="A00">A00: Toán - Vật lý - Hóa học</option>
+              <option value="A01" selected>A01: Toán - Vật lý - Tiếng Anh</option>
+              <option value="A02">A02: Toán - Vật lý - Sinh học</option>
+              <option value="A10">A10: Toán - Vật lý - GDKT&amp;PL</option>
+              <option value="B00">B00: Toán - Hóa học - Sinh học</option>
+            </optgroup>
+            <optgroup label="📚 Khối Xã hội, Pháp luật &amp; Sư phạm">
+              <option value="C00">C00: Ngữ văn - Lịch sử - Địa lý</option>
+              <option value="C01">C01: Toán - Ngữ văn - Vật lý</option>
+              <option value="C14">C14: Toán - Ngữ văn - GDKT&amp;PL</option>
+              <option value="C19">C19: Ngữ văn - Lịch sử - GDKT&amp;PL</option>
+              <option value="C20">C20: Ngữ văn - Địa lý - GDKT&amp;PL</option>
+            </optgroup>
+            <optgroup label="🌐 Khối Ngoại ngữ, Kinh tế &amp; Quốc tế">
+              <option value="D01">D01: Toán - Ngữ văn - Tiếng Anh</option>
+              <option value="D07">D07: Toán - Hóa học - Tiếng Anh</option>
+              <option value="D09">D09: Toán - Lịch sử - Tiếng Anh</option>
+              <option value="D14">D14: Ngữ văn - Lịch sử - Tiếng Anh</option>
+              <option value="D15">D15: Ngữ văn - Địa lý - Tiếng Anh</option>
+              <option value="A09">A09: Toán - Địa lý - GDKT&amp;PL</option>
+            </optgroup>
+            <optgroup label="💻 Khối Tin học &amp; Công nghệ (Mới GDPT 2018)">
+              <option value="T01">T01: Toán - Tin học - Tiếng Anh</option>
+              <option value="T02">T02: Toán - Vật lý - Tin học</option>
+              <option value="CN1">CN1: Toán - Vật lý - Công nghệ</option>
+              <option value="CN2">CN2: Toán - Tiếng Anh - Công nghệ</option>
+            </optgroup>
+          </select>
+
+          <div id="convSubjectBreakdown" style="margin-top: 10px; font-size: 12px; color: #94a3b8; line-height: 1.6;"></div>
+        </div>
+
+        <!-- CỘT 2: CHỨNG CHỈ NGOẠI NGỮ QUỐC TẾ -->
+        <div style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px 16px;">
+          <label style="font-weight: 600; font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 6px;">
+            🌐 2. Chứng chỉ ngoại ngữ quốc tế (nếu có):
+          </label>
+          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <select id="convCertType" onchange="onCertTypeChange()" style="flex: 1; padding: 8px; border-radius: 8px; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-size: 13px;">
+              <option value="NONE">Không có</option>
+              <option value="IELTS">IELTS Academic</option>
+              <option value="TOEFL">TOEFL iBT</option>
+              <option value="SAT">SAT (Thang 1600)</option>
+              <option value="JLPT">JLPT (Tiếng Nhật: N1-N4)</option>
+              <option value="TOPIK">TOPIK (Tiếng Hàn: Cấp 2-6)</option>
+            </select>
+            <input id="convCertVal" type="number" step="0.5" placeholder="Điểm (VD: 6.5)" oninput="runScoreConversion()" style="width: 120px; padding: 8px; border-radius: 8px; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-size: 13px; display: none;">
+          </div>
+          <div id="convCertNote" style="font-size: 11.5px; color: #67e8f9; line-height: 1.45;">
+            ℹ️ Quy đổi chuẩn: IELTS 5.0 ➔ 8đ | 5.5 ➔ 8.5đ | 6.0 ➔ 9đ | 6.5 ➔ 9.5đ | 7.0-9.0 ➔ 10đ.
+          </div>
+        </div>
+
+        <!-- CỘT 3: ĐIỂM ƯU TIÊN KHU VỰC & ĐỐI TƯỢNG -->
+        <div style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px 16px;">
+          <label style="font-weight: 600; font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 6px;">
+            🏛️ 3. Điểm ưu tiên (Quy chế Bộ GD&amp;ĐT):
+          </label>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <select id="convArea" onchange="runScoreConversion()" style="width: 100%; padding: 7px 10px; border-radius: 8px; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-size: 12.5px;">
+              <option value="KV3">Khu vực 3 (Nội thành TP lớn: +0 điểm)</option>
+              <option value="KV2" selected>Khu vực 2 (Thị xã, TP trực thuộc tỉnh: +0.25 điểm)</option>
+              <option value="KV2-NT">Khu vực 2 Nông thôn: +0.5 điểm</option>
+              <option value="KV1">Khu vực 1 (Huyện nghèo, vùng khó khăn: +0.75 điểm)</option>
+            </select>
+            <select id="convPolicy" onchange="runScoreConversion()" style="width: 100%; padding: 7px 10px; border-radius: 8px; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-size: 12.5px;">
+              <option value="NONE" selected>Không thuộc diện đối tượng chính sách (+0 điểm)</option>
+              <option value="DT2">Đối tượng ưu tiên 2 (+1.0 điểm)</option>
+              <option value="DT1">Đối tượng ưu tiên 1 (Dân tộc thiểu số, chính sách: +2.0 điểm)</option>
+            </select>
+          </div>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 6px;">
+            ⚠️ Mức ưu tiên giảm dần nếu tổng 3 môn ≥ 22.5đ theo công thức Bộ GD&amp;ĐT.
+          </div>
+        </div>
+      </div>
+
+      <!-- KẾT QUẢ ĐẦU RA QUY ĐỔI TRỰC QUAN -->
+      <div id="convResultBox" style="padding: 16px 20px; background: rgba(15, 23, 42, 0.75); border: 1.5px solid rgba(99, 102, 241, 0.4); border-radius: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;"></div>
+    </div>
+  `;
+}
+
+function onCertTypeChange() {
+  const type = document.getElementById('convCertType') ? document.getElementById('convCertType').value : 'NONE';
+  const valInput = document.getElementById('convCertVal');
+  const noteEl = document.getElementById('convCertNote');
+  if (!valInput || !noteEl) return;
+
+  if (type === 'NONE') {
+    valInput.style.display = 'none';
+    valInput.value = '';
+    noteEl.innerHTML = 'ℹ️ Chọn chứng chỉ nếu bạn muốn quy đổi môn Ngoại ngữ xét tuyển.';
+  } else {
+    valInput.style.display = 'block';
+    if (type === 'IELTS') {
+      valInput.placeholder = 'IELTS (5.0 - 9.0)';
+      valInput.min = '4.0'; valInput.max = '9.0'; valInput.step = '0.5';
+      noteEl.innerHTML = '✨ <b>Bảng quy đổi IELTS:</b> 5.0 ➔ 8đ | 5.5 ➔ 8.5đ | 6.0 ➔ 9đ | 6.5 ➔ 9.5đ | 7.0-9.0 ➔ 10đ.';
+    } else if (type === 'TOEFL') {
+      valInput.placeholder = 'TOEFL iBT (30-120)';
+      valInput.min = '30'; valInput.max = '120'; valInput.step = '1';
+      noteEl.innerHTML = '✨ <b>Bảng quy đổi TOEFL iBT:</b> 60 ➔ 8đ | 70 ➔ 8.5đ | 80 ➔ 9đ | 90 ➔ 9.5đ | 100+ ➔ 10đ.';
+    } else if (type === 'SAT') {
+      valInput.placeholder = 'SAT (400-1600)';
+      valInput.min = '400'; valInput.max = '1600'; valInput.step = '10';
+      noteEl.innerHTML = '✨ <b>Bảng quy đổi SAT:</b> 1000 ➔ 8đ | 1100 ➔ 8.5đ | 1200 ➔ 9đ | 1300 ➔ 9.5đ | 1400+ ➔ 10đ.';
+    } else if (type === 'JLPT') {
+      valInput.placeholder = 'Cấp độ (1, 2, 3, 4)';
+      valInput.min = '1'; valInput.max = '4'; valInput.step = '1';
+      noteEl.innerHTML = '✨ <b>Bảng quy đổi JLPT:</b> N4 ➔ 8đ | N3 ➔ 9đ | N2 ➔ 9.5đ | N1 ➔ 10đ.';
+    } else if (type === 'TOPIK') {
+      valInput.placeholder = 'Cấp độ (2, 3, 4, 5, 6)';
+      valInput.min = '2'; valInput.max = '6'; valInput.step = '1';
+      noteEl.innerHTML = '✨ <b>Bảng quy đổi TOPIK:</b> Cấp 2 ➔ 8đ | Cấp 3 ➔ 9đ | Cấp 4 ➔ 9.5đ | Cấp 5-6 ➔ 10đ.';
+    }
+  }
+  runScoreConversion();
+}
+
+function updateComboSuggestions(currentScores, convertedCertScore, basePriority) {
+  const suggestEl = document.getElementById('bestComboSuggestBox');
+  if (!suggestEl) return;
+
+  const validCombos = [];
+
+  Object.keys(CONV_COMBOS).forEach(code => {
+    const subs = CONV_COMBOS[code];
+    let total = 0;
+    let missingCount = 0;
+    let details = [];
+
+    subs.forEach(subj => {
+      let score = currentScores[subj];
+      if ((subj === 'Tiếng Anh' || subj.includes('Anh')) && convertedCertScore !== null) {
+        if (score == null || convertedCertScore > score) {
+          score = convertedCertScore;
+        }
+      }
+      if (score != null && !isNaN(score) && typeof score === 'number' && score > 0) {
+        total += score;
+        details.push(`${subj} ${score.toFixed(1)}`);
+      } else {
+        missingCount++;
+      }
+    });
+
+    if (missingCount === 0) {
+      const actualPri = calculateMoetPriority(total, basePriority);
+      const safePri = isNaN(actualPri) ? 0 : actualPri;
+      const finalScore = Number((Math.min(30.0, total + safePri)).toFixed(2));
+      validCombos.push({
+        code: code,
+        subjects: subs,
+        total: total,
+        finalScore: finalScore,
+        details: details.join(' + ')
+      });
+    }
+  });
+
+  // Sắp xếp giảm dần theo tổng điểm
+  validCombos.sort((a, b) => b.finalScore - a.finalScore);
+
+  if (validCombos.length === 0) {
+    suggestEl.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px; color: #94a3b8; font-size: 13px;">
+        <span style="font-size: 20px;">💡</span>
+        <span><b>Gợi ý tổ hợp xét tuyển thế mạnh:</b> Nhập điểm các môn học ở trên để NS AI tự động tìm và đề xuất các tổ hợp đạt điểm cao nhất của bạn!</span>
+      </div>
+    `;
+    return;
+  }
+
+  const topCombos = validCombos.slice(0, 4);
+  const currentSelectedCombo = document.getElementById('convComboSelect') ? document.getElementById('convComboSelect').value : '';
+
+  const chipsHtml = topCombos.map((item, idx) => {
+    const isSelected = item.code === currentSelectedCombo;
+    const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '✨';
+    return `
+      <button
+        type="button"
+        onclick="selectCombo('${item.code}')"
+        title="Nhấp để chọn tổ hợp ${item.code} (${item.details})"
+        style="background: ${isSelected ? 'linear-gradient(135deg, #4f46e5, #7c3aed)' : 'rgba(99, 102, 241, 0.15)'}; border: 1.5px solid ${isSelected ? '#a78bfa' : 'rgba(129, 140, 248, 0.35)'}; color: #fff; padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; box-shadow: ${isSelected ? '0 0 12px rgba(124, 58, 237, 0.4)' : 'none'};"
+      >
+        <span>${medal} <b>${item.code}</b>: <span style="color: ${isSelected ? '#fef08a' : '#67e8f9'};">${item.finalScore.toFixed(2)}đ</span></span>
+        ${isSelected ? '<span style="font-size: 11px; color: #bbf7d0;">✓ Đang chọn</span>' : '<span style="font-size: 11px; opacity: 0.8; color: #cbd5e1;">➔ Chọn</span>'}
+      </button>
+    `;
+  }).join(' ');
+
+  suggestEl.innerHTML = `
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #a5b4fc;">
+        <span style="font-size: 16px;">🏆</span> TỔ HỢP ĐẠT ĐIỂM CAO NHẤT TỪ CÁC MÔN BẠN ĐÃ NHẬP:
+      </div>
+      <span style="font-size: 12px; color: #94a3b8;">(Bấm vào tổ hợp để xem chi tiết &amp; lưu vào hồ sơ)</span>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+      ${chipsHtml}
+    </div>
+  `;
+}
+
+function selectCombo(code) {
+  const sel = document.getElementById('convComboSelect');
+  if (sel) {
+    sel.value = code;
+    runScoreConversion();
+  }
+}
+
+function runScoreConversion() {
+  const comboCode = document.getElementById('convComboSelect') ? document.getElementById('convComboSelect').value : 'A01';
+  const subjects = CONV_COMBOS[comboCode] || ['Toán', 'Vật lý', 'Tiếng Anh'];
+
+  const currentScores = {};
+  allSubjects.forEach(s => {
+    const safeId = 'score_' + encodeURIComponent(s).replace(/%/g, '_');
+    const inp = document.getElementById(safeId);
+    if (inp && inp.value !== '') {
+      const v = parseFloat(inp.value);
+      if (!isNaN(v) && v > 0) currentScores[s] = v;
+    }
+  });
+
+  const certType = document.getElementById('convCertType') ? document.getElementById('convCertType').value : 'NONE';
+  const certVal = document.getElementById('convCertVal') ? document.getElementById('convCertVal').value : '';
+  const convertedCertScore = convertCertToScore(certType, certVal);
+
+  const subBreakdown = [];
+  let rawTotal = 0;
+  let hasMissing = false;
+
+  subjects.forEach(subj => {
+    let original = currentScores[subj];
+    let usedScore = original;
+    let note = '';
+
+    if ((subj === 'Tiếng Anh' || subj.includes('Anh')) && convertedCertScore !== null) {
+      if (original == null || convertedCertScore > original) {
+        usedScore = convertedCertScore;
+        note = ` <span style="color:#6ee7b7; font-size:11px;">(Quy đổi từ ${certType} ${certVal}: ${convertedCertScore}đ)</span>`;
+      }
+    }
+
+    if (usedScore != null && !isNaN(usedScore) && typeof usedScore === 'number') {
+      rawTotal += usedScore;
+      subBreakdown.push(`<span>• <b>${subj}:</b> <span style="color:#67e8f9;">${usedScore.toFixed(1)}đ</span>${note}</span>`);
+    } else {
+      hasMissing = true;
+      subBreakdown.push(`<span>• <b>${subj}:</b> <span style="color:#f87171;">Chưa nhập</span>${note}</span>`);
+    }
+  });
+
+  const breakdownEl = document.getElementById('convSubjectBreakdown');
+  if (breakdownEl) {
+    breakdownEl.innerHTML = subBreakdown.join('<br>');
+  }
+
+  const areaCode = document.getElementById('convArea') ? document.getElementById('convArea').value : 'KV2';
+  const policyCode = document.getElementById('convPolicy') ? document.getElementById('convPolicy').value : 'NONE';
+  const baseAreaPt = AREA_POINTS[areaCode] || 0;
+  const basePolicyPt = POLICY_POINTS[policyCode] || 0;
+  const totalBasePriority = (isNaN(baseAreaPt) ? 0 : baseAreaPt) + (isNaN(basePolicyPt) ? 0 : basePolicyPt);
+
+  rawTotal = isNaN(rawTotal) ? 0 : rawTotal;
+  const actualPriority = calculateMoetPriority(rawTotal, totalBasePriority);
+  const safePriority = isNaN(actualPriority) ? 0 : actualPriority;
+  const finalScore = Number((Math.min(30.0, rawTotal + safePriority)).toFixed(2));
+
+  // Cập nhật gợi ý tổ hợp thế mạnh
+  updateComboSuggestions(currentScores, convertedCertScore, totalBasePriority);
+
+  let prospectBadge = '';
+  let prospectClass = '';
+  if (finalScore >= 27.0) {
+    prospectBadge = '🟢 Triển vọng Cực Cao (Top trường ĐHQG, Bách khoa, Y Dược, Ngoại thương)';
+    prospectClass = '#34d399';
+  } else if (finalScore >= 24.0) {
+    prospectBadge = '🟡 Triển vọng Rất Tốt (Top các trường ĐH công lập trọng điểm)';
+    prospectClass = '#fbbf24';
+  } else if (finalScore >= 20.0) {
+    prospectBadge = '🔵 Triển vọng Ổn Định (Đại học công lập và trường uy tín)';
+    prospectClass = '#60a5fa';
+  } else {
+    prospectBadge = '🟠 Cần tập trung bứt phá thêm các môn trọng điểm';
+    prospectClass = '#f87171';
+  }
+
+  const resultBox = document.getElementById('convResultBox');
+  if (resultBox) {
+    resultBox.innerHTML = `
+      <div>
+        <div style="font-size: 12.5px; color: #94a3b8; margin-bottom: 4px;">
+          TỔ HỢP <b>${comboCode}</b>: Điểm 3 môn = <b style="color: #fff;">${rawTotal.toFixed(2)}đ</b> + Điểm ưu tiên = <b style="color: #67e8f9;">+${safePriority.toFixed(2)}đ</b> ${rawTotal >= 22.5 ? '<span style="font-size:11px; color:#cbd5e1;">(hệ số giảm dần)</span>' : ''}
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font-size: 32px; font-weight: 800; color: #4ade80;">
+            ${hasMissing ? rawTotal.toFixed(2) + '*' : finalScore.toFixed(2)}
+          </span>
+          <span style="font-size: 14px; color: #94a3b8;">/ 30.00 điểm</span>
+          ${hasMissing ? '<span style="color:#f87171; font-size:12px;">(*Chưa đủ 3 môn)</span>' : ''}
+        </div>
+        <div style="font-size: 13px; font-weight: 600; color: ${prospectClass}; margin-top: 4px;">
+          ${prospectBadge}
+        </div>
+      </div>
+      <div style="text-align: right; max-width: 260px;">
+        <span style="display: inline-block; padding: 4px 10px; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.35); border-radius: 8px; color: #6ee7b7; font-size: 12px; font-weight: 600; margin-bottom: 6px;">
+          Đã lưu vào bộ nhớ xét tuyển
+        </span>
+        <div style="font-size: 11.5px; color: #94a3b8; line-height: 1.4;">
+          Điểm quy đổi này tự động đồng bộ sang <b>Trường học</b> và <b>Kết quả</b> để xếp nguyện vọng.
+        </div>
+      </div>
+    `;
+  }
+
+  const payload = {
+    combo: comboCode,
+    subjects: subjects,
+    rawTotal: Number(rawTotal.toFixed(2)),
+    actualPriority: Number(safePriority.toFixed(2)),
+    finalScore: finalScore,
+    certType: certType,
+    certVal: certVal,
+    areaCode: areaCode,
+    policyCode: policyCode,
+    hasMissing: hasMissing,
+    updatedAt: new Date().toISOString()
+  };
+  localStorage.setItem('ns_converted_score', JSON.stringify(payload));
+}
+
+function restorePreviousConversion() {
+  try {
+    const raw = localStorage.getItem('ns_converted_score');
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (data.combo && document.getElementById('convComboSelect')) {
+        document.getElementById('convComboSelect').value = data.combo;
+      }
+      if (data.certType && document.getElementById('convCertType')) {
+        document.getElementById('convCertType').value = data.certType;
+        onCertTypeChange();
+        if (data.certVal && document.getElementById('convCertVal')) {
+          document.getElementById('convCertVal').value = data.certVal;
+        }
+      }
+      if (data.areaCode && document.getElementById('convArea')) {
+        document.getElementById('convArea').value = data.areaCode;
+      }
+      if (data.policyCode && document.getElementById('convPolicy')) {
+        document.getElementById('convPolicy').value = data.policyCode;
+      }
+    }
+  } catch (e) {}
+  runScoreConversion();
+}
+
+function initScoreConverter() {
+  renderScoreConverterUI();
+  restorePreviousConversion();
+}
+
+initScoreConverter();
+
+</script>
+
+</body>
+</html>
