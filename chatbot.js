@@ -15,7 +15,8 @@ const chatState = {
   fallbackIndex: 0,
   activeRoleplay: null,
   activeQuiz: null,
-  injectedProfile: null // Lưu trữ hồ sơ người dùng được nạp từ LocalStorage
+  injectedProfile: null, // Lưu trữ hồ sơ người dùng được nạp từ LocalStorage
+  lastConsultedCareer: null // Lưu vết ngành học được tư vấn gần nhất
 };
 
 // Chuẩn hóa câu hỏi: xử lý từ viết tắt, teen code, lỗi chính tả gõ vội
@@ -99,6 +100,26 @@ function formatMsg(text) {
   let html = text;
   // Đổi `code` thành thẻ code có highlight
   html = html.replace(/`([^`]+)`/g, '<code style="background: rgba(255, 255, 255, 0.12); padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; color: #38bdf8;">$1</code>');
+
+  // 5 KHỐI TRỰC QUAN HƯỚNG NGHIỆP CHUẨN MỰC
+  // Khối 1: Khối xét tuyển & Môn cốt lõi (Xanh lam / Blue)
+  html = html.replace(/\*\*(\[1 · KHỐI XÉT[^\]]*\])\*\*/g,
+    '<div class="chat-block-badge badge-blue"><span class="badge-icon">📚</span> $1</div>');
+  // Khối 2: Trường & Điểm chuẩn theo năng lực (Tím / Purple)
+  html = html.replace(/\*\*(\[2 · (?:CHỌN TRƯỜNG|TRƯỜNG)[^\]]*\])\*\*/g,
+    '<div class="chat-block-badge badge-purple"><span class="badge-icon">🏫</span> $1</div>');
+  // Khối 3: Vào học thực tế học gì (Cyan / Xanh ngọc)
+  html = html.replace(/\*\*(\[3 · VÀO HỌC[^\]]*\])\*\*/g,
+    '<div class="chat-block-badge badge-cyan"><span class="badge-icon">🛠️</span> $1</div>');
+  // Khối 4: Cái giá phải trả (Rose / Đỏ hồng)
+  html = html.replace(/\*\*(\[(?:🔒 |🔒)?4 · CÁI GIÁ PHẢI TRẢ[^\]]*\])\*\*/g,
+    '<div class="chat-block-badge badge-rose"><span class="badge-icon">🔒</span> $1</div>');
+  html = html.replace(/\*\*(\[🔒 CÁI GIÁ PHẢI TRẢ\])\*\*/g,
+    '<div class="chat-block-badge badge-rose"><span class="badge-icon">🔒</span> [🔒 CÁI GIÁ PHẢI TRẢ]</div>');
+  // Khối 5: Mức lương tham khảo (Emerald / Xanh lục)
+  html = html.replace(/\*\*(\[(?:5|4) · MỨC LƯƠNG[^\]]*\])\*\*/g,
+    '<div class="chat-block-badge badge-emerald"><span class="badge-icon">💵</span> $1</div>');
+
   // Đổi **in đậm** thành <strong>
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   // Đổi *in nghiêng* thành <em> (chỉ khớp dấu sao đơn độc)
@@ -337,6 +358,9 @@ function addMsg(text, who = 'bot') {
 
   box.appendChild(d);
   box.scrollTop = box.scrollHeight;
+  if (typeof updateChatStartedState === 'function') {
+    updateChatStartedState();
+  }
 }
 
 // =========================================================================
@@ -798,7 +822,8 @@ function detectPsychologicalCrisis(rawQuery, normalizedQuery) {
   // 0. CHỐT CHẶN AN TOÀN TÂM LÝ HỌC ĐƯỜNG - DANH MỤC TỪ KHÓA KHỦNG HOẢNG NGHIÊM TRỌNG BẮT BUỘC
   const mandatoryCrisisKeywords = [
     'tự tử', 'tự hại', 'muốn chết', 'kết thúc cuộc sống', 'không muốn sống',
-    'muốn biến mất', 'quá bế tắc', 'tuyệt vọng hoàn toàn', 'trầm cảm nặng',
+    'muốn biến mất', 'biến mất khỏi thế giới', 'ước gì biến mất', 'ước gì mình biến mất',
+    'quá bế tắc', 'tuyệt vọng hoàn toàn', 'trầm cảm nặng',
     'tổn thương bản thân', 'nhảy lầu', 'cắt tay'
   ];
 
@@ -850,8 +875,9 @@ function detectPsychologicalCrisis(rawQuery, normalizedQuery) {
     /cham\s*dut\s*cuoc\s*(song|doi)/i,
     /kết\s*liễu/i,
     /ket\s*lieu/i,
-    /muốn\s*biến\s*mất(\s*khỏi\s*thế\s*giới)?/i,
-    /muon\s*bien\s*mat/i,
+    /(muốn|muon|ước\s*gì|uoc\s*gi)?\s*(mình|minh|tôi|toi|em)?\s*biến\s*mất(\s*khỏi\s*thế\s*giới|\s*khoi\s*the\s*gioi)?/i,
+    /biến\s*mất\s*khỏi\s*thế\s*giới/i,
+    /bien\s*mat\s*khoi\s*the\s*gioi/i,
     /muốn\s*giải\s*thoát/i,
     /muon\s*giai\s*thoat/i,
     /tự\s*giải\s*thoát/i,
@@ -960,6 +986,10 @@ function detectPsychologicalCrisis(rawQuery, normalizedQuery) {
 }
 
 // Phản hồi an toàn tâm lý: Lời văn ân cần, giải tỏa áp lực & hiển thị Thẻ Hỗ trợ Khẩn cấp
+function generatePsychologicalCrisisCard(crisisCheck) {
+  return generateCrisisSafetyResponse(crisisCheck || { triggered: true, severity: 'critical' });
+}
+
 function generateCrisisSafetyResponse(crisisCheck) {
   const cardHtml = `
 <div class="emergency-safety-card" style="margin-top: 14px; padding: 18px 20px; background: linear-gradient(135deg, rgba(220, 38, 38, 0.25), rgba(126, 34, 206, 0.22)); border: 2px solid rgba(248, 113, 113, 0.7); border-radius: 16px; box-shadow: 0 10px 36px 0 rgba(220, 38, 38, 0.38); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); white-space: normal; color: #f8fafc; font-family: inherit;">
@@ -1445,6 +1475,419 @@ function benchLine(sch) {
   return `• 📏 **Điểm chuẩn tham khảo (${sch.benchmarks.year}):** ${list}`;
 }
 
+// ============================================================================
+// SYSTEM PROMPT & CHARACTER DEFINITION — CHUYÊN GIA HƯỚNG NGHIỆP THỰC TẾ NS AI
+// ============================================================================
+/**
+ * 1. Persona (Định hình tính cách):
+ *    - Đóng vai chuyên gia hướng nghiệp thực tế, gần gũi như anh/chị đi trước (Mentor).
+ *    - Đi thẳng vào vấn đề, thực chiến, không lý thuyết sáo rỗng hay ru ngủ học sinh.
+ *    - Mục tiêu tối thượng: Giúp học sinh THPT KHÔNG CHỌN SAI NGÀNH, hiểu đúng thực tế công việc.
+ * 2. Cấu trúc 5 phần BẮT BUỘC khi học sinh hỏi hoặc được tư vấn về bất kỳ ngành học nào:
+ *    (1) Khối xét tuyển & Môn cốt lõi (chỉ rõ tổ hợp và môn bắt buộc phải học tốt).
+ *    (2) Chọn trường theo năng lực (Top đầu / Vừa sức / An toàn) + nhắc tra cứu Đề án tuyển sinh.
+ *    (3) Vào học thực tế học gì? (giải thích đời thường, nêu công cụ / phần mềm và kỹ năng thực tế).
+ *    (4) Cái giá phải trả (thẳng thắn nêu đúng 3 áp lực / mặt trái lớn nhất của ngành).
+ *    (5) Mức lương tham khảo (Mới ra trường vs Sau 5–8 năm + lưu ý chỉ để tham khảo).
+ * 3. Quy tắc hành vi phản hồi:
+ *    - Mỗi ý chỉ 1–2 câu súc tích, gạch đầu dòng rõ ràng, in đậm các con số và từ khóa quan trọng.
+ *    - Luôn kết thúc bằng 1 câu hỏi gợi mở thiết thực (về học lực, điểm môn thế mạnh, sở thích hoặc mức độ chịu được áp lực của ngành).
+ */
+const CAREER_CHATBOT_SYSTEM_PROMPT = {
+  role: "Chuyên gia hướng nghiệp thực tế & Người anh/chị đi trước (Mentor)",
+  coreMission: "Đi thẳng vào vấn đề, không lý thuyết sáo rỗng. Giúp học sinh THPT KHÔNG CHỌN SAI NGÀNH.",
+  tone: "Thực chiến, chân thành, khách quan, giàu năng lượng tích cực nhưng tuyệt đối trung thực về khó khăn",
+  fiveBlocks: [
+    "[1 · KHỐI XÉT TUYỂN & MÔN CỐT LÕI]",
+    "[2 · CHỌN TRƯỜNG THEO NĂNG LỰC & ĐIỂM CHUẨN]",
+    "[3 · VÀO HỌC THỰC TẾ HỌC GÌ?]",
+    "[🔒 4 · CÁI GIÁ PHẢI TRẢ (3 ÁP LỰC LỚN NHẤT)]",
+    "[5 · MỨC LƯƠNG THAM KHẢO & TỐC ĐỘ BỨT PHÁ]"
+  ],
+  rules: [
+    "Mỗi ý chỉ 1–2 câu súc tích, gạch đầu dòng rõ ràng, in đậm con số và từ khóa quan trọng.",
+    "Luôn kết thúc bằng 1 câu hỏi gợi mở thiết thực (về học lực, điểm môn, sở thích hoặc mức độ chịu áp lực)."
+  ]
+};
+
+// ============================================================================
+// BẢNG PHÂN TẦNG TRƯỜNG HỌC THEO NĂNG LỰC CHO 24 NHÓM NGÀNH ĐÀO TẠO
+// (Top đầu: 26-29đ | Vừa sức: 22-25đ | An toàn: 18-21đ hoặc xét học bạ sớm)
+// ============================================================================
+const CAREER_TIERED_SCHOOLS_MAP = {
+  "Công nghệ thông tin & Lập trình phần mềm": {
+    top: "ĐH Bách khoa (Hà Nội / TP.HCM / ĐN), ĐH Công nghệ (ĐHQGHN), ĐH KHTN (ĐHQG-HCM) *(26.5 – 28.5đ)*",
+    mid: "Học viện CNBCVT (PTIT), ĐH Sư phạm Kỹ thuật TP.HCM, ĐH Giao thông Vận tải, ĐH Công nghiệp Hà Nội *(22.5 – 25.5đ)*",
+    safe: "ĐH Mở Hà Nội / TP.HCM, ĐH Thăng Long, ĐH FPT, ĐH Công nghệ Sài Gòn *(18.5 – 22đ hoặc xét học bạ sớm)*"
+  },
+  "Khoa học máy tính & Trí tuệ nhân tạo (AI)": {
+    top: "ĐH Bách khoa Hà Nội, ĐH Công nghệ (ĐHQGHN), ĐH Khoa học Tự nhiên TP.HCM *(27.0 – 29.0đ)*",
+    mid: "Học viện CNBCVT, ĐH Bách khoa Đà Nẵng, ĐH Sư phạm Kỹ thuật TP.HCM *(23.5 – 26.5đ)*",
+    safe: "ĐH Thủy Lợi, ĐH Quốc tế (ĐHQG-HCM), ĐH FPT, ĐH Văn Lang *(19.0 – 23đ hoặc xét điểm ĐGNL)*"
+  },
+  "Kinh tế / Quản trị kinh doanh & Marketing": {
+    top: "ĐH Ngoại thương (FTU), ĐH Kinh tế Quốc dân (NEU), ĐH Kinh tế TP.HCM (UEH) *(26.0 – 28.2đ)*",
+    mid: "ĐH Thương mại, Học viện Ngân hàng, ĐH Kinh tế - ĐH Đà Nẵng, ĐH Kinh tế - Luật (ĐHQG-HCM) *(22.5 – 25.5đ)*",
+    safe: "ĐH Tài chính - Marketing, ĐH Sài Gòn, ĐH Công đoàn, ĐH Kinh doanh & Công nghệ *(18.5 – 22đ hoặc xét học bạ sớm)*"
+  },
+  "Tài chính - Ngân hàng & Kế toán - Kiểm toán": {
+    top: "Học viện Tài chính, ĐH Ngoại thương, ĐH Kinh tế Quốc dân, ĐH Kinh tế TP.HCM *(25.5 – 27.8đ)*",
+    mid: "Học viện Ngân hàng, ĐH Thương mại, ĐH Kinh tế - ĐHQGHN, ĐH Tài chính - Marketing *(22.0 – 25.0đ)*",
+    safe: "ĐH Mở TP.HCM, ĐH Tài chính - Kế toán, ĐH Đại Nam, ĐH Ngân hàng TP.HCM *(18.0 – 21.5đ hoặc xét học bạ)*"
+  },
+  "Y khoa / Dược học & Khoa học sức khỏe": {
+    top: "ĐH Y Hà Nội, ĐH Y Dược TP.HCM, ĐH Dược Hà Nội *(26.5 – 28.5đ)*",
+    mid: "ĐH Y Dược Huế, ĐH Y Dược Cần Thơ, ĐH Y Dược Hải Phòng, ĐH Y Thái Bình *(23.5 – 26.0đ)*",
+    safe: "ĐH Y Dược Buôn Ma Thuột, Khoa Y Dược ĐH Đà Nẵng, ĐH Nguyễn Tất Thành *(19.0 – 23đ hoặc xét học bạ ngành liên quan)*"
+  },
+  "Điều dưỡng & Kỹ thuật Y sinh": {
+    top: "ĐH Y Hà Nội, ĐH Y Dược TP.HCM, ĐH Bách khoa (Kỹ thuật Y sinh) *(22.5 – 25.5đ)*",
+    mid: "ĐH Điều dưỡng Nam Định, ĐH Y Tế Công cộng, ĐH Quốc tế (ĐHQG-HCM) *(19.5 – 22.5đ)*",
+    safe: "Các trường Cao đẳng Y tế, ĐH Y Dược địa phương xét tuyển sớm *(17.5 – 19.5đ)*"
+  },
+  "Kỹ thuật / Cơ điện tử & Tự động hóa": {
+    top: "ĐH Bách khoa (Hà Nội / TP.HCM), ĐH Bách khoa Đà Nẵng, ĐH Giao thông Vận tải *(25.0 – 27.5đ)*",
+    mid: "ĐH Sư phạm Kỹ thuật TP.HCM, ĐH Công nghiệp Hà Nội, ĐH Điện lực *(21.5 – 24.5đ)*",
+    safe: "ĐH Kỹ thuật Công nghiệp Thái Nguyên, ĐH Công nghệ Sài Gòn, ĐH SPKT Hưng Yên *(17.5 – 21đ hoặc xét học bạ)*"
+  },
+  "Điện - Điện tử & Năng lượng tái tạo": {
+    top: "ĐH Bách khoa Hà Nội, ĐH Bách khoa TP.HCM, ĐH Bách khoa Đà Nẵng *(24.5 – 27.0đ)*",
+    mid: "ĐH Điện lực, ĐH Công nghiệp Hà Nội, ĐH Sư phạm Kỹ thuật TP.HCM *(21.0 – 24.0đ)*",
+    safe: "ĐH Thủy Lợi, ĐH Kỹ thuật Công nghiệp Thái Nguyên, ĐH Mỏ - Địa chất *(17.5 – 20.5đ hoặc xét học bạ)*"
+  },
+  "Kiến trúc & Thiết kế nội thất": {
+    top: "ĐH Kiến trúc Hà Nội, ĐH Kiến trúc TP.HCM, ĐH Xây dựng Hà Nội *(23.0 – 26.0đ môn vẽ)*",
+    mid: "ĐH Mỹ thuật Công nghiệp, ĐH Bách khoa Đà Nẵng, ĐH Tôn Đức Thắng *(20.0 – 23.0đ)*",
+    safe: "ĐH Kinh doanh & Công nghệ, ĐH Nguyễn Tất Thành, ĐH Văn Lang *(17.0 – 20đ hoặc xét portfolio năng khiếu)*"
+  },
+  "Xây dựng & Quản lý dự án": {
+    top: "ĐH Xây dựng Hà Nội, ĐH Bách khoa TP.HCM, ĐH Giao thông Vận tải *(22.0 – 25.0đ)*",
+    mid: "ĐH Thủy Lợi, ĐH Kiến trúc Đà Nẵng, ĐH Sư phạm Kỹ thuật TP.HCM *(19.0 – 22.0đ)*",
+    safe: "ĐH Công nghệ GTVT, ĐH Xây dựng Miền Trung, ĐH Xây dựng Miền Tây *(16.5 – 19đ hoặc xét học bạ)*"
+  },
+  "Nông nghiệp công nghệ cao & Công nghệ thực phẩm": {
+    top: "Học viện Nông nghiệp VN, ĐH Nông Lâm TP.HCM, ĐH Bách khoa TP.HCM (CN Thực phẩm) *(21.5 – 24.5đ)*",
+    mid: "ĐH Cần Thơ, ĐH Nông Lâm Huế, ĐH Công thương TP.HCM *(18.5 – 21.5đ)*",
+    safe: "ĐH Nông Lâm Thái Nguyên, ĐH Hùng Vương, ĐH Tiền Giang *(16.0 – 18.5đ hoặc xét học bạ)*"
+  },
+  "Môi trường & Khoa học bền vững": {
+    top: "ĐH Khoa học Tự nhiên (HN / TP.HCM), ĐH Bách khoa Hà Nội *(20.5 – 23.5đ)*",
+    mid: "ĐH Tài nguyên & Môi trường (HN / TP.HCM), ĐH Cần Thơ, ĐH Bách khoa Đà Nẵng *(18.0 – 20.5đ)*",
+    safe: "ĐH Nông Lâm, các trường ĐH đa ngành địa phương *(16.0 – 18.0đ hoặc xét học bạ)*"
+  },
+  "Luật / Ngoại giao & Khoa học xã hội": {
+    top: "ĐH Luật Hà Nội, ĐH Luật TP.HCM, Học viện Ngoại giao, ĐH Kinh tế - Luật *(25.5 – 28.5đ)*",
+    mid: "Khoa Luật - ĐHQGHN, ĐH Thương mại (Luật kinh tế), ĐH Mở TP.HCM *(22.5 – 25.0đ)*",
+    safe: "ĐH Công đoàn, ĐH Sài Gòn, ĐH Đại Nam, ĐH Kinh tế - Tài chính *(18.5 – 22đ hoặc xét học bạ)*"
+  },
+  "Công an & Quân đội": {
+    top: "Học viện An ninh nhân dân, Học viện Cảnh sát nhân dân, Học viện Kỹ thuật Quân sự *(24.5 – 28.0đ + Sơ tuyển)*",
+    mid: "ĐH Phòng cháy Chữa cháy, Trường Sĩ quan Lục quân 1 & 2, Trường Sĩ quan Chính trị *(21.5 – 24.5đ)*",
+    safe: "Hệ Trung cấp Công an / Quân sự hoặc các đơn vị dự bị đào tạo kỹ thuật quân sự *(Sơ tuyển đạt chuẩn)*"
+  },
+  "Sư phạm & Quản lý giáo dục": {
+    top: "ĐH Sư phạm Hà Nội, ĐH Sư phạm TP.HCM, ĐH Giáo dục (ĐHQGHN) *(25.5 – 28.5đ + miễn học phí theo NĐ 116)*",
+    mid: "ĐH Sư phạm - ĐH Huế, ĐH Sư phạm - ĐH Đà Nẵng, ĐH Sư phạm Thái Nguyên *(21.5 – 24.5đ)*",
+    safe: "ĐH Đồng Tháp, ĐH Quy Nhơn, ĐH Tây Bắc, ĐH Hồng Đức *(19.0 – 21.5đ hoặc xét học bạ)*"
+  },
+  "Tâm lý học & Dịch vụ tham vấn / Xã hội": {
+    top: "ĐH KHXH&NV (ĐHQGHN & ĐHQG-HCM), ĐH Sư phạm Hà Nội *(25.0 – 27.5đ)*",
+    mid: "ĐH Sư phạm TP.HCM, ĐH Lao động - Xã hội, ĐH Công đoàn *(21.5 – 24.5đ)*",
+    safe: "ĐH Hoa Sen, ĐH Văn Hiến, ĐH HUTECH *(18.0 – 21.0đ hoặc xét học bạ kết hợp)*"
+  },
+  "Truyền thông / Báo chí & Quan hệ công chúng (PR)": {
+    top: "Học viện Báo chí & Tuyên truyền, ĐH KHXH&NV (HN & TP.HCM), Học viện Ngoại giao *(26.0 – 28.5đ)*",
+    mid: "ĐH Hà Nội, ĐH Kinh tế - ĐHQGHN, ĐH Văn hóa Hà Nội, ĐH Sài Gòn *(22.5 – 25.5đ)*",
+    safe: "ĐH Thăng Long, ĐH FPT, ĐH Hòa Bình, ĐH Kinh tế - Tài chính *(19.0 – 22đ hoặc xét học bạ)*"
+  },
+  "Thiết kế đồ họa / Mỹ thuật số & Đa phương tiện": {
+    top: "ĐH Mỹ thuật Công nghiệp, ĐH Kiến trúc (HN & TP.HCM), Học viện CNBCVT (Multimedia) *(23.5 – 26.5đ)*",
+    mid: "ĐH Mở Hà Nội, ĐH Tôn Đức Thắng, ĐH Sư phạm Nghệ thuật TW *(20.5 – 23.5đ)*",
+    safe: "ĐH FPT, ĐH Văn Lang, ĐH Hoa Sen, Arena Multimedia *(18.0 – 21đ hoặc xét portfolio)*"
+  },
+  "Âm nhạc, Biểu diễn & Nghệ thuật sân khấu": {
+    top: "Học viện Âm nhạc Quốc gia VN, Nhạc viện TP.HCM, ĐH Sân khấu - Điện ảnh *(Thi tuyển năng khiếu chuyên sâu)*",
+    mid: "ĐH Văn hóa Nghệ thuật Quân đội, ĐH Sư phạm Nghệ thuật TW, ĐH Văn hóa TP.HCM *(Kiểm tra chuyên môn)*",
+    safe: "Các trường Cao đẳng Múa / Âm nhạc địa phương, Trung tâm nghệ thuật chuyên môn *(Xét tuyển cơ sở)*"
+  },
+  "Thể thao & Khoa học vận động": {
+    top: "ĐH Sư phạm TDTT Hà Nội, ĐH Sư phạm TDTT TP.HCM, ĐH TDTT Bắc Ninh *(20.5 – 23.5đ kiểm tra thể lực)*",
+    mid: "ĐH TDTT Đà Nẵng, Khoa Giáo dục Thể chất - ĐH Huế, ĐH TDTT TP.HCM *(18.5 – 21.0đ)*",
+    safe: "Các khoa Thể chất trường ĐH địa phương, xét tuyển năng khiếu vận động *(16.5 – 18.5đ)*"
+  },
+  "Du lịch / Quản trị khách sạn & Dịch vụ F&B": {
+    top: "ĐH Kinh tế Quốc dân, ĐH Ngoại thương, ĐH Hà Nội, ĐH Kinh tế TP.HCM *(24.0 – 26.5đ)*",
+    mid: "ĐH Thương mại, Viện ĐH Mở Hà Nội, ĐH Văn hóa, ĐH Kinh tế - ĐH Đà Nẵng *(20.5 – 23.5đ)*",
+    safe: "ĐH Công đoàn, ĐH Thăng Long, CĐ Du lịch Hà Nội / Sài Gòn *(17.5 – 20.5đ hoặc xét học bạ)*"
+  },
+  "Ngôn ngữ học & Biên phiên dịch quốc tế": {
+    top: "ĐH Ngoại ngữ - ĐHQGHN, ĐH Hà Nội, ĐH Ngoại ngữ - ĐH Đà Nẵng / ĐH Huế *(24.5 – 27.5đ)*",
+    mid: "ĐH Sư phạm TP.HCM, ĐH Mở Hà Nội / TP.HCM, ĐH Ngoại ngữ - Tin học TP.HCM (HUFLIT) *(21.5 – 24.5đ)*",
+    safe: "ĐH Thăng Long, ĐH Đông Á, ĐH Kinh tế - Tài chính *(18.0 – 21.5đ hoặc xét chứng chỉ IELTS/HSK/JLPT)*"
+  },
+  "Logistics & Quản trị chuỗi cung ứng": {
+    top: "ĐH Ngoại thương, ĐH Kinh tế Quốc dân, ĐH Kinh tế TP.HCM, ĐH GTVT TP.HCM *(26.0 – 28.2đ)*",
+    mid: "ĐH Thương mại, ĐH Giao thông Vận tải (HN), ĐH Hàng hải Việt Nam, ĐH Kinh tế - ĐH Đà Nẵng *(22.5 – 25.5đ)*",
+    safe: "ĐH Tài chính - Marketing, ĐH Kinh tế - Tài chính (UEF), ĐH Công thương TP.HCM *(19.0 – 22.5đ hoặc xét học bạ)*"
+  },
+  "Hàng không & Hàng hải": {
+    top: "Học viện Hàng không Việt Nam, ĐH Bách khoa (Kỹ thuật Hàng không), ĐH Hàng hải Việt Nam *(23.5 – 26.5đ)*",
+    mid: "ĐH Giao thông Vận tải (HN & TP.HCM), ĐH Bách khoa Đà Nẵng *(20.5 – 23.5đ)*",
+    safe: "Các chương trình đào tạo kỹ thuật viên hàng không / thuyền viên hàng hải *(18.0 – 20.5đ hoặc xét học bạ)*"
+  }
+};
+
+// Cung cấp dữ liệu mặc định an toàn cho bất kỳ ngành nghề nào
+function getDefaultCareerInsight(name) {
+  const cName = name || "Ngành đào tạo chuyên môn";
+  return {
+    id: "general",
+    name: cName,
+    combos: [
+      { code: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Phổ biến nhất", isPrimary: true },
+      { code: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Ưu tiên xét tuyển", isPrimary: false },
+      { code: "D01", subjects: "Toán · Ngữ văn · Tiếng Anh", tag: "Tổ hợp mở rộng", isPrimary: false }
+    ],
+    coreSubjectWarning: "Toán học & Ngoại ngữ — Nền tảng tư duy logic và công cụ hội nhập quốc tế then chốt trong mọi lĩnh vực nghề nghiệp hiện đại.",
+    coreSubjectAlert: {
+      subject: "Toán học & Tiếng Anh",
+      reason: "Cần nắm vững kiến thức căn bản của các môn thế mạnh để đáp ứng yêu cầu đào tạo chuyên môn tại giảng đường đại học."
+    },
+    schoolAdvice: {
+      abilityFit: "Chọn trường có điểm chuẩn các năm trước thấp hơn điểm thi thử của bạn từ 1.0 – 1.5 điểm để an toàn nguyện vọng.",
+      admissionNotice: "Tra cứu kỹ ĐỀ ÁN TUYỂN SINH của từng trường về chứng chỉ ngoại ngữ quy đổi, tiêu chí phụ xét môn chính và phân bổ chỉ tiêu từng phương thức."
+    },
+    curriculum: {
+      duration: "4 – 5 NĂM",
+      plainExplanation: "Được đào tạo toàn diện kiến thức nền tảng khoa học, nguyên lý vận hành chuyên môn và tham gia các kỳ thực tập thực chiến tại doanh nghiệp.",
+      tools: ["Bộ công cụ số chuyên ngành", "Phần mềm mô phỏng", "Nền tảng quản lý dự án số"],
+      skills: [
+        { icon: "🧩", name: "Tư duy phản biện & Giải quyết vấn đề", desc: "Phân tích và tìm kiếm giải pháp tối ưu cho các thách thức thực tế" },
+        { icon: "💻", name: "Ứng dụng công nghệ vào chuyên môn", desc: "Thành thạo công cụ số và phần mềm chuyên môn trong công việc" }
+      ]
+    },
+    harshRealities: [
+      { icon: "⏰", title: "Áp lực chỉ tiêu & Tiến độ công việc", desc: "Phải làm quen với cường độ công việc cao và kỹ năng xử lý các sự cố phát sinh bất ngờ." },
+      { icon: "📚", title: "Yêu cầu không ngừng tự học nâng cao tay nghề", desc: "Sự phát triển của công nghệ và AI đòi hỏi người đi làm phải liên tục cập nhật năng lực để không bị đào thải." },
+      { icon: "⚖️", title: "Cân bằng giữa công việc và cuộc sống cá nhân", desc: "Đòi hỏi kỷ luật cá nhân cao để tránh bị kiệt sức (burnout) trong những năm đầu khởi nghiệp." }
+    ],
+    salary: {
+      entry: "8 – 14 Triệu / tháng",
+      experienced: "25 – 45 Triệu / tháng",
+      multiplier: "×2.8",
+      note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Phụ thuộc lớn vào năng lực thực chiến, ngoại ngữ và quy mô doanh nghiệp."
+    },
+    closingQuestion: "Bạn có thực sự tìm thấy niềm đam mê và sự hào hứng khi tìm hiểu về lĩnh vực ngành nghề này không?"
+  };
+}
+
+// Truy xuất bộ dữ liệu insight của ngành học (ưu tiên window.getCareerInsight từ career_insights.js)
+function getCareerInsightData(careerName) {
+  if (typeof window !== 'undefined' && typeof window.getCareerInsight === 'function') {
+    const res = window.getCareerInsight(careerName);
+    if (res && res.combos) return res;
+  }
+  if (typeof window !== 'undefined' && window.CAREER_INSIGHTS_DATA && window.CAREER_INSIGHTS_DATA[careerName]) {
+    return window.CAREER_INSIGHTS_DATA[careerName];
+  }
+  return getDefaultCareerInsight(careerName);
+}
+
+// Lấy danh sách trường học phân tầng theo năng lực (Top đầu / Vừa sức / An toàn)
+function getCareerSchoolTiers(careerName) {
+  if (CAREER_TIERED_SCHOOLS_MAP[careerName]) {
+    return CAREER_TIERED_SCHOOLS_MAP[careerName];
+  }
+  const target = normalizeQuery(careerName);
+  for (const [key, data] of Object.entries(CAREER_TIERED_SCHOOLS_MAP)) {
+    const kNorm = normalizeQuery(key);
+    if (target.includes(kNorm) || kNorm.includes(target)) {
+      return data;
+    }
+  }
+  return {
+    top: "Các trường Đại học Quốc gia & ĐH Trọng điểm chuyên ngành *(25.5 – 28.0đ)*",
+    mid: "Các trường ĐH Công lập chuyên ngành đào tạo uy tín *(21.5 – 24.5đ)*",
+    safe: "Các trường ĐH địa phương hoặc phương thức xét tuyển học bạ sớm *(18.0 – 21.0đ)*"
+  };
+}
+
+// Nhận diện ngành học từ câu hỏi của học sinh (khớp chuẩn 24 nhóm ngành đào tạo)
+function matchCareerFromQuery(text) {
+  if (!text) return null;
+  const target = normalizeQuery(text);
+
+  // 1. Khớp chính xác tên của 24 ngành
+  for (const career of Object.keys(CAREER_TIERED_SCHOOLS_MAP)) {
+    const cNorm = normalizeQuery(career);
+    if (target.includes(cNorm)) return career;
+  }
+
+  // 2. Khớp từ khóa đặc trưng cho từng ngành (chính xác và không nhầm lẫn)
+  if (/(công nghệ thông tin|\bcntt\b|\bit\b|lập trình|phần mềm|developer|software|coder|an toàn thông tin|an ninh mạng)/.test(target)) {
+    return "Công nghệ thông tin & Lập trình phần mềm";
+  }
+  if (/(khoa học máy tính|trí tuệ nhân tạo|\bai\b|data science|khoa học dữ liệu|học máy|machine learning|big data)/.test(target)) {
+    return "Khoa học máy tính & Trí tuệ nhân tạo (AI)";
+  }
+  if (/(quản trị kinh doanh|marketing|\bqtkd\b|kinh tế|kinh doanh|thương mại|quản trị doanh nghiệp)/.test(target)) {
+    return "Kinh tế / Quản trị kinh doanh & Marketing";
+  }
+  if (/(tài chính|ngân hàng|kế toán|kiểm toán|fintech|chứng khoán|thuế)/.test(target)) {
+    return "Tài chính - Ngân hàng & Kế toán - Kiểm toán";
+  }
+  if (/(y khoa|bác sĩ|dược học|dược sĩ|y dược|răng hàm mặt|y đa khoa|y tế)/.test(target)) {
+    return "Y khoa / Dược học & Khoa học sức khỏe";
+  }
+  if (/(điều dưỡng|kỹ thuật y sinh|y sinh|hộ sinh)/.test(target)) {
+    return "Điều dưỡng & Kỹ thuật Y sinh";
+  }
+  if (/(cơ điện tử|tự động hóa|cơ khí|chế tạo máy|robot|kỹ thuật ô tô|ô tô)/.test(target)) {
+    return "Kỹ thuật / Cơ điện tử & Tự động hóa";
+  }
+  if (/(điện tử|vi mạch|bán dẫn|năng lượng tái tạo|viễn thông|kỹ thuật điện|điện lực)/.test(target)) {
+    return "Điện - Điện tử & Năng lượng tái tạo";
+  }
+  if (/(kiến trúc|thiết kế nội thất|nội thất|quy hoạch)/.test(target)) {
+    return "Kiến trúc & Thiết kế nội thất";
+  }
+  if (/(xây dựng|cầu đường|quản lý dự án xây dựng|kỹ thuật công trình)/.test(target)) {
+    return "Xây dựng & Quản lý dự án";
+  }
+  if (/(nông nghiệp|công nghệ thực phẩm|thực phẩm|thủy sản|chăn nuôi|nông học)/.test(target)) {
+    return "Nông nghiệp công nghệ cao & Công nghệ thực phẩm";
+  }
+  if (/(môi trường|khoa học bền vững|sinh thái|biến đổi khí hậu|tài nguyên nước)/.test(target)) {
+    return "Môi trường & Khoa học bền vững";
+  }
+  if (/(luật|ngoại giao|quan hệ quốc tế|pháp lý|luật sư|luật kinh tế)/.test(target)) {
+    return "Luật / Ngoại giao & Khoa học xã hội";
+  }
+  if (/(công an|quân đội|cảnh sát|an ninh|quân sự|sĩ quan)/.test(target)) {
+    return "Công an & Quân đội";
+  }
+  if (/(sư phạm|giáo dục|giáo viên|giảng viên)/.test(target)) {
+    return "Sư phạm & Quản lý giáo dục";
+  }
+  if (/(tâm lý học|tham vấn tâm lý|trị liệu tâm lý|tâm lý|công tác xã hội)/.test(target)) {
+    return "Tâm lý học & Dịch vụ tham vấn / Xã hội";
+  }
+  if (/(truyền thông|báo chí|quan hệ công chúng|\bpr\b)/.test(target)) {
+    return "Truyền thông / Báo chí & Quan hệ công chúng (PR)";
+  }
+  if (/(thiết kế đồ họa|mỹ thuật số|multimedia|ui-ux|đồ họa|graphic design)/.test(target)) {
+    return "Thiết kế đồ họa / Mỹ thuật số & Đa phương tiện";
+  }
+  if (/(âm nhạc|biểu diễn|sân khấu|điện ảnh|ca sĩ|diễn viên|nhạc viện)/.test(target)) {
+    return "Âm nhạc, Biểu diễn & Nghệ thuật sân khấu";
+  }
+  if (/(thể thao|vận động|huấn luyện viên|giáo dục thể chất|khoa học vận động)/.test(target)) {
+    return "Thể thao & Khoa học vận động";
+  }
+  if (/(du lịch|khách sạn|nhà hàng|\bf&b\b|lữ hành|hướng dẫn viên)/.test(target)) {
+    return "Du lịch / Quản trị khách sạn & Dịch vụ F&B";
+  }
+  if (/(ngôn ngữ học|biên dịch|phiên dịch|tiếng anh|tiếng trung|tiếng nhật|tiếng hàn|ngôn ngữ)/.test(target)) {
+    return "Ngôn ngữ học & Biên phiên dịch quốc tế";
+  }
+  if (/(logistics|chuỗi cung ứng|xuất nhập khẩu|kho bãi|supply chain)/.test(target)) {
+    return "Logistics & Quản trị chuỗi cung ứng";
+  }
+  if (/(hàng không|hàng hải|phi công|tiếp viên hàng không|thuyền trưởng)/.test(target)) {
+    return "Hàng không & Hàng hải";
+  }
+
+  return null;
+}
+
+// ============================================================================
+// HÀM SINH CÂU TRẢ LỜI TƯ VẤN CHUYÊN SÂU CHUẨN 5 KHỐI TRỰC QUAN
+// ============================================================================
+function generateCareerConsultation5Blocks(careerName, options = {}) {
+  const insight = getCareerInsightData(careerName);
+  const realName = insight.name || careerName;
+  const context = getChatContext();
+  const userName = (context.studentName && context.studentName !== 'bạn' && context.studentName !== 'Học sinh')
+    ? context.studentName
+    : 'bạn';
+
+  // 1. Khối xét tuyển & môn cốt lõi
+  const primaryCombos = (insight.combos || []).filter(c => c.isPrimary);
+  const otherCombos = (insight.combos || []).filter(c => !c.isPrimary);
+  const primaryStr = primaryCombos.length > 0
+    ? primaryCombos.map(c => `**${c.code}** (${c.subjects})`).join(', ')
+    : '**A00, A01, D01**';
+  const otherStr = otherCombos.length > 0
+    ? otherCombos.map(c => `**${c.code}**`).join(', ')
+    : 'D07, C00';
+  const coreWarn = insight.coreSubjectWarning || (insight.coreSubjectAlert ? `${insight.coreSubjectAlert.subject} — ${insight.coreSubjectAlert.reason}` : 'Toán và Ngoại ngữ là nền tảng cốt lõi.');
+
+  // 2. Chọn trường theo năng lực (Top đầu / Vừa sức / An toàn)
+  const schoolTiers = getCareerSchoolTiers(realName);
+  const adviceFit = (insight.schoolAdvice && insight.schoolAdvice.abilityFit) || 'Chọn trường có điểm chuẩn các năm trước thấp hơn điểm thi thử của bạn từ 1.0 – 1.5 điểm để an toàn nguyện vọng.';
+  const adviceNotice = (insight.schoolAdvice && insight.schoolAdvice.admissionNotice) || 'Mỗi trường mỗi khác về chứng chỉ ngoại ngữ quy đổi, tiêu chí phụ xét môn chính và phân bổ chỉ tiêu.';
+
+  // 3. Vào học thực tế học gì? (Bản chất đời thường, công cụ / phần mềm, kỹ năng)
+  const curr = insight.curriculum || {};
+  const duration = curr.duration || '4 – 4.5 NĂM';
+  const essence = curr.plainExplanation || 'Được đào tạo kiến thức nền tảng chuyên môn và áp dụng giải quyết bài toán thực tế.';
+  const tools = (Array.isArray(curr.tools) && curr.tools.length > 0)
+    ? curr.tools.slice(0, 6).map(t => `\`${t}\``).join(' · ')
+    : '`Bộ công cụ số chuyên ngành`';
+
+  let skillsList = '';
+  if (Array.isArray(curr.skills) && curr.skills.length > 0) {
+    skillsList = curr.skills.slice(0, 2).map(s => `• ${s.icon || '🧩'} **${s.name || s.title}:** ${s.desc || ''}`).join('\n');
+  } else {
+    skillsList = '• 🧩 **Tư duy phản biện & Kỹ năng số:** Áp dụng xử lý các tình huống thực tiễn chuyên ngành.';
+  }
+
+  // 4. Cái giá phải trả (đúng 3 áp lực / mặt trái lớn nhất)
+  const harsh = (Array.isArray(insight.harshRealities) && insight.harshRealities.length >= 3)
+    ? insight.harshRealities.slice(0, 3)
+    : [
+        { icon: '⏰', title: 'Áp lực chỉ tiêu & Tiến độ công việc', desc: 'Làm quen với cường độ làm việc cao và kỹ năng xử lý các sự cố phát sinh bất ngờ.' },
+        { icon: '🔄', title: 'Tốc độ đào thải cao — Bắt buộc tự học suốt đời', desc: 'Công nghệ thay đổi nhanh chóng, ngừng học hỏi là tụt hậu so với thị trường.' },
+        { icon: '⚖️', title: 'Cân bằng công việc & Nguy cơ kiệt sức', desc: 'Cần kỷ luật bản thân cao để tránh burnout trong những năm đầu khởi nghiệp.' }
+      ];
+
+  // 5. Mức lương tham khảo (Mới ra trường vs Sau 5-8 năm)
+  const sal = insight.salary || { entry: '8 – 14 Triệu / tháng', experienced: '25 – 45 Triệu / tháng', multiplier: '×2.8', note: 'Chỉ để tham khảo: tùy thuộc năng lực và kỹ năng.' };
+
+  // Câu hỏi gợi mở thiết thực
+  const closingQ = insight.closingQuestion || 'Bạn cảm thấy điểm số môn thế mạnh của mình đã tự tin để theo đuổi ngành này chưa?';
+
+  let intro = options.intro;
+  if (!intro) {
+    intro = `🎯 **Tư vấn định hướng: ${realName}**\n*Lời khuyên từ chuyên gia hướng nghiệp NS AI (Người anh/chị đi trước đồng hành cùng bạn)*`;
+  }
+
+  return `${intro}\n\n` +
+    `**[1 · KHỐI XÉT TUYỂN & MÔN CỐT LÕI]**\n` +
+    `• **Tổ hợp môn trọng tâm:** ${primaryStr} · *Dự phòng:* ${otherStr}.\n` +
+    `• ⚠️ **Môn cốt lõi bắt buộc:** ${coreWarn}\n\n` +
+    `**[2 · CHỌN TRƯỜNG THEO NĂNG LỰC & ĐIỂM CHUẨN]**\n` +
+    `• 🌟 **Top đầu (Khát vọng / 26–29đ):** ${schoolTiers.top}\n` +
+    `• ⚖️ **Vừa sức (Trọng tâm / 22–25đ):** ${schoolTiers.mid}\n` +
+    `• 🛡️ **An toàn (Bến đỗ / 18–21đ):** ${schoolTiers.safe}\n` +
+    `• 📌 **Nhắc nhở tuyển sinh:** ${adviceNotice} ${adviceFit}\n\n` +
+    `**[3 · VÀO HỌC THỰC TẾ HỌC GÌ?]**\n` +
+    `• ⏱️ **Thời gian đào tạo:** **${duration}**.\n` +
+    `• 💡 **Bản chất đào tạo:** ${essence}\n` +
+    `• 🛠️ **Công cụ & Phần mềm thực chiến:** ${tools}\n` +
+    `${skillsList}\n\n` +
+    `**[🔒 4 · CÁI GIÁ PHẢI TRẢ (3 ÁP LỰC LỚN NHẤT)]**\n` +
+    `1. ${harsh[0].icon} **${harsh[0].title}:** ${harsh[0].desc}\n` +
+    `2. ${harsh[1].icon} **${harsh[1].title}:** ${harsh[1].desc}\n` +
+    `3. ${harsh[2].icon} **${harsh[2].title}:** ${harsh[2].desc}\n\n` +
+    `**[5 · MỨC LƯƠNG THAM KHẢO & TỐC ĐỘ BỨT PHÁ]**\n` +
+    `• 💵 **Mới ra trường (Khởi điểm):** **${sal.entry}** (1–2 năm đầu học việc & tích lũy kinh nghiệm).\n` +
+    `• 🚀 **Sau 5–8 năm (Có kinh nghiệm / Quản lý):** **${sal.experienced}** (tốc độ bứt phá **${sal.multiplier || '×3.0'}**).\n` +
+    `• ⚠️ **Lưu ý:** ${sal.note || 'Con số mang tính tham khảo thực tế thị trường; phụ thuộc lớn vào năng lực thực chiến, ngoại ngữ và quy mô doanh nghiệp.'}\n\n` +
+    `---\n` +
+    `💬 **Góc gợi mở từ chuyên gia hướng nghiệp:** ${closingQ}`;
+}
+
 function answer(q) {
   const raw = q.trim();
   const s = normalizeQuery(raw);
@@ -1806,6 +2249,12 @@ function answer(q) {
   // 4. MỨC LƯƠNG / CƠ HỘI VIỆC LÀM / XIN VIỆC / XU HƯỚNG NGHỀ NGHIỆP
   if (/lương|thu nhập|việc làm|dễ xin việc|thất nghiệp|ngành nào hot|xu hướng|ra trường làm gì|kiếm nhiều tiền|kiếm tiền/.test(s)) {
     recordTopic('salary_jobs');
+    const matched = matchCareerFromQuery(s);
+    if (matched) {
+      chatState.lastConsultedCareer = matched;
+      const intro = `💵 **Phân tích mức lương & tiềm năng thu nhập ngành ${matched}:**\n*Lời khuyên thực tế từ chuyên gia hướng nghiệp NS AI giúp bạn hiểu rõ lộ trình thu nhập:*`;
+      return generateCareerConsultation5Blocks(matched, { intro });
+    }
     return `Đây là một câu hỏi rất thực tế và quan trọng khi chọn nghề! Dưới đây là bức tranh toàn cảnh về thị trường việc làm hiện nay:\n\n` +
       `📈 **1. Những nhóm ngành có nhu cầu tuyển dụng & thu nhập cao:**\n` +
       `• **Công nghệ thông tin & Trí tuệ nhân tạo (AI):** Lương khởi điểm từ 10 - 18 triệu/tháng; kỹ sư 3-5 năm kinh nghiệm có thể đạt 30 - 60+ triệu/tháng.\n` +
@@ -1814,7 +2263,19 @@ function answer(q) {
       `• **Khối ngành Y Dược & Chăm sóc sức khỏe:** Luôn có sự ổn định cao, không bao giờ lo thiếu việc làm.\n\n` +
       `💡 **2. Lời khuyên vàng:**\n` +
       `• "Không có ngành nào đảm bảo 100% giàu có nếu bản thân thụ động, và cũng không có ngành nào thất nghiệp nếu bạn thuộc top những người làm việc giỏi nhất."\n` +
-      `• Ngoại ngữ (đặc biệt là Tiếng Anh) và kỹ năng giao tiếp sẽ giúp tăng mức lương của bạn lên ít nhất 1.5 - 2 lần trong bất kỳ ngành nào!`;
+      `• Ngoại ngữ (đặc biệt là Tiếng Anh) và kỹ năng giao tiếp sẽ giúp tăng mức lương của bạn lên ít nhất 1.5 - 2 lần trong bất kỳ ngành nào!\n\n` +
+      `👉 *Bạn muốn xem mức lương chi tiết của ngành nào? Hãy gõ tên ngành (ví dụ: "Lương ngành CNTT", "Lương ngành Kinh tế"...) nhé!*`;
+  }
+
+  // 4.1 CÁI GIÁ PHẢI TRẢ & 3 ÁP LỰC LỚN NHẤT CỦA NGÀNH
+  if (/cái giá phải trả|mặt trái|áp lực ngành|khó khăn ngành|có cực không|có vất vả không|góc khuất/.test(s)) {
+    recordTopic('career_tradeoffs');
+    const targetCareer = matchCareerFromQuery(s) || chatState.lastConsultedCareer || (c.top && c.top.name);
+    if (targetCareer) {
+      chatState.lastConsultedCareer = targetCareer;
+      const intro = `🔒 **Nhìn thẳng vào sự thật: 3 Áp lực lớn nhất của ngành ${targetCareer}**\n*Chuyên gia hướng nghiệp NS AI phân tích chân thực, giúp bạn chuẩn bị tâm lý vững vàng:*`;
+      return generateCareerConsultation5Blocks(targetCareer, { intro });
+    }
   }
 
   // 5. HỌC PHÍ ĐẠI HỌC / CHI PHÍ / HỌC BỔNG
@@ -1970,18 +2431,17 @@ function answer(q) {
   // 15. TỔ HỢP MÔN / KHỐI THI NÊN THEO
   if (/tổ hợp|khối thi|thi khối gì|xét tuyển khối nào|theo tổ hợp gì|tổ hợp nào|khối nào|học khối gì/.test(s)) {
     recordTopic('combination');
-    let targetCareer = null;
-    if (c.results && c.results.length) {
-      targetCareer = c.results.find(r => s.includes(r.name.toLowerCase()) || r.name.toLowerCase().split(/[\/ ]+/).some(w => w.length > 3 && s.includes(w)));
+    let targetCareer = matchCareerFromQuery(s) || chatState.lastConsultedCareer;
+    if (!targetCareer && c.results && c.results.length) {
+      const found = c.results.find(r => s.includes(r.name.toLowerCase()) || r.name.toLowerCase().split(/[\/ ]+/).some(w => w.length > 3 && s.includes(w)));
+      if (found) targetCareer = found.name;
     }
-    if (!targetCareer) targetCareer = c.top;
+    if (!targetCareer && c.top) targetCareer = c.top.name;
 
-    if (targetCareer && targetCareer.combinations) {
-      return `📚 **Ngành ${targetCareer.name} nên theo các tổ hợp môn sau:**\n\n` +
-        `• **Các tổ hợp xét tuyển phổ biến:**\n  ${targetCareer.combinations.map(cb => `→ **${cb}**`).join('\n  ')}\n\n` +
-        `• **Tổ hợp tối ưu nhất:** **${targetCareer.bestCombo || 'A00 hoặc D01'}**\n` +
-        `• **Lời khuyên:** ${targetCareer.advice || ''}\n\n` +
-        `💡 *Mẹo:* Bạn hãy tập trung kéo điểm 3 môn trong tổ hợp bạn tự tin nhất để tối ưu điểm thi đại học nhé!`;
+    if (targetCareer) {
+      chatState.lastConsultedCareer = targetCareer;
+      const intro = `📚 **Tư vấn khối xét tuyển & tổ hợp môn cho ngành ${targetCareer}:**\n*Lời khuyên thực chiến từ chuyên gia hướng nghiệp NS AI giúp bạn chọn đúng khối môn*`;
+      return generateCareerConsultation5Blocks(targetCareer, { intro });
     }
 
     return `💡 **Gợi ý các khối thi đại học trọng điểm:**\n\n` +
@@ -1989,12 +2449,12 @@ function answer(q) {
       `• **Khối A01 (Toán - Lý - Anh):** Phù hợp CNTT, Logistics, Kinh tế, Ngoại thương.\n` +
       `• **Khối D01 (Toán - Văn - Anh):** Phù hợp Kinh tế, Quản trị, Luật, Ngôn ngữ, Truyền thông.\n` +
       `• **Khối B00 (Toán - Hóa - Sinh):** Dành riêng cho Y đa khoa, Dược, Nông nghiệp.\n` +
-      `• **Khối C00 (Văn - Sử - Địa):** Dành cho Báo chí, Luật, Khoa học xã hội, Sư phạm.`;
+      `• **Khối C00 (Văn - Sử - Địa):** Dành cho Báo chí, Luật, Khoa học xã hội, Sư phạm.\n\n` +
+      `👉 *Bạn muốn mình phân tích sâu khối xét tuyển và môn cốt lõi của ngành nào trong số này? Hãy gõ tên ngành nhé!*`;
   }
 
   // 16. CHỌN NGÀNH PHÙ HỢP / GỢI Ý NGÀNH NGHỀ
-  if (/ngành khác|còn ngành nào|ngành tiếp theo|top ngành|danh sách ngành|các ngành phù hợp|xem thêm ngành|ngành thứ 2|ngành thứ hai/.test(s) ||
-    (/chọn ngành|ngành gì|nghề gì|phù hợp|định hướng|ngành nào/.test(s) && chatState.topicCounts.career > 0)) {
+  if (/ngành khác|còn ngành nào|ngành tiếp theo|top ngành|danh sách ngành|các ngành phù hợp|xem thêm ngành|ngành thứ 2|ngành thứ hai/.test(s)) {
     recordTopic('career');
     if (!c.results || c.results.length === 0) {
       return 'Bạn hãy hoàn thành mục Điểm số, Sở thích và Mục tiêu trước để mình có đủ dữ liệu phân tích nhé!';
@@ -2012,23 +2472,26 @@ function answer(q) {
     ).join('\n\n');
 
     return `🎯 **Các ngành tiềm năng tiếp theo trong hồ sơ của bạn:**\n\n${list}\n\n` +
-      `💡 Bạn muốn mình phân tích sâu hơn về cơ hội nghề nghiệp hay khối thi của ngành nào trong số này?`;
+      `💡 Bạn muốn mình mổ xẻ chi tiết **5 khối trực quan** cho ngành nào trong các ngành trên? Cứ gõ tên ngành nhé!`;
   }
 
-  if (/chọn ngành|ngành gì|nghề|định hướng|ngành nào phù hợp|ngành hợp với em/.test(s)) {
+  if (/chọn ngành|ngành gì|nghề gì|nghề|định hướng|ngành nào phù hợp|ngành hợp với em|tư vấn ngành|tư vấn chọn ngành/.test(s) && !matchCareerFromQuery(s)) {
     recordTopic('career');
     if (!c.top) {
-      return 'Bạn chưa có đủ dữ liệu để mình phân tích. Hãy hoàn thành các mục Thông tin, Điểm số, Sở thích, Tính cách và Mục tiêu trước nhé.';
+      return 'Chào bạn! Để mình có thể đưa ra phân tích chuyên sâu 5 khối chính xác nhất cho bạn, bạn hãy hoàn thành các mục Thông tin, Điểm số, Sở thích, Tính cách và Mục tiêu trước nhé. Hoặc bạn có thể gõ tên bất kỳ ngành học nào bạn đang băn khoăn (ví dụ: *Công nghệ thông tin, Kinh tế, Y khoa, Thiết kế đồ họa...*), mình sẽ mổ xẻ cặn kẽ ngay!';
     }
 
-    return `🎯 **Bạn phù hợp nhất với ngành gì?**\n\n` +
-      `• **Ngành bạn phù hợp nhất:** **${c.top.name}**\n` +
-      `• **Mức độ đánh giá:** **${c.top.fitLevel || '🌟 Phù hợp nhất'}**\n` +
-      `• **Tổ hợp môn nên theo:** ${(c.top.combinations || []).join(', ')}\n` +
-      `• **Khối thi ưu tiên:** **${c.top.bestCombo || ''}**\n` +
-      `• **Lời khuyên:** ${c.top.advice || ''}\n` +
-      `• **Cơ sở phân tích:** Bạn có tính cách ${c.p.personality}, yêu thích lĩnh vực ${c.hobbies}${c.custom}, và có điểm tựa học tập phù hợp.\n\n` +
-      `👉 *Bạn có muốn xem tiếp các ngành ở vị trí Top 2, Top 3 không? Hãy gõ "Xem ngành khác" nhé!*`;
+    const topCareerName = c.top.name;
+    chatState.lastConsultedCareer = topCareerName;
+    const uName = (c.studentName && c.studentName !== 'bạn' && c.studentName !== 'Học sinh') ? c.studentName : 'bạn';
+    const intro = `🎯 **Phân tích định hướng cho ${uName}: Bạn phù hợp nhất với ngành ${topCareerName}!**\n\n` +
+      `• **Mức độ tương thích:** **${c.top.fitLevel || '🌟 Phù hợp nhất'}**\n` +
+      `• **Cơ sở đánh giá:** Dựa trên tính cách **${c.p.personality || 'nổi trội'}**, sở thích **${c.hobbies}${c.custom}**, và điểm tựa học tập các môn thế mạnh của bạn.\n` +
+      `• **Lời khuyên chiến lược:** ${c.top.advice || 'Tập trung tối ưu tổ hợp môn thế mạnh để bứt phá nguyện vọng 1.'}\n\n` +
+      `Dưới đây là cẩm nang phân tích thực chiến 5 khối giúp bạn thấu hiểu toàn diện và **KHÔNG CHỌN SAI NGÀNH**:`;
+
+    const fiveBlocks = generateCareerConsultation5Blocks(topCareerName, { intro });
+    return fiveBlocks + `\n\n👉 *Bạn có muốn xem tiếp các ngành ở vị trí Top 2, Top 3 không? Hãy gõ "Xem ngành khác" nhé!*`;
   }
 
   // 17. GỢI Ý TRƯỜNG ĐẠI HỌC THEO KẾT QUẢ, MỤC TIÊU VÀ TỈNH / VÙNG MIỀN
@@ -2191,29 +2654,12 @@ function answer(q) {
     }
   }
 
-  // 18. HỎI VỀ TỪNG NGÀNH CỤ THỂ (IT, Kinh tế, Y Dược, Kỹ thuật, Luật, Sư phạm...)
-  if (/công nghệ thông tin|khoa học máy tính|trí tuệ nhân tạo|ai|lập trình|phần mềm|game/.test(s)) {
-    return `💻 **Ngành Công nghệ thông tin & Trí tuệ nhân tạo (AI):**\n\n` +
-      `• **Điểm tựa:** Rất chuộng môn Toán và Tin học, đòi hỏi tư duy logic và tính tự học cao.\n` +
-      `• **Vị trí công việc:** Kỹ sư phần mềm, Chuyên viên phát triển AI/Data, An ninh mạng, Lập trình ứng dụng/Game.\n` +
-      `• **Tổ hợp xét tuyển:** A00, A01, D01, D07.\n` +
-      `• **Trường hàng đầu:** ĐH Bách khoa (Hà Nội, TP.HCM, Đà Nẵng), ĐH Công nghệ (ĐHQGHN), ĐH KHTN, Học viện CNBCVT.`;
-  }
-
-  if (/kinh tế|quản trị kinh doanh|marketing|tài chính|ngân hàng|kinh doanh|logistics/.test(s)) {
-    return `💼 **Ngành Kinh tế & Quản trị kinh doanh:**\n\n` +
-      `• **Điểm tựa:** Cần nền tảng Toán, Tiếng Anh, khả năng giao tiếp và tư duy nhạy bén về thị trường.\n` +
-      `• **Vị trí công việc:** Chuyên viên Marketing, Quản trị doanh nghiệp, Tài chính - Ngân hàng, Quản lý chuỗi cung ứng Logistics.\n` +
-      `• **Tổ hợp xét tuyển:** A01, D01, A00.\n` +
-      `• **Trường hàng đầu:** ĐH Ngoại thương (FTU), ĐH Kinh tế Quốc dân (NEU), ĐH Kinh tế TP.HCM (UEH), ĐH Kinh tế Đà Nẵng.`;
-  }
-
-  if (/y khoa|dược|bác sĩ|y dược|điều dưỡng|y tế|nha khoa/.test(s)) {
-    return `🩺 **Ngành Y khoa & Dược học:**\n\n` +
-      `• **Điểm tựa:** Cần điểm Sinh học, Hóa học tốt, đặc biệt là tính kiên trì và lòng trắc ẩn.\n` +
-      `• **Thời gian học:** Thường kéo dài 5 - 6 năm, sau đó học chuyên khoa định hướng hoặc nội trú.\n` +
-      `• **Tổ hợp xét tuyển:** B00 (Toán-Hóa-Sinh), A00 (với một số ngành Dược).\n` +
-      `• **Trường hàng đầu:** ĐH Y Hà Nội, ĐH Y Dược TP.HCM, ĐH Y Dược Huế, ĐH Y Dược Cần Thơ.`;
+  // 18. HỎI VỀ TỪNG NGÀNH CỤ THỂ HOẶC TƯ VẤN CHUYÊN SÂU 5 KHỐI TRỰC QUAN
+  const matchedCareer = matchCareerFromQuery(s);
+  if (matchedCareer) {
+    recordTopic('career');
+    chatState.lastConsultedCareer = matchedCareer;
+    return generateCareerConsultation5Blocks(matchedCareer);
   }
 
   // 19. ĐIỂM SỐ & MÔN HỌC
@@ -2561,6 +3007,35 @@ function loadSessionMessages(session) {
     badge.textContent = session.title || 'Đoạn chat';
     badge.title = session.title || 'Đoạn chat';
   }
+
+  if (typeof updateChatStartedState === 'function') {
+    updateChatStartedState();
+  }
+}
+
+function renameChatSession(id, currentTitle) {
+  const newTitle = prompt('Nhập tên mới cho cuộc trò chuyện:', currentTitle || '');
+  if (newTitle === null) return;
+  const trimmed = newTitle.trim();
+  if (!trimmed) return;
+
+  let sessions = getChatSessions();
+  const session = sessions.find(s => s.id === id);
+  if (session) {
+    session.title = trimmed.length > 32 ? trimmed.slice(0, 32) + '...' : trimmed;
+    session.updatedAt = new Date().toISOString();
+    saveChatSessions(sessions);
+    renderSidebarConversations();
+
+    const currentId = getCurrentChatId();
+    if (currentId === id) {
+      const badge = document.getElementById('activeChatBadge');
+      if (badge) {
+        badge.textContent = session.title;
+        badge.title = session.title;
+      }
+    }
+  }
 }
 
 function renderSidebarConversations(filterText = '') {
@@ -2588,11 +3063,31 @@ function renderSidebarConversations(filterText = '') {
   filtered.forEach(session => {
     const item = document.createElement('div');
     item.className = 'conversation-item' + (session.id === currentId ? ' active' : '');
-    item.title = session.title;
+    item.title = session.title + ' (Bấm để mở, nhấp đúp để đổi tên)';
 
     const titleSpan = document.createElement('span');
     titleSpan.className = 'conversation-title-text';
     titleSpan.textContent = session.title;
+    titleSpan.ondblclick = (e) => {
+      e.stopPropagation();
+      renameChatSession(session.id, session.title);
+    };
+
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'conversation-actions';
+    actionsDiv.style.display = 'flex';
+    actionsDiv.style.alignItems = 'center';
+    actionsDiv.style.gap = '2px';
+
+    const renameBtn = document.createElement('button');
+    renameBtn.type = 'button';
+    renameBtn.className = 'btn-rename-conv';
+    renameBtn.title = 'Đổi tên đoạn chat';
+    renameBtn.innerHTML = '✏️';
+    renameBtn.onclick = (e) => {
+      e.stopPropagation();
+      renameChatSession(session.id, session.title);
+    };
 
     const delBtn = document.createElement('button');
     delBtn.type = 'button';
@@ -2604,8 +3099,11 @@ function renderSidebarConversations(filterText = '') {
       deleteChatSession(session.id);
     };
 
+    actionsDiv.appendChild(renameBtn);
+    actionsDiv.appendChild(delBtn);
+
     item.appendChild(titleSpan);
-    item.appendChild(delBtn);
+    item.appendChild(actionsDiv);
 
     item.onclick = () => {
       switchChatSession(session.id);
@@ -2648,6 +3146,9 @@ function createNewChatSession() {
 
   renderSidebarConversations();
   loadSessionMessages(newSession);
+  if (typeof updateChatStartedState === 'function') {
+    updateChatStartedState();
+  }
 
   const inputEl = document.getElementById('input');
   if (inputEl) {
@@ -2696,6 +3197,9 @@ function deleteChatSession(id) {
   }
 
   renderSidebarConversations();
+  if (typeof updateChatStartedState === 'function') {
+    updateChatStartedState();
+  }
 }
 
 function renderSidebarUserProfile() {
@@ -2756,18 +3260,76 @@ function handleSearchConversations(val) {
   renderSidebarConversations(val);
 }
 
-function toggleSidebarMobile(forceState) {
+const SIDEBAR_COLLAPSED_KEY = 'ns_chat_sidebar_collapsed';
+
+function toggleSidebar(forceState) {
   const sidebar = document.getElementById('chatSidebar');
   const backdrop = document.getElementById('sidebarBackdrop');
+  const layoutWrapper = document.querySelector('.chat-layout-wrapper');
   if (!sidebar) return;
 
-  const shouldOpen = (typeof forceState === 'boolean')
-    ? forceState
-    : !sidebar.classList.contains('open');
+  const isMobile = window.innerWidth <= 900;
 
-  sidebar.classList.toggle('open', shouldOpen);
-  if (backdrop) {
-    backdrop.classList.toggle('active', shouldOpen);
+  if (isMobile) {
+    // 1. Mobile / Tablet (<= 900px): Trượt từ cạnh trái với backdrop
+    const shouldOpen = (typeof forceState === 'boolean')
+      ? forceState
+      : !sidebar.classList.contains('open');
+
+    sidebar.classList.toggle('open', shouldOpen);
+    if (backdrop) {
+      backdrop.classList.toggle('active', shouldOpen);
+    }
+  } else {
+    // 2. Desktop (> 900px): Thu gọn / Mở rộng thanh bên về width 0
+    let shouldCollapse;
+    if (typeof forceState === 'boolean') {
+      shouldCollapse = forceState;
+    } else {
+      shouldCollapse = !sidebar.classList.contains('collapsed');
+    }
+
+    sidebar.classList.toggle('collapsed', shouldCollapse);
+    if (layoutWrapper) {
+      layoutWrapper.classList.toggle('sidebar-collapsed', shouldCollapse);
+    }
+
+    try {
+      localStorage.setItem(SIDEBAR_COLLAPSED_KEY, shouldCollapse ? 'true' : 'false');
+    } catch (e) { }
+
+    const toggleBtns = document.querySelectorAll('.btn-toggle-sidebar');
+    toggleBtns.forEach(btn => {
+      btn.title = shouldCollapse ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên';
+    });
+  }
+}
+
+// Giữ hàm alias tương thích ngược 100%
+function toggleSidebarMobile(forceState) {
+  if (window.innerWidth <= 900) {
+    toggleSidebar(forceState);
+  }
+}
+window.toggleSidebarMobile = toggleSidebarMobile;
+window.toggleSidebar = toggleSidebar;
+
+function initSidebarState() {
+  if (window.innerWidth > 900) {
+    try {
+      const isCollapsed = localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === 'true';
+      if (isCollapsed) {
+        const sidebar = document.getElementById('chatSidebar');
+        const layoutWrapper = document.querySelector('.chat-layout-wrapper');
+        if (sidebar) sidebar.classList.add('collapsed');
+        if (layoutWrapper) layoutWrapper.classList.add('sidebar-collapsed');
+
+        const toggleBtns = document.querySelectorAll('.btn-toggle-sidebar');
+        toggleBtns.forEach(btn => {
+          btn.title = 'Mở rộng thanh bên';
+        });
+      }
+    } catch (e) { }
   }
 }
 
@@ -2833,6 +3395,425 @@ function showThinkingIndicator() {
   `;
   box.appendChild(d);
   box.scrollTop = box.scrollHeight;
+  if (typeof updateChatStartedState === 'function') {
+    updateChatStartedState();
+  }
+}
+
+// =========================================================================
+// UI HELPERS: CHAT STARTED STATE & CONTEXT PROFILE BADGE
+// =========================================================================
+
+function getCurrentChatSession() {
+  const sessions = getChatSessions();
+  const currentId = getCurrentChatId();
+  return sessions.find(s => s.id === currentId) || null;
+}
+
+function updateChatStartedState() {
+  const panel = document.querySelector('.chat-main-panel');
+  const pageWrapper = document.querySelector('.chat-page-wrapper');
+  const box = document.getElementById('messages');
+  if (!box) return;
+
+  const hasUserMsg = box.querySelectorAll('.msg.user').length > 0;
+
+  if (panel) {
+    panel.classList.toggle('chat-started', hasUserMsg);
+  }
+  if (pageWrapper) {
+    pageWrapper.classList.toggle('chat-started', hasUserMsg);
+  }
+
+  const quickGroups = document.querySelector('.quick-groups');
+  if (quickGroups) {
+    quickGroups.style.display = hasUserMsg ? 'none' : '';
+  }
+}
+
+function updatePersonalProfileUI() {
+  const profileEl = document.getElementById('personalProfile');
+  if (!profileEl) return;
+
+  const injected = (typeof loadInjectedUserProfile === 'function') ? loadInjectedUserProfile() : null;
+  const p = (typeof getProfile === 'function') ? getProfile() : null;
+  const analysis = (typeof analyzeCareer === 'function') ? analyzeCareer() : null;
+  const top = (analysis && analysis.results && analysis.results.length) ? analysis.results[0] : null;
+
+  const hasInjectedData = injected && injected.hasProfile && (
+    (injected.name && injected.name !== 'bạn' && injected.name !== 'Học sinh') ||
+    injected.province ||
+    injected.grade ||
+    injected.bestCombo ||
+    (injected.scoreCount && injected.scoreCount > 0) ||
+    injected.hollandCode ||
+    (injected.goals && (injected.goals.dreamMajor || injected.goals.isStudyAbroad))
+  );
+
+  const hasRawProfileData = p && (
+    (p.info && ((p.info.name && p.info.name !== 'Học sinh') || p.info.province || p.info.grade)) ||
+    (p.scores && Object.keys(p.scores).length > 0) ||
+    (p.scoreCount && p.scoreCount > 0) ||
+    (p.personality && p.personality !== 'chưa xác định') ||
+    (p.goals && (p.goals.dreamMajor || p.goals.isStudyAbroad))
+  );
+
+  if (!hasInjectedData && !hasRawProfileData && !top) {
+    profileEl.style.display = 'none';
+    profileEl.innerHTML = '';
+    return;
+  }
+
+  const parts = [];
+  if (injected && injected.hasProfile) {
+    if (injected.name && injected.name !== 'bạn' && injected.name !== 'Học sinh') {
+      parts.push(`<strong>${injected.name}</strong>`);
+    }
+    if (injected.province) parts.push(injected.province);
+    if (injected.grade) {
+      parts.push(injected.grade.toString().includes('Lớp') ? injected.grade : `Lớp ${injected.grade}`);
+    }
+    if (injected.bestCombo) {
+      parts.push(`Tổ hợp cao nhất: <strong>${injected.bestCombo.code} (${injected.bestCombo.score}đ)</strong>`);
+    } else if (injected.scoreCount) {
+      parts.push(`${injected.scoreCount} môn đã nhập`);
+    }
+    if (injected.hollandCode) {
+      parts.push(`Mã Holland: <strong>${injected.hollandCode}</strong>`);
+    } else if (p && p.personality && p.personality !== 'chưa xác định') {
+      parts.push(`xu hướng ${p.personality}`);
+    }
+    if (injected.goals && injected.goals.isStudyAbroad) {
+      parts.push(`✈️ <strong>Du học${injected.goals.studyAbroadCountry ? ` (${injected.goals.studyAbroadCountry})` : ''}</strong>`);
+    } else if (injected.goals && injected.goals.dreamMajor) {
+      parts.push(`🎯 <strong>${injected.goals.dreamMajor}</strong>`);
+    }
+    if (top) {
+      parts.push(`Ngành thế mạnh: <strong>${top.name}</strong>`);
+    }
+  } else if (p) {
+    if (p.info && p.info.name && p.info.name !== 'Học sinh') parts.push(`<strong>${p.info.name}</strong>`);
+    if (p.info && p.info.province) parts.push(p.info.province);
+    if (p.info && p.info.grade) parts.push(`Lớp ${p.info.grade}`);
+    if (p.scoreCount) parts.push(`${p.scoreCount} môn đã nhập`);
+    if (p.personality && p.personality !== 'chưa xác định') parts.push(`xu hướng ${p.personality}`);
+    if (top) parts.push(`Ngành thế mạnh: <strong>${top.name}</strong>`);
+  }
+
+  if (parts.length === 0) {
+    profileEl.style.display = 'none';
+    profileEl.innerHTML = '';
+    return;
+  }
+
+  profileEl.style.display = 'block';
+  profileEl.innerHTML = `<b>Hồ sơ đang dùng:</b> ` + parts.join(' · ');
+}
+
+// =========================================================================
+// GOOGLE GEMINI AI INTEGRATION
+// =========================================================================
+
+const GEMINI_CONFIG_KEY = 'ns_gemini_api_key';
+const GEMINI_ENABLED_KEY = 'ns_gemini_enabled';
+const GEMINI_MODEL_KEY = 'ns_gemini_model';
+
+function getGeminiApiKey() {
+  try {
+    return localStorage.getItem(GEMINI_CONFIG_KEY) || '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function isGeminiEnabled() {
+  try {
+    return localStorage.getItem(GEMINI_ENABLED_KEY) === 'true' && !!getGeminiApiKey();
+  } catch (e) {
+    return false;
+  }
+}
+
+function getGeminiModel() {
+  try {
+    return localStorage.getItem(GEMINI_MODEL_KEY) || 'gemini-1.5-flash';
+  } catch (e) {
+    return 'gemini-1.5-flash';
+  }
+}
+
+function setGeminiConfig(apiKey, enabled, model) {
+  try {
+    if (apiKey !== undefined) localStorage.setItem(GEMINI_CONFIG_KEY, (apiKey || '').trim());
+    if (enabled !== undefined) localStorage.setItem(GEMINI_ENABLED_KEY, enabled ? 'true' : 'false');
+    if (model !== undefined) localStorage.setItem(GEMINI_MODEL_KEY, model || 'gemini-1.5-flash');
+    updateGeminiButtonUI();
+  } catch (e) {
+    console.error('Error saving Gemini config:', e);
+  }
+}
+
+function updateGeminiButtonUI() {
+  const btn = document.getElementById('btnGeminiConfig');
+  const badge = document.getElementById('geminiStatusBadge');
+  const enabled = isGeminiEnabled();
+
+  if (btn) {
+    btn.classList.toggle('active-gemini', enabled);
+    btn.title = enabled
+      ? 'Đang dùng Google Gemini AI (' + getGeminiModel() + '). Bấm để đổi cài đặt'
+      : 'Đang dùng AI Cố vấn Cục bộ (Offline). Bấm để kết nối Google Gemini API';
+  }
+  if (badge) {
+    badge.textContent = enabled ? 'Gemini AI' : 'Local AI';
+    badge.style.color = enabled ? '#a7f3d0' : '#c084fc';
+  }
+}
+
+function openGeminiModal() {
+  initGeminiModalDOM();
+  const backdrop = document.getElementById('geminiModalBackdrop');
+  const keyInput = document.getElementById('geminiApiKeyInput');
+  const enableToggle = document.getElementById('geminiEnableToggle');
+  const modelSelect = document.getElementById('geminiModelSelect');
+
+  if (keyInput) keyInput.value = getGeminiApiKey();
+  if (enableToggle) enableToggle.checked = localStorage.getItem(GEMINI_ENABLED_KEY) === 'true';
+  if (modelSelect) modelSelect.value = getGeminiModel();
+
+  if (backdrop) {
+    backdrop.classList.add('open');
+    backdrop.style.display = 'flex';
+  }
+}
+
+function closeGeminiModal() {
+  const backdrop = document.getElementById('geminiModalBackdrop');
+  if (backdrop) {
+    backdrop.classList.remove('open');
+    backdrop.style.display = 'none';
+  }
+}
+
+function saveGeminiModalSettings() {
+  const keyInput = document.getElementById('geminiApiKeyInput');
+  const enableToggle = document.getElementById('geminiEnableToggle');
+  const modelSelect = document.getElementById('geminiModelSelect');
+
+  const key = keyInput ? keyInput.value.trim() : '';
+  const enabled = enableToggle ? enableToggle.checked : false;
+  const model = modelSelect ? modelSelect.value : 'gemini-1.5-flash';
+
+  if (enabled && !key) {
+    alert('Vui lòng nhập Gemini API Key hoặc tắt tùy chọn kích hoạt.');
+    return;
+  }
+
+  setGeminiConfig(key, enabled && !!key, model);
+  closeGeminiModal();
+
+  if (enabled && key) {
+    showChatbotToast(`Đã kích hoạt Google Gemini (${model}) thành công! ✨`);
+  } else {
+    showChatbotToast('Đã chuyển về AI Cố vấn Cục bộ (Offline Engine) 🚀');
+  }
+}
+
+function showChatbotToast(msg) {
+  let toast = document.getElementById('chatbotToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'chatbotToast';
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #f1f5f9;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      backdrop-filter: blur(8px);
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(10px)';
+  }, 2600);
+}
+
+function initGeminiModalDOM() {
+  if (document.getElementById('geminiModalBackdrop')) return;
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'gemini-modal-backdrop';
+  backdrop.id = 'geminiModalBackdrop';
+  backdrop.onclick = function (e) {
+    if (e.target === backdrop) closeGeminiModal();
+  };
+
+  backdrop.innerHTML = `
+    <div class="gemini-modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 22px;">✨</span>
+          <h3 style="margin: 0; font-size: 17px; font-weight: 700; color: #f3e8ff;">Cấu hình Google Gemini AI</h3>
+        </div>
+        <button type="button" onclick="closeGeminiModal()" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; padding: 4px;" title="Đóng">✕</button>
+      </div>
+      <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px;">
+        Kết nối trực tiếp với mô hình Google Gemini để nhận câu trả lời hướng nghiệp tự nhiên, thông minh và giải đáp mọi thắc mắc học đường.
+      </p>
+      <div style="margin-bottom: 14px;">
+        <label style="display: block; font-size: 12.5px; font-weight: 600; color: #c084fc; margin-bottom: 6px;">Gemini API Key:</label>
+        <input type="password" id="geminiApiKeyInput" placeholder="Dán mã API Key (AIzaSy...)" style="width: 100%; padding: 10px 14px; background: rgba(0,0,0,0.35); border: 1px solid rgba(168,85,247,0.3); border-radius: 10px; color: #fff; font-size: 13px; box-sizing: border-box; outline: none;">
+        <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 11.5px; color: #94a3b8;">
+          <span>Key được lưu an toàn tại máy của bạn (LocalStorage)</span>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: underline;">Lấy API Key miễn phí ↗</a>
+        </div>
+      </div>
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 12.5px; font-weight: 600; color: #c084fc; margin-bottom: 6px;">Mô hình (Model):</label>
+        <select id="geminiModelSelect" style="width: 100%; padding: 9px 12px; background: #0f172a; border: 1px solid rgba(168,85,247,0.3); border-radius: 10px; color: #fff; font-size: 13px; box-sizing: border-box; outline: none;">
+          <option value="gemini-1.5-flash">Gemini 1.5 Flash (Phản hồi siêu tốc - Khuyên dùng)</option>
+          <option value="gemini-2.0-flash">Gemini 2.0 Flash (Mô hình mới nhất)</option>
+          <option value="gemini-1.5-pro">Gemini 1.5 Pro (Suy luận sâu & chi tiết)</option>
+        </select>
+      </div>
+      <div style="margin-bottom: 18px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); padding: 10px 12px; border-radius: 10px;">
+        <input type="checkbox" id="geminiEnableToggle" style="width: 17px; height: 17px; accent-color: #8b5cf6; cursor: pointer;">
+        <label for="geminiEnableToggle" style="font-size: 13px; color: #e2e8f0; cursor: pointer; user-select: none;">Kích hoạt Google Gemini (Nếu mất kết nối, hệ thống tự động fallback về AI Cố vấn Cục bộ)</label>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" onclick="closeGeminiModal()" style="padding: 8px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #cbd5e1; font-size: 13px; cursor: pointer;">Đóng</button>
+        <button type="button" onclick="saveGeminiModalSettings()" style="padding: 8px 18px; background: linear-gradient(135deg, #7c3aed, #6366f1); border: none; border-radius: 8px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(124,58,237,0.35);">Lưu cấu hình</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(backdrop);
+}
+
+function initGeminiButtonDOM() {
+  // Không tự động inject nút btnGeminiConfig vào giao diện theo thiết kế tinh giản
+  // Cập nhật trạng thái an toàn nếu phần tử tồn tại trong DOM
+  updateGeminiButtonUI();
+}
+
+async function callGeminiAPI(query, sessionHistory = []) {
+  const apiKey = getGeminiApiKey();
+  const model = getGeminiModel();
+  if (!apiKey) throw new Error('No Gemini API Key provided');
+
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+  const profile = chatState.injectedProfile || ((typeof loadInjectedUserProfile === 'function') ? loadInjectedUserProfile() : null);
+  let profileContext = '';
+  if (profile && profile.hasProfile) {
+    profileContext = `\n[THÔNG TIN HỒ SƠ HỌC SINH ĐANG TƯ VẤN]:
+- Tên: ${profile.name || 'Học sinh'}
+- Lớp: ${profile.grade || 'THPT'}, Tỉnh/TP: ${profile.province || 'Chưa rõ'}
+- Điểm/Tổ hợp mạnh nhất: ${profile.bestCombo ? `${profile.bestCombo.code} (${profile.bestCombo.score}đ)` : 'Chưa nhập'}
+- Mã Holland: ${profile.hollandCode || 'Chưa xác định'}
+- Định hướng/Mục tiêu: ${profile.goals?.dreamMajor || (profile.goals?.isStudyAbroad ? 'Du học' : 'Chưa rõ')}`;
+  }
+
+  const systemInstruction = `Bạn là NS AI - Chuyên gia hướng nghiệp thực tế, gần gũi như người anh/chị đi trước (Mentor) dành cho học sinh THPT Việt Nam.
+MỤC TIÊU TỐI THƯỢNG: Giúp học sinh KHÔNG CHỌN SAI NGÀNH, nắm rõ thực tế thị trường lao động và năng lực bản thân.
+TÍNH CÁCH & PHONG CÁCH:
+- Đi thẳng vào vấn đề, chân thành, khách quan, không lý thuyết sáo rỗng.
+- Ngôn ngữ gần gũi với học sinh THPT (xưng mình - bạn).
+- Khi học sinh hỏi hoặc cần tư vấn về bất kỳ ngành nghề nào, BẮT BUỘC phản hồi ngắn gọn theo đúng 5 khối trực quan sau:
+  **[1 · KHỐI XÉT TUYỂN & MÔN CỐT LÕI]**: Nêu rõ tổ hợp môn chính và môn bắt buộc phải học tốt.
+  **[2 · CHỌN TRƯỜNG THEO NĂNG LỰC & ĐIỂM CHUẨN]**: Phân tầng Top đầu / Vừa sức / An toàn, kèm lời nhắc tra cứu Đề án tuyển sinh mới nhất.
+  **[3 · VÀO HỌC THỰC TẾ HỌC GÌ?]**: Giải thích đời thường, nêu công cụ / phần mềm và kỹ năng thực tế.
+  **[🔒 4 · CÁI GIÁ PHẢI TRẢ]**: Thẳng thắn nêu đúng 3 áp lực / mặt trái lớn nhất của ngành.
+  **[5 · MỨC LƯƠNG THAM KHẢO & TỐC ĐỘ BỨT PHÁ]**: Mới ra trường vs Sau 5-8 năm + lưu ý chỉ mang tính tham khảo.
+- Mỗi ý chỉ 1-2 câu súc tích, gạch đầu dòng rõ ràng, in đậm các con số và từ khóa quan trọng.
+- Luôn kết thúc bằng 1 câu hỏi gợi mở thiết thực (về học lực, điểm môn thế mạnh, sở thích hoặc mức độ chịu được áp lực của ngành).
+- TUYỆT ĐỐI AN TOÀN: Nếu học sinh có biểu hiện khủng hoảng tâm lý, trầm cảm, hãy ưu tiên an ủi và giới thiệu Tổng đài Quốc gia 111 và Đường dây Ngày Mai 096 306 1414.${profileContext}`;
+
+  const payload = {
+    system_instruction: {
+      parts: [{ text: systemInstruction }]
+    },
+    contents: [],
+    generationConfig: {
+      temperature: 0.7,
+      topP: 0.9,
+      maxOutputTokens: 1200
+    }
+  };
+
+  const recentMsgs = (sessionHistory || []).slice(-6);
+  recentMsgs.forEach(m => {
+    if (m.text && m.text.length < 2000 && !m.text.includes('111 (Miễn phí 24/7)')) {
+      payload.contents.push({
+        role: m.who === 'user' ? 'user' : 'model',
+        parts: [{ text: m.text }]
+      });
+    }
+  });
+
+  payload.contents.push({
+    role: 'user',
+    parts: [{ text: query }]
+  });
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(`Gemini API Error: ${response.status} - ${errorData?.error?.message || response.statusText}`);
+  }
+
+  const data = await response.json();
+  const candidate = data?.candidates?.[0];
+  const replyText = candidate?.content?.parts?.[0]?.text;
+
+  if (!replyText) {
+    throw new Error('Gemini API returned empty response');
+  }
+
+  return replyText;
+}
+
+// =================== HIỆU ỨNG SUY NGHĨ & XỬ LÝ GỬI TIN NHẮN ===================
+
+function showThinkingIndicator() {
+  removeThinkingIndicator();
+  const box = document.getElementById('messages');
+  if (!box) return;
+
+  const d = document.createElement('div');
+  d.className = 'msg bot msg-thinking';
+  d.id = 'thinkingIndicator';
+  d.innerHTML = `
+    <div class="thinking-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <span style="font-size: 13px; color: #a78bfa; margin-left: 8px; font-weight: 500;">
+      NS AI đang suy nghĩ...
+    </span>
+  `;
+  box.appendChild(d);
+  box.scrollTop = box.scrollHeight;
 }
 
 function removeThinkingIndicator() {
@@ -2840,7 +3821,7 @@ function removeThinkingIndicator() {
   if (el) el.remove();
 }
 
-function send() {
+async function send() {
   if (chatState.isSending) return;
 
   const inputEl = document.getElementById('input');
@@ -2857,7 +3838,58 @@ function send() {
 
   showThinkingIndicator();
 
-  // Hiệu ứng phản hồi suy nghĩ tự nhiên (khoảng 300-380ms)
+  // 1. CHỐT CHẶN AN TOÀN TÂM LÝ: LUÔN KIỂM TRA TRƯỚC TIÊN (KHÔNG CHẦN CHỪ, BẢO VỆ HỌC SINH TUYỆT ĐỐI)
+  const normQ = (typeof normalizeQuery === 'function') ? normalizeQuery(q) : q;
+  const crisisCheck = (typeof detectPsychologicalCrisis === 'function') ? detectPsychologicalCrisis(q, normQ) : { triggered: false };
+  if (crisisCheck && crisisCheck.triggered) {
+    setTimeout(() => {
+      removeThinkingIndicator();
+      const safetyReply = (typeof generateCrisisSafetyResponse === 'function')
+        ? generateCrisisSafetyResponse(crisisCheck)
+        : 'Nếu bạn đang gặp khủng hoảng tâm lý nghiêm trọng, hãy liên hệ ngay Tổng đài Quốc gia 111 hoặc Đường dây Ngày Mai 096 306 1414 (Miễn phí 24/7).';
+      chatState.lastAnswer = safetyReply;
+      addMsg(safetyReply, 'bot');
+      saveMessageToCurrentSession('bot', safetyReply);
+      chatState.isSending = false;
+      inputEl.disabled = false;
+      inputEl.focus();
+    }, 240);
+    return;
+  }
+
+  // 2. NẾU GEMINI AI ĐƯỢC BẬT VÀ CÓ KEY: GỌI GOOGLE GEMINI API VỚI TỰ ĐỘNG FALLBACK VỀ LOCAL ENGINE
+  if (typeof isGeminiEnabled === 'function' && isGeminiEnabled()) {
+    try {
+      const currentSession = getCurrentChatSession();
+      const history = currentSession ? currentSession.messages : [];
+      const reply = await callGeminiAPI(q, history);
+
+      removeThinkingIndicator();
+      chatState.lastAnswer = reply;
+      addMsg(reply, 'bot');
+      saveMessageToCurrentSession('bot', reply);
+    } catch (err) {
+      console.warn('Gemini API call failed, falling back to local career engine:', err);
+      showChatbotToast('⚠️ Gemini tạm bận hoặc mất mạng - Tự động chuyển AI Cố vấn Cục bộ 🚀');
+
+      removeThinkingIndicator();
+      let fallbackReply = answer(q);
+      if (fallbackReply === chatState.lastAnswer) {
+        fallbackReply += '\n\n*(Nếu bạn muốn tìm hiểu khía cạnh khác, cứ gõ chủ đề cụ thể hoặc chọn các nút câu hỏi nhanh ở trên nhé!)*';
+      }
+      chatState.lastAnswer = fallbackReply;
+      addMsg(fallbackReply, 'bot');
+      saveMessageToCurrentSession('bot', fallbackReply);
+    } finally {
+      removeThinkingIndicator();
+      chatState.isSending = false;
+      inputEl.disabled = false;
+      inputEl.focus();
+    }
+    return;
+  }
+
+  // 3. AI CỐ VẤN CỤC BỘ (LOCAL ENGINE) VỚI ĐỘ TRỄ SUY NGHĨ TỰ NHIÊN
   setTimeout(() => {
     try {
       removeThinkingIndicator();
@@ -2905,6 +3937,17 @@ function initChatInput() {
         send();
       }
     });
+
+    // Cuộn mượt mà không bị che khuất bàn phím ảo trên mobile
+    inputEl.addEventListener('focus', () => {
+      setTimeout(() => {
+        const box = document.getElementById('messages');
+        if (box) {
+          box.scrollTop = box.scrollHeight;
+        }
+        inputEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 280);
+    });
   }
 }
 
@@ -2925,9 +3968,14 @@ function checkUrlPrompt() {
 
 function initAllChatbot() {
   injectUserProfileIntoChatState();
+  updatePersonalProfileUI();
+  initSidebarState();
+  initGeminiModalDOM();
+  initGeminiButtonDOM();
   checkWebSpeechSupport();
   initChatInput();
   initChatHistory();
+  updateChatStartedState();
   checkUrlPrompt();
 }
 

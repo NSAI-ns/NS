@@ -634,8 +634,10 @@ details.scientific-accordion[open] > summary {
 
 /* ==========================================================================
    CSS CHO CẤU TRÚC 5 KHỐI CARD KẾT QUẢ NGÀNH HỌC (5-BLOCK CAREER CARDS)
+   Quy chuẩn Responsive Đa thiết bị (Mobile < 768px, Tablet 768px-1024px, Desktop > 1024px)
    ========================================================================== */
 
+/* Thẻ Card Toàn thể */
 .career-v2-card {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 41, 59, 0.90) 100%);
     border: 1.5px solid rgba(129, 140, 248, 0.28);
@@ -644,14 +646,17 @@ details.scientific-accordion[open] > summary {
     margin-bottom: 30px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45), 0 0 25px rgba(99, 102, 241, 0.08);
     backdrop-filter: blur(16px);
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
 }
 .career-v2-card:hover {
     border-color: rgba(129, 140, 248, 0.5);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 35px rgba(99, 102, 241, 0.16);
 }
 .career-v2-top1 {
-    border-color: rgba(234, 179, 8, 0.6);
+    border-color: rgba(234, 179, 8, 0.65);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 35px rgba(234, 179, 8, 0.2);
 }
 
@@ -661,8 +666,18 @@ details.scientific-accordion[open] > summary {
     justify-content: space-between;
     align-items: flex-start;
     gap: 16px;
-    flex-wrap: wrap;
     margin-bottom: 14px;
+}
+.career-v2-header-info {
+    flex: 1;
+    min-width: 0;
+}
+.career-v2-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 .career-v2-rank-badge {
     padding: 3px 10px;
@@ -670,6 +685,7 @@ details.scientific-accordion[open] > summary {
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 .career-v2-rank-badge.rank-top1 {
     background: linear-gradient(135deg, #eab308, #ca8a04);
@@ -689,6 +705,16 @@ details.scientific-accordion[open] > summary {
     border: 1px solid rgba(52, 211, 153, 0.35);
     padding: 3px 10px;
     border-radius: 999px;
+    white-space: nowrap;
+}
+.career-v2-combo-badge {
+    font-size: 12px;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
 }
 .career-v2-title {
     font-size: 22px;
@@ -696,18 +722,20 @@ details.scientific-accordion[open] > summary {
     color: #ffffff;
     margin: 4px 0 0;
     line-height: 1.35;
+    word-break: break-word;
 }
 .career-v2-score-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgba(15, 23, 42, 0.8);
-    border: 1.5px solid rgba(56, 189, 248, 0.4);
+    background: rgba(15, 23, 42, 0.85);
+    border: 1.5px solid rgba(56, 189, 248, 0.45);
     border-radius: 14px;
     padding: 8px 18px;
     min-width: 90px;
     text-align: center;
+    flex-shrink: 0;
 }
 .career-v2-score-num {
     font-size: 24px;
@@ -730,6 +758,18 @@ details.scientific-accordion[open] > summary {
     padding: 12px 16px;
     margin: 14px 0 22px;
 }
+.evidence-title {
+    font-weight: 700;
+    color: #a5b4fc;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+.evidence-desc {
+    font-size: 12.5px;
+    color: #cbd5e1;
+    line-height: 1.55;
+    word-break: break-word;
+}
 
 /* Common block styles */
 .career-block-wrapper {
@@ -747,6 +787,15 @@ details.scientific-accordion[open] > summary {
     align-items: center;
     gap: 10px;
     margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+.block-section-header.header-between {
+    justify-content: space-between;
+}
+.header-left-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     flex-wrap: wrap;
 }
 .block-section-badge {
@@ -797,9 +846,12 @@ details.scientific-accordion[open] > summary {
     font-size: 15.5px;
     font-weight: 700;
     color: #f1f5f9;
+    line-height: 1.4;
 }
 
-/* 1. KHỐI XÉT */
+/* ========================================================
+   KHỐI 1 — [1 · KHỐI XÉT]
+   ======================================================== */
 .combo-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -810,15 +862,18 @@ details.scientific-accordion[open] > summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 14px;
+    padding: 11px 14px;
+    min-height: 48px;
     background: rgba(30, 41, 59, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
     gap: 10px;
+    box-sizing: border-box;
 }
 .combo-card-horizontal.combo-primary {
-    border-color: rgba(96, 165, 250, 0.4);
-    background: rgba(30, 41, 59, 0.85);
+    border-color: rgba(96, 165, 250, 0.45);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(59, 130, 246, 0.12) 100%);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
 }
 .combo-left {
     display: flex;
@@ -826,22 +881,28 @@ details.scientific-accordion[open] > summary {
     gap: 8px;
     font-size: 13px;
     color: #f1f5f9;
+    flex: 1;
+    min-width: 0;
 }
 .combo-code {
     font-weight: 800;
     color: #67e8f9;
     font-size: 14px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
 }
 .combo-subj {
     color: #cbd5e1;
     font-size: 12.5px;
+    word-break: break-word;
 }
 .combo-tag {
     font-size: 11px;
-    padding: 2px 8px;
+    padding: 3px 9px;
     border-radius: 999px;
     font-weight: 600;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 .combo-tag.tag-primary {
     background: rgba(59, 130, 246, 0.2);
@@ -856,15 +917,37 @@ details.scientific-accordion[open] > summary {
 .core-warning-banner {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
     background: rgba(239, 68, 68, 0.12);
     border: 1.5px solid rgba(239, 68, 68, 0.45);
     border-radius: 12px;
-    padding: 12px 16px;
+    padding: 13px 16px;
     margin-top: 10px;
+    box-sizing: border-box;
+}
+.warning-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.warning-body {
+    font-size: 13px;
+    color: #fecaca;
+    line-height: 1.55;
+    word-break: break-word;
+}
+.warning-title {
+    color: #f87171;
+    margin-right: 4px;
+}
+.warning-text {
+    color: #fecaca;
 }
 
-/* 2. TRƯỜNG & ĐIỂM CHUẨN */
+/* ========================================================
+   KHỐI 2 — [2 · TRƯỜNG & ĐIỂM CHUẨN]
+   ======================================================== */
 .cutoff-diff-badge {
     padding: 4px 12px;
     border-radius: 999px;
@@ -876,21 +959,6 @@ details.scientific-accordion[open] > summary {
     letter-spacing: 0.5px;
     white-space: nowrap;
 }
-.cutoff-diff-badge.badge-safe {
-    background: rgba(16, 185, 129, 0.2);
-    border-color: #34d399;
-    color: #6ee7b7;
-}
-.cutoff-diff-badge.badge-warning {
-    background: rgba(249, 115, 22, 0.22);
-    border-color: #fb923c;
-    color: #fed7aa;
-}
-.cutoff-diff-badge.badge-danger {
-    background: rgba(239, 68, 68, 0.25);
-    border-color: #f87171;
-    color: #fca5a5;
-}
 .top5-schools-list {
     display: flex;
     flex-direction: column;
@@ -898,61 +966,112 @@ details.scientific-accordion[open] > summary {
     margin-bottom: 14px;
 }
 .school-cutoff-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 14px;
+    padding: 12px 14px;
     background: rgba(15, 23, 42, 0.65);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 10px;
-    gap: 12px;
-    flex-wrap: wrap;
+    box-sizing: border-box;
+    transition: background 0.15s ease;
 }
-.school-cutoff-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 200px;
-    flex: 1;
+.school-cutoff-row:hover {
+    background: rgba(30, 41, 59, 0.7);
+}
+@media (min-width: 769px) {
+    .school-cutoff-row {
+        display: grid;
+        grid-template-columns: minmax(200px, 1fr) auto 180px;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 16px;
+    }
+    .school-cutoff-top {
+        display: contents;
+    }
+    .school-cutoff-left {
+        grid-column: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+    .school-score-display {
+        grid-column: 2;
+        font-weight: 800;
+        color: #fde047;
+        font-size: 14.5px;
+        text-align: right;
+        white-space: nowrap;
+        min-width: 55px;
+    }
+    .school-progress-wrap {
+        grid-column: 3;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        overflow: hidden;
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .school-cutoff-row {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .school-cutoff-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+    }
+    .school-cutoff-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+    }
+    .school-row-name {
+        font-size: 13.5px;
+        line-height: 1.35;
+        word-break: break-word;
+    }
+    .school-score-display {
+        font-weight: 800;
+        color: #fde047;
+        font-size: 14.5px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    .school-progress-wrap {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        overflow: hidden;
+    }
 }
 .school-rank-num {
     font-weight: 800;
     color: #94a3b8;
     font-size: 13px;
-    width: 22px;
+    width: 24px;
+    flex-shrink: 0;
 }
 .school-row-name {
     font-weight: 700;
     color: #f8fafc;
     font-size: 13.5px;
+    line-height: 1.35;
+    word-break: break-word;
 }
 .school-row-code {
     color: #94a3b8;
     font-size: 11.5px;
     font-weight: 600;
     margin-left: 4px;
-}
-.school-cutoff-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 220px;
-    flex: 1;
-    max-width: 320px;
-}
-.school-score-display {
-    font-weight: 800;
-    color: #fde047;
-    font-size: 14px;
-    width: 55px;
-    text-align: right;
-}
-.school-progress-wrap {
-    flex: 1;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 999px;
-    overflow: hidden;
+    white-space: nowrap;
 }
 .school-progress-bar {
     height: 100%;
@@ -960,14 +1079,17 @@ details.scientific-accordion[open] > summary {
     border-radius: 999px;
     transition: width 0.8s ease;
 }
+
+/* 2 Ghi chú chiến thuật */
 .school-notes-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 12px;
 }
 @media (max-width: 768px) {
     .school-notes-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
 }
 .school-note-box {
@@ -978,19 +1100,41 @@ details.scientific-accordion[open] > summary {
     border-radius: 10px;
     font-size: 12px;
     line-height: 1.5;
+    box-sizing: border-box;
+}
+.note-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 1px;
+}
+.note-body {
+    flex: 1;
+    word-break: break-word;
+}
+.note-title {
+    margin-right: 4px;
 }
 .note-box-green {
     background: rgba(16, 185, 129, 0.12);
     border: 1px solid rgba(16, 185, 129, 0.35);
     color: #d1fae5;
 }
+.note-box-green .note-title {
+    color: #6ee7b7;
+}
 .note-box-amber {
     background: rgba(245, 158, 11, 0.12);
     border: 1px solid rgba(245, 158, 11, 0.35);
     color: #fef3c7;
 }
+.note-box-amber .note-title {
+    color: #fcd34d;
+}
 
-/* 3. VÀO HỌC THÌ HỌC GÌ? */
+/* ========================================================
+   KHỐI 3 — [3 · VÀO HỌC THÌ HỌC GÌ?]
+   ======================================================== */
 .duration-pill {
     padding: 4px 12px;
     border-radius: 999px;
@@ -1001,24 +1145,91 @@ details.scientific-accordion[open] > summary {
     font-weight: 700;
     white-space: nowrap;
 }
+
+/* Thanh tiến độ theo từng năm (Annual Progress & Curriculum Timeline) */
+.curriculum-timeline-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+.curriculum-timeline-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    margin: 8px 16px 14px;
+    position: relative;
+}
+.curriculum-timeline-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8, #a855f7, #ec4899);
+    border-radius: 999px;
+}
+.timeline-step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #38bdf8;
+    border: 2px solid #0f172a;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 8px #38bdf8;
+}
+.timeline-step-dot.dot-2 { background: #818cf8; box-shadow: 0 0 8px #818cf8; }
+.timeline-step-dot.dot-3 { background: #a855f7; box-shadow: 0 0 8px #a855f7; }
+.timeline-step-dot.dot-4 { background: #ec4899; box-shadow: 0 0 8px #ec4899; }
+
 .curriculum-timeline-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-bottom: 14px;
 }
+@media (max-width: 1024px) and (min-width: 769px) {
+    .curriculum-timeline-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .curriculum-timeline-bar {
+        display: none;
+    }
+    .curriculum-timeline-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
 .timeline-year-card {
-    background: rgba(30, 41, 59, 0.6);
+    background: rgba(30, 41, 59, 0.65);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
-    padding: 12px;
+    padding: 12px 14px;
+    box-sizing: border-box;
+}
+.year-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
 }
 .year-num {
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 800;
     color: #22d3ee;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+}
+.year-pct {
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 1px 6px;
+    border-radius: 999px;
 }
 .year-title {
     font-size: 13px;
@@ -1030,38 +1241,44 @@ details.scientific-accordion[open] > summary {
     font-size: 11.5px;
     color: #cbd5e1;
     line-height: 1.45;
+    word-break: break-word;
 }
+
+/* Bản chất môn học cốt lõi & Công cụ thực tế */
 .curriculum-essence-box {
-    background: rgba(15, 23, 42, 0.65);
-    border-left: 3px solid #22d3ee;
+    background: rgba(15, 23, 42, 0.7);
+    border-left: 3.5px solid #22d3ee;
     border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 12px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
     font-size: 13px;
     line-height: 1.6;
+    box-sizing: border-box;
 }
-.skills-chips-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+.essence-line {
+    margin-bottom: 10px;
 }
-.skill-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 12px;
+.essence-label {
+    color: #67e8f9;
+    margin-right: 4px;
+}
+.essence-text {
     color: #e2e8f0;
-    font-weight: 600;
+    word-break: break-word;
+}
+.tools-line {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.tools-label {
+    color: #f1f5f9;
+    font-size: 12.5px;
 }
 .tools-pills-row {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-top: 8px;
     align-items: center;
 }
 .tool-pill {
@@ -1075,24 +1292,73 @@ details.scientific-accordion[open] > summary {
     font-weight: 700;
     color: #fde047;
 }
-.career-closing-question {
-    margin-top: 18px;
-    padding: 12px 16px;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px dashed rgba(129, 140, 248, 0.35);
-    border-radius: 12px;
+
+/* Thẻ kỹ năng trọng tâm (1 cột mobile / 2-4 cột tablet & PC) */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+.skill-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    min-height: 48px;
+    border-radius: 10px;
+    background: rgba(30, 41, 59, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+}
+.skill-card:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+}
+.skill-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.skill-info {
+    flex: 1;
+    min-width: 0;
+}
+.skill-name {
     font-size: 12.5px;
-    color: #c7d2fe;
-    line-height: 1.5;
+    font-weight: 700;
+    color: #f8fafc;
+    line-height: 1.35;
+}
+.skill-desc {
+    font-size: 11.5px;
+    color: #94a3b8;
+    line-height: 1.4;
+    margin-top: 2px;
+    word-break: break-word;
 }
 
-/* 4. CÁI GIÁ PHẢI TRẢ */
+/* ========================================================
+   KHỐI 4 — [🔒 CÁI GIÁ PHẢI TRẢ]
+   ======================================================== */
 .block-tradeoffs-wrapper {
     border: 1.5px solid rgba(244, 63, 94, 0.45);
-    background: rgba(244, 63, 94, 0.06);
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.08) 0%, rgba(15, 23, 42, 0.88) 100%);
     border-radius: 16px;
     padding: 18px;
     margin-bottom: 22px;
+    box-sizing: border-box;
 }
 .tradeoffs-cards-grid {
     display: flex;
@@ -1101,31 +1367,44 @@ details.scientific-accordion[open] > summary {
 }
 .tradeoff-card {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: flex-start;
+    gap: 12px;
     padding: 12px 14px;
     background: rgba(15, 23, 42, 0.75);
     border: 1px solid rgba(244, 63, 94, 0.25);
     border-radius: 10px;
+    box-sizing: border-box;
 }
-.tradeoff-card-head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: #fecaca;
+.tradeoff-icon-col {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.tradeoff-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+.tradeoff-content-col {
+    flex: 1;
+    min-width: 0;
 }
 .tradeoff-title {
-    font-size: 13px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #fecaca;
+    margin: 0 0 3px;
+    line-height: 1.4;
 }
 .tradeoff-desc {
     font-size: 12px;
     color: #cbd5e1;
     line-height: 1.5;
-    margin-left: 24px;
+    margin: 0;
+    word-break: break-word;
 }
 
-/* 5. MỨC LƯƠNG */
+/* ========================================================
+   KHỐI 5 — [4 · MỨC LƯƠNG]
+   ======================================================== */
 .salary-visual-comparison {
     display: grid;
     grid-template-columns: 1fr 140px 1fr;
@@ -1133,10 +1412,16 @@ details.scientific-accordion[open] > summary {
     align-items: center;
     margin: 14px 0;
 }
+@media (max-width: 1024px) and (min-width: 769px) {
+    .salary-visual-comparison {
+        grid-template-columns: 1fr 120px 1fr;
+        gap: 12px;
+    }
+}
 @media (max-width: 768px) {
     .salary-visual-comparison {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 10px;
     }
 }
 .salary-col {
@@ -1148,6 +1433,7 @@ details.scientific-accordion[open] > summary {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     padding: 14px;
+    box-sizing: border-box;
 }
 .salary-col-lbl {
     font-size: 12px;
@@ -1171,6 +1457,7 @@ details.scientific-accordion[open] > summary {
     justify-content: center;
     padding: 0 8px;
     margin-bottom: 8px;
+    box-sizing: border-box;
 }
 .salary-bar-fill {
     width: 100%;
@@ -1194,6 +1481,7 @@ details.scientific-accordion[open] > summary {
     font-size: 11.5px;
     color: #94a3b8;
     line-height: 1.4;
+    word-break: break-word;
 }
 .salary-multiplier-box {
     display: flex;
@@ -1206,13 +1494,24 @@ details.scientific-accordion[open] > summary {
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+    box-sizing: border-box;
+}
+@media (max-width: 768px) {
+    .salary-multiplier-box {
+        flex-direction: row;
+        gap: 8px;
+        padding: 8px 14px;
+    }
+    .salary-multiplier-val {
+        margin: 0 !important;
+    }
 }
 .salary-multiplier-icon {
     font-size: 20px;
     line-height: 1;
 }
 .salary-multiplier-val {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
     color: #fde047;
     margin: 3px 0 1px;
@@ -1220,18 +1519,65 @@ details.scientific-accordion[open] > summary {
 .salary-multiplier-lbl {
     font-size: 10.5px;
     color: #cbd5e1;
+    white-space: nowrap;
 }
 .salary-disclaimer-box {
     display: flex;
     align-items: flex-start;
-    gap: 8px;
-    padding: 10px 14px;
+    gap: 10px;
+    padding: 12px 14px;
     background: rgba(245, 158, 11, 0.1);
     border: 1px solid rgba(245, 158, 11, 0.3);
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 12px;
     color: #fef3c7;
     line-height: 1.5;
+    margin-top: 12px;
+    box-sizing: border-box;
+}
+.disclaimer-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 1px;
+}
+.disclaimer-text {
+    flex: 1;
+    word-break: break-word;
+}
+
+/* Câu hỏi tự vấn cuối card */
+.career-closing-question {
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1.5px dashed rgba(129, 140, 248, 0.4);
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.closing-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.closing-body {
+    flex: 1;
+    word-break: break-word;
+}
+.closing-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #a5b4fc;
+}
+.closing-text {
+    font-size: 12.5px;
+    color: #e2e8f0;
+    line-height: 1.55;
+    margin: 4px 0 0;
 }
 
 /* ==========================================================================
@@ -3305,76 +3651,49 @@ if (reasoningContainer && topCareer && !r.isDefaultOverview) {
 
 // 2. RENDER TỪNG CARD NGÀNH THEO CHUẨN 5 KHỐI THÔNG TIN HIỆN ĐẠI
 // ==========================================================================
-// 5-BLOCK CAREER RECOMMENDATION CARDS GENERATOR
+// 5-BLOCK CAREER RECOMMENDATION CARDS GENERATOR (RESPONSIVE V2)
 // ==========================================================================
 
 function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSchools) {
-    const cNorm = (careerName || '').toLowerCase();
+    const cNorm = (careerName || '').toLowerCase().trim();
     const combo = String(bestCombo || 'A00').split(' ')[0].toUpperCase();
 
-    // 1. KHỐI XÉT
-    let combosList = [];
-    let coreWarning = '';
-
-    if (cNorm.includes('tin') || cNorm.includes('phần mềm') || cNorm.includes('máy tính') || cNorm.includes('dữ liệu') || cNorm.includes('ai') || cNorm.includes('trí tuệ nhân tạo') || cNorm.includes('an toàn thông tin')) {
-        combosList = [
-            { code: 'A00', subjects: 'Toán · Vật lí · Hóa học', tag: 'Phổ biến nhất (70% chỉ tiêu)', isPrimary: true },
-            { code: 'A01', subjects: 'Toán · Vật lí · Tiếng Anh', tag: 'Ưu tiên xét tuyển quốc tế', isPrimary: false },
-            { code: 'D01', subjects: 'Toán · Ngữ văn · Tiếng Anh', tag: 'Một số trường ĐH mở rộng', isPrimary: false },
-            { code: 'D07', subjects: 'Toán · Hóa học · Tiếng Anh', tag: 'Tổ hợp dự phòng', isPrimary: false }
-        ];
-        coreWarning = 'Khối nào cũng có TOÁN + LÝ (hoặc TOÁN + ANH) — Nếu ghét 2 môn này cần cân nhắc kỹ vì chương trình đại học sử dụng Toán cao cấp, Giải thuật và Cấu trúc dữ liệu rất nặng.';
-    } else if (cNorm.includes('thiết kế') || cNorm.includes('mỹ thuật') || cNorm.includes('đồ họa') || cNorm.includes('multimedia') || cNorm.includes('game') || cNorm.includes('nội thất')) {
-        combosList = [
-            { code: 'H00', subjects: 'Ngữ văn · Hình họa · Bố cục màu', tag: 'Xét tuyển khối năng khiếu', isPrimary: true },
-            { code: 'V00', subjects: 'Toán · Vật lí · Vẽ mỹ thuật', tag: 'Trường kỹ thuật & kiến trúc', isPrimary: false },
-            { code: 'D01', subjects: 'Toán · Ngữ văn · Tiếng Anh', tag: 'Thiết kế đồ họa số / Digital Art', isPrimary: false },
-            { code: 'A01', subjects: 'Toán · Vật lí · Tiếng Anh', tag: 'Multimedia / UI-UX', isPrimary: false }
-        ];
-        coreWarning = 'Ngành bắt buộc có TƯ DUY THỊ GIÁC & CẢM THỤ NGHỆ THUẬT — Nếu chọn các trường truyền thống bắt buộc phải ôn luyện thi vẽ hình họa/bố cục màu từ sớm.';
-    } else if (cNorm.includes('kinh doanh') || cNorm.includes('marketing') || cNorm.includes('thương mại') || cNorm.includes('tài chính') || cNorm.includes('ngân hàng') || cNorm.includes('quản trị') || cNorm.includes('logistics') || cNorm.includes('kinh tế')) {
-        combosList = [
-            { code: 'A01', subjects: 'Toán · Vật lí · Tiếng Anh', tag: 'Phổ biến nhất tại các ĐH Kinh tế', isPrimary: true },
-            { code: 'D01', subjects: 'Toán · Ngữ văn · Tiếng Anh', tag: 'Khối xét tuyển trọng tâm', isPrimary: false },
-            { code: 'A00', subjects: 'Toán · Vật lí · Hóa học', tag: 'Nhiều trường top đầu', isPrimary: false },
-            { code: 'D07', subjects: 'Toán · Hóa học · Tiếng Anh', tag: 'Tổ hợp mở rộng', isPrimary: false }
-        ];
-        coreWarning = 'Khối nào cũng có TOÁN + TIẾNG ANH — Nếu điểm Tiếng Anh dưới 7.0 sẽ rất chật vật khi ra trường vì ngành kinh tế và chuỗi cung ứng dùng tài liệu ngoại ngữ 100%.';
-    } else if (cNorm.includes('y') || cNorm.includes('dược') || cNorm.includes('bác sĩ') || cNorm.includes('điều dưỡng') || cNorm.includes('y sinh') || cNorm.includes('nha') || cNorm.includes('răng')) {
-        combosList = [
-            { code: 'B00', subjects: 'Toán · Hóa học · Sinh học', tag: 'Tổ hợp truyền thống số 1', isPrimary: true },
-            { code: 'A00', subjects: 'Toán · Vật lí · Hóa học', tag: 'Xét tuyển ngành Dược / Y sinh', isPrimary: false },
-            { code: 'B08', subjects: 'Toán · Sinh học · Tiếng Anh', tag: 'Chương trình chất lượng cao', isPrimary: false },
-            { code: 'D07', subjects: 'Toán · Hóa học · Tiếng Anh', tag: 'Một số trường Y dược công lập', isPrimary: false }
-        ];
-        coreWarning = 'Khối nào cũng có TOÁN + HÓA + SINH — Điểm chuẩn cực cao (26 - 28.5đ). Khối lượng kiến thức ghi nhớ khổng lồ và áp lực thực hành phòng thí nghiệm liên tục.';
-    } else if (cNorm.includes('kỹ thuật') || cNorm.includes('cơ điện tử') || cNorm.includes('tự động hóa') || cNorm.includes('cơ khí') || cNorm.includes('ô tô') || cNorm.includes('điện') || cNorm.includes('hàng không') || cNorm.includes('robot')) {
-        combosList = [
-            { code: 'A00', subjects: 'Toán · Vật lí · Hóa học', tag: 'Tổ hợp kỹ thuật cốt lõi', isPrimary: true },
-            { code: 'A01', subjects: 'Toán · Vật lí · Tiếng Anh', tag: 'Xét tuyển rộng rãi', isPrimary: false },
-            { code: 'D07', subjects: 'Toán · Hóa học · Tiếng Anh', tag: 'Nhiều trường đại học top', isPrimary: false },
-            { code: 'C01', subjects: 'Ngữ văn · Toán · Vật lí', tag: 'Một số trường dân lập / kỹ thuật', isPrimary: false }
-        ];
-        coreWarning = 'Bắt buộc vững môn VẬT LÝ & TOÁN HỌC — Các môn cơ sở ngành như Cơ học giải tích, Sức bền vật liệu và Kỹ thuật điều khiển đều dựa trên nền tảng tích phân và định luật vật lý.';
-    } else if (cNorm.includes('ngôn ngữ') || cNorm.includes('báo chí') || cNorm.includes('truyền thông') || cNorm.includes('luật') || cNorm.includes('sư phạm') || cNorm.includes('tâm lý') || cNorm.includes('xã hội')) {
-        combosList = [
-            { code: 'D01', subjects: 'Toán · Ngữ văn · Tiếng Anh', tag: 'Phổ biến nhất (80% chỉ tiêu)', isPrimary: true },
-            { code: 'C00', subjects: 'Ngữ văn · Lịch sử · Địa lí', tag: 'Khối xét tuyển truyền thống', isPrimary: false },
-            { code: 'D14', subjects: 'Ngữ văn · Lịch sử · Tiếng Anh', tag: 'Nhiều trường KHXH&NV', isPrimary: false },
-            { code: 'D78', subjects: 'Ngữ văn · KHXH · Tiếng Anh', tag: 'Tổ hợp mở rộng', isPrimary: false }
-        ];
-        coreWarning = 'Bắt buộc có NĂNG KHIẾU DIỄN ĐẠT & NGOẠI NGỮ — Đòi hỏi khả năng đọc hiểu tài liệu dài, tư duy phản biện sắc bén và kỹ năng viết/nói lưu loát trước công chúng.';
-    } else {
-        combosList = [
-            { code: combo || 'A00', subjects: 'Tổ hợp môn xét tuyển trọng tâm', tag: 'Phổ biến nhất', isPrimary: true },
-            { code: 'A01', subjects: 'Toán · Vật lí · Tiếng Anh', tag: 'Nhiều trường xét tuyển', isPrimary: false },
-            { code: 'D01', subjects: 'Toán · Ngữ văn · Tiếng Anh', tag: 'Tổ hợp dự phòng', isPrimary: false },
-            { code: 'D07', subjects: 'Toán · Hóa học · Tiếng Anh', tag: 'Một số trường', isPrimary: false }
-        ];
-        coreWarning = `Bắt buộc có TOÁN và ngoại ngữ — Cần duy trì phong độ môn thế mạnh để đáp ứng yêu cầu đào tạo chuyên môn đại học.`;
+    // 1. TÌM KIẾM TRI THỨC TỪ CAREER_INSIGHTS (24 NHÓM NGÀNH TOÀN DIỆN)
+    let insight = null;
+    if (typeof window !== 'undefined' && typeof window.getCareerInsight === 'function') {
+        insight = window.getCareerInsight(careerName);
     }
 
-    // 2. TRƯỜNG & ĐIỂM CHUẨN (TOP 5 TRƯỜNG SẮP XẾP CAO -> THẤP)
+    // KHỐI 1: KHỐI XÉT & CẢNH BÁO MÔN CỐT LÕI
+    let combosList = [];
+    if (insight && Array.isArray(insight.combos) && insight.combos.length) {
+        combosList = insight.combos.map((c, idx) => {
+            const isMatchUser = (c.code === combo) || (idx === 0 && !insight.combos.some(item => item.code === combo));
+            return {
+                code: c.code,
+                subjects: c.subjects,
+                tag: c.tag || (isMatchUser ? 'Phổ biến nhất' : 'Một số trường'),
+                isPrimary: isMatchUser
+            };
+        });
+    } else {
+        combosList = [
+            { code: combo || 'A00', subjects: 'Toán · Vật lí · Hóa học', tag: 'Phổ biến nhất', isPrimary: true },
+            { code: 'A01', subjects: 'Toán · Vật lí · Tiếng Anh', tag: 'Ưu tiên xét tuyển', isPrimary: false },
+            { code: 'D01', subjects: 'Toán · Ngữ văn · Tiếng Anh', tag: 'Một số trường', isPrimary: false }
+        ];
+    }
+
+    let coreWarning = '';
+    if (insight && insight.coreSubjectWarning) {
+        coreWarning = insight.coreSubjectWarning;
+    } else if (insight && insight.coreSubjectAlert) {
+        coreWarning = `${insight.coreSubjectAlert.subject} — ${insight.coreSubjectAlert.reason}`;
+    } else {
+        coreWarning = 'Toán học & Ngoại ngữ — Nền tảng tư duy logic và công cụ hội nhập quốc tế then chốt trong mọi lĩnh vực nghề nghiệp hiện đại.';
+    }
+
+    // KHỐI 2: TRƯỜNG & ĐIỂM CHUẨN (TOP 5 TRƯỜNG TỪ CAO XUỐNG THẤP)
     let schoolPool = [];
     if (typeof getSchoolsForCareer === 'function') {
         schoolPool = getSchoolsForCareer(careerName, userProvince, 10) || [];
@@ -3383,7 +3702,6 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
         schoolPool = allSchools.slice(0, 10);
     }
 
-    // Gán điểm chuẩn ước lượng phù hợp ngành để sắp xếp top 5
     const baselineCutoffs = {
         tech: [28.2, 27.5, 26.2, 24.8, 23.8],
         design: [26.5, 25.8, 24.5, 23.2, 22.0],
@@ -3393,13 +3711,12 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
         humanities: [27.0, 26.2, 25.0, 23.8, 22.5]
     };
     let cuts = baselineCutoffs.tech;
-    if (cNorm.includes('thiết kế') || cNorm.includes('mỹ thuật')) cuts = baselineCutoffs.design;
-    else if (cNorm.includes('kinh') || cNorm.includes('marketing') || cNorm.includes('tài chính')) cuts = baselineCutoffs.econ;
-    else if (cNorm.includes('y') || cNorm.includes('dược')) cuts = baselineCutoffs.med;
-    else if (cNorm.includes('kỹ thuật') || cNorm.includes('cơ khí') || cNorm.includes('ô tô')) cuts = baselineCutoffs.eng;
-    else if (cNorm.includes('ngôn ngữ') || cNorm.includes('báo chí') || cNorm.includes('luật')) cuts = baselineCutoffs.humanities;
+    if (cNorm.includes('thiết kế') || cNorm.includes('mỹ thuật') || cNorm.includes('đồ họa') || cNorm.includes('kiến trúc')) cuts = baselineCutoffs.design;
+    else if (cNorm.includes('kinh') || cNorm.includes('marketing') || cNorm.includes('tài chính') || cNorm.includes('ngân hàng') || cNorm.includes('quản trị')) cuts = baselineCutoffs.econ;
+    else if (cNorm.includes('y') || cNorm.includes('dược') || cNorm.includes('bác sĩ') || cNorm.includes('điều dưỡng')) cuts = baselineCutoffs.med;
+    else if (cNorm.includes('kỹ thuật') || cNorm.includes('cơ điện tử') || cNorm.includes('ô tô') || cNorm.includes('tự động hóa')) cuts = baselineCutoffs.eng;
+    else if (cNorm.includes('ngôn ngữ') || cNorm.includes('báo chí') || cNorm.includes('luật') || cNorm.includes('xã hội') || cNorm.includes('sư phạm')) cuts = baselineCutoffs.humanities;
 
-    // Chuẩn bị 5 trường tiêu biểu
     const top5Schools = [];
     const usedNames = new Set();
     for (let idx = 0; idx < 5; idx++) {
@@ -3407,13 +3724,12 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
         let name = sch ? sch.name : '';
         let code = sch ? (sch.code || '') : '';
         if (!name || usedNames.has(name)) {
-            // Trường dự phòng đại diện chuẩn quốc gia
             const defaultTech = ['ĐH Bách Khoa Hà Nội', 'ĐH Công Nghệ - ĐHQGHN', 'Học viện Công Nghệ Bưu Chính Viễn Thông', 'ĐH Giao Thông Vận Tải', 'ĐH Công Nghiệp Hà Nội'];
             const defaultEcon = ['ĐH Kinh Tế Quốc Dân', 'ĐH Ngoại Thương', 'Học Viện Tài Chính', 'ĐH Thương Mại', 'Học Viện Ngân Hàng'];
             const defaultMed = ['ĐH Y Hà Nội', 'ĐH Dược Hà Nội', 'ĐH Y Dược TP.HCM', 'Học Viện Quân Y', 'ĐH Y Khoa Phạm Ngọc Thạch'];
             const defaultDes = ['ĐH Mỹ Thuật Công Nghiệp', 'ĐH Kiến Trúc Hà Nội', 'ĐH Mỹ Thuật TP.HCM', 'ĐH FPT', 'ĐH Văn Lang'];
             let defaults = defaultTech;
-            if (cNorm.includes('kinh') || cNorm.includes('marketing')) defaults = defaultEcon;
+            if (cNorm.includes('kinh') || cNorm.includes('marketing') || cNorm.includes('tài chính')) defaults = defaultEcon;
             else if (cNorm.includes('y') || cNorm.includes('dược')) defaults = defaultMed;
             else if (cNorm.includes('thiết kế') || cNorm.includes('mỹ thuật')) defaults = defaultDes;
             name = defaults[idx] || `Đại học Quốc gia Nhóm ${idx + 1}`;
@@ -3423,8 +3739,8 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
         const scoreVal = cuts[idx];
         top5Schools.push({
             rank: idx + 1,
-            name,
-            code,
+            name: name,
+            code: code,
             score: scoreVal,
             pct: Math.min(100, Math.round((scoreVal / 30) * 100))
         });
@@ -3433,121 +3749,54 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
     const maxCut = top5Schools[0].score;
     const minCut = top5Schools[4].score;
     const cutoffDiff = Number((maxCut - minCut).toFixed(1));
+    const cutoffDiffText = cutoffDiff.toFixed(1).replace('.', ',');
 
-    // 3. VÀO HỌC THÌ HỌC GÌ? (CURRICULUM, TOOLS, SKILLS)
-    let duration = '4 – 5 NĂM';
-    let essence = '';
-    let tools = '';
-    let skills = [];
-
-    if (cNorm.includes('tin') || cNorm.includes('phần mềm') || cNorm.includes('máy tính') || cNorm.includes('ai') || cNorm.includes('dữ liệu')) {
-        duration = '4 – 4.5 NĂM (Cử nhân / Kỹ sư)';
-        essence = 'Bạn không chỉ học viết mã lệnh đơn thuần mà học cách tư duy logic hệ thống: thiết kế kiến trúc phần mềm, xây dựng website/ứng dụng di động, quản trị cơ sở dữ liệu lớn và huấn luyện mô hình trí tuệ nhân tạo (AI).';
-        tools = 'VS Code, Python, Git/GitHub, Docker, PostgreSQL, React, NodeJS, Postman';
-        skills = [
-            { icon: '🧩', title: 'Tư duy logic & Giải thuật thuật toán' },
-            { icon: '💻', title: 'Thành thạo công cụ lập trình & Git' },
-            { icon: '🤝', title: 'Làm việc nhóm theo quy trình Agile/Scrum' },
-            { icon: '🌐', title: 'Đọc hiểu tài liệu kỹ thuật tiếng Anh' }
-        ];
-    } else if (cNorm.includes('thiết kế') || cNorm.includes('mỹ thuật') || cNorm.includes('multimedia') || cNorm.includes('game')) {
-        duration = '4 NĂM (Cử nhân Nghệ thuật)';
-        essence = 'Bạn sẽ học ngôn ngữ thị giác: nguyên lý bố cục, bánh xe màu sắc, nghệ thuật chữ (Typography), xây dựng bộ nhận diện thương hiệu số, vẽ minh họa và diễn hoạt hoạt hình 2D/3D.';
-        tools = 'Figma, Adobe Photoshop, Illustrator, After Effects, Premiere, Blender';
-        skills = [
-            { icon: '🎨', title: 'Cảm thụ thị giác & Tư duy sáng tạo' },
-            { icon: '🖥️', title: 'Làm chủ bộ công cụ Adobe & Figma' },
-            { icon: '💡', title: 'Biến yêu cầu khách hàng thành hình ảnh' },
-            { icon: '📁', title: 'Xây dựng Portfolio cá nhân độc bản' }
-        ];
-    } else if (cNorm.includes('kinh') || cNorm.includes('marketing') || cNorm.includes('tài chính') || cNorm.includes('logistics')) {
-        duration = '4 NĂM (Cử nhân Kinh tế)';
-        essence = 'Bạn sẽ học cách đọc báo cáo tài chính, nghiên cứu hành vi người tiêu dùng, lập chiến lược truyền thông đa kênh, tối ưu chi phí chuỗi cung ứng và vận hành mô hình kinh doanh số.';
-        tools = 'Excel nâng cao, PowerBI, Google Analytics, Canva, HubSpot CRM, Meta Ads';
-        skills = [
-            { icon: '📊', title: 'Phân tích dữ liệu kinh doanh & Thị trường' },
-            { icon: '🗣️', title: 'Thuyết phục, đàm phán & Bán hàng' },
-            { icon: '📈', title: 'Lập kế hoạch chiến dịch & Quản lý ngân sách' },
-            { icon: '🌐', title: 'Giao tiếp Tiếng Anh thương mại lưu loát' }
-        ];
-    } else if (cNorm.includes('y') || cNorm.includes('dược') || cNorm.includes('bác sĩ')) {
-        duration = '6 NĂM (Bác sĩ) / 5 NĂM (Dược sĩ)';
-        essence = 'Bạn sẽ nắm vững giải phẫu sinh lý học, dược lý học, cơ chế bệnh sinh, chẩn đoán hình ảnh và tiếp xúc bệnh nhân thực tế tại các bệnh viện thực hành từ năm thứ 3.';
-        tools = 'Mô hình giải phẫu 3D, Máy xét nghiệm sinh hóa, Bệnh án điện tử EMR, Dược thư quốc gia';
-        skills = [
-            { icon: '🩺', title: 'Khám lâm sàng & Chẩn đoán chính xác' },
-            { icon: '🧠', title: 'Ghi nhớ khối lượng kiến thức khổng lồ' },
-            { icon: '❤️', title: 'Y đức, thấu cảm & Bình tĩnh trước áp lực' },
-            { icon: '🔬', title: 'Đọc báo cáo nghiên cứu y học quốc tế' }
-        ];
-    } else {
-        duration = '4 – 4.5 NĂM (Cử nhân / Kỹ sư)';
-        essence = 'Được trang bị toàn diện kiến thức nền tảng khoa học cơ bản, nguyên lý vận hành chuyên môn và tham gia các kỳ thực tập thực chiến tại doanh nghiệp.';
-        tools = 'Bộ công cụ số chuyên ngành, Phần mềm mô phỏng, Nền tảng quản lý dự án';
-        skills = [
-            { icon: '🧩', title: 'Tư duy phản biện & Giải quyết vấn đề' },
-            { icon: '💻', title: 'Ứng dụng công nghệ vào chuyên môn' },
-            { icon: '🤝', title: 'Kỹ năng làm việc nhóm & Thuyết trình' },
-            { icon: '🌐', title: 'Ngoại ngữ chuyên ngành vững vàng' }
-        ];
+    let schoolAdviceAbilityFit = "Ưu tiên các trường có điểm chuẩn các năm trước thấp hơn điểm thi thử của bạn từ 1.0 – 1.5 điểm để an toàn nguyện vọng.";
+    let schoolAdviceAdmissionNotice = "Mỗi trường mỗi khác về chứng chỉ ngoại ngữ quy đổi, tiêu chí phụ xét môn chính và phân bổ chỉ tiêu từng phương thức.";
+    if (insight && insight.schoolAdvice) {
+        if (insight.schoolAdvice.abilityFit) {
+            schoolAdviceAbilityFit = insight.schoolAdvice.abilityFit.replace(/^Chọn trường VỪA SỨC MÌNH:\s*/i, '');
+        }
+        if (insight.schoolAdvice.admissionNotice) {
+            schoolAdviceAdmissionNotice = insight.schoolAdvice.admissionNotice.replace(/^Tra ĐỀ ÁN TUYỂN SINH(\s*:\s*mỗi trường mỗi khác)?:\s*/i, '');
+        }
     }
 
-    // 4. CÁI GIÁ PHẢI TRẢ (REALISTIC PRESSURES & TRADEOFFS)
-    let tradeoffs = [];
-    if (cNorm.includes('tin') || cNorm.includes('phần mềm') || cNorm.includes('máy tính') || cNorm.includes('ai')) {
-        tradeoffs = [
-            { icon: '⏰', title: 'Áp lực Deadline & Thức đêm OT dồn dập', desc: 'Khi hệ thống gặp sự cố (bug) hoặc gần ngày bàn giao dự án cho khách hàng, việc làm ngoài giờ thâu đêm là thực tế khó tránh khỏi.' },
-            { icon: '📚', title: 'Kiến thức đào thải cực nhanh — Phải tự học suốt đời', desc: 'Công nghệ mới ra đời liên tục sau mỗi 2 năm. Ngừng tự học 1 năm là tụt hậu và khó cạnh tranh với lứa kỹ sư trẻ mới ra trường.' },
-            { icon: '🩺', title: 'Nguy cơ suy giảm sức khỏe do ngồi nhiều', desc: 'Ngồi máy tính 8-12 tiếng mỗi ngày dễ gây đau mỏi vai gáy, thoát vị đĩa đệm, giảm thị lực và stress tinh thần nếu thiếu tập luyện.' }
-        ];
-    } else if (cNorm.includes('thiết kế') || cNorm.includes('mỹ thuật') || cNorm.includes('multimedia')) {
-        tradeoffs = [
-            { icon: '🔄', title: 'Sửa bản vẽ/thiết kế 7-8 lần theo ý khách hàng', desc: 'Phải rèn luyện sự bình thản khi ý tưởng tâm huyết của bạn bị sếp hoặc khách hàng yêu cầu đập đi làm lại chỉ vì cảm tính cá nhân.' },
-            { icon: '💡', title: 'Khủng hoảng cạn kiệt ý tưởng (Creative Burnout)', desc: 'Sáng tạo theo đơn đặt hàng liên tục dưới áp lực thời gian khiến bạn dễ bị "tắc ý tưởng", mệt mỏi tinh thần và mất hứng thú.' },
-            { icon: '📉', title: 'Mới ra trường thu nhập thấp nếu Portfolio yếu', desc: 'Ngành không trọng bằng cấp mà chỉ nhìn sản phẩm thực tế; độ cạnh tranh gay gắt từ các công cụ AI tạo hình ảnh tự động.' }
-        ];
-    } else if (cNorm.includes('y') || cNorm.includes('dược')) {
-        tradeoffs = [
-            { icon: '⏳', title: 'Thời gian học dài nhất & Khởi đầu muộn', desc: 'Mất 6 năm đại học + 18 tháng thực hành lấy chứng chỉ hành nghề; khi bạn bè đã có sự nghiệp vững vàng thì bạn vẫn đang miệt mài trực viện.' },
-            { icon: '🩸', title: 'Áp lực trực đêm thâu đêm & Tính mạng con người', desc: 'Trực cấp cứu trắng đêm, đối diện với ranh giới sinh tử và áp lực từ phía người nhà bệnh nhân; tuyệt đối không được phép phạm sai lầm.' },
-            { icon: '📖', title: 'Thi cử và cập nhật kiến thức y khoa không hồi kết', desc: 'Học cả đời: Thi chuyên khoa 1, thạc sĩ, bác sĩ nội trú liên miên để nâng cao tay nghề và giữ vững vị trí trong ngành y tế.' }
-        ];
-    } else if (cNorm.includes('kinh') || cNorm.includes('marketing') || cNorm.includes('tài chính')) {
-        tradeoffs = [
-            { icon: '🎯', title: 'Áp lực Doanh số & Chỉ số KPI khốc liệt', desc: 'Mỗi tháng đều bắt đầu lại từ con số 0; hiệu quả làm việc được đo lường chính xác bằng doanh thu, dòng tiền và hợp đồng ký kết.' },
-            { icon: '💬', title: 'Giao tiếp liên tục & Chịu đựng áp lực khách hàng', desc: 'Phải khéo léo xử lý khiếu nại, giữ gìn mối quan hệ đối tác dù mệt mỏi; công việc khó tách bạch giữa giờ hành chính và cuộc sống riêng.' },
-            { icon: '🌊', title: 'Dễ bị ảnh hưởng bởi suy thoái kinh tế', desc: 'Khi thị trường biến động, ngân sách tiếp thị và nhân sự kinh doanh thường là bộ phận đầu tiên bị doanh nghiệp cắt giảm.' }
-        ];
-    } else {
-        tradeoffs = [
-            { icon: '⏰', title: 'Áp lực chỉ tiêu & Tiến độ dự án', desc: 'Phải làm quen với cường độ công việc cao, giải quyết các sự cố phát sinh bất ngờ ngoài giờ làm việc.' },
-            { icon: '📚', title: 'Yêu cầu không ngừng nâng cao tay nghề', desc: 'Sự xuất hiện của tự động hóa và AI đòi hỏi bạn phải có năng lực chuyên môn sâu sắc hơn để không bị máy móc thay thế.' },
-            { icon: '⚖️', title: 'Cân bằng giữa công việc và cuộc sống cá nhân', desc: 'Đòi hỏi kỹ năng quản lý thời gian và kỷ luật cá nhân cao để tránh bị kiệt sức (burnout) trong 3 năm đầu đi làm.' }
-        ];
-    }
+    // KHỐI 3: VÀO HỌC THÌ HỌC GÌ?
+    let duration = (insight && insight.curriculum && insight.curriculum.duration) || '4 – 5 NĂM';
+    let timeline = (insight && insight.curriculum && Array.isArray(insight.curriculum.timeline)) ? insight.curriculum.timeline : [
+        { year: "Năm 1", stage: "Đại cương & Nền tảng", desc: "Toán cao cấp, Nhập môn ngành, Kỹ năng học đại học và Tiếng Anh căn bản." },
+        { year: "Năm 2", stage: "Cơ sở chuyên môn & Công cụ", desc: "Nguyên lý chuyên ngành, Làm quen công cụ và phần mềm thực tế." },
+        { year: "Năm 3", stage: "Chuyên sâu & Đồ án thực chiến", desc: "Nghiên cứu ứng dụng bài toán thực tế, Thực hành đồ án môn học theo nhóm." },
+        { year: "Năm 4-5", stage: "Thực tập & Tốt nghiệp", desc: "Thực tập tại doanh nghiệp đối tác, Khóa luận tốt nghiệp và đi làm." }
+    ];
+    let essence = (insight && insight.curriculum && insight.curriculum.plainExplanation) || 'Được đào tạo toàn diện kiến thức nền tảng khoa học, nguyên lý vận hành chuyên môn và tham gia các kỳ thực tập thực chiến tại doanh nghiệp.';
+    let rawTools = (insight && insight.curriculum && insight.curriculum.tools) || ['Bộ công cụ số chuyên ngành', 'Phần mềm mô phỏng', 'Nền tảng quản lý số'];
+    let tools = Array.isArray(rawTools) ? rawTools : String(rawTools).split(',').map(s => s.trim());
 
-    // 5. MỨC LƯƠNG & TRIỂN VỌNG THU NHẬP
-    let salaryFresh = '9 – 14 Triệu / tháng';
-    let salaryExperienced = '28 – 45+ Triệu / tháng';
-    let growthMultiplier = '×3 (Gấp 3 lần)';
+    let rawSkills = (insight && insight.curriculum && Array.isArray(insight.curriculum.skills)) ? insight.curriculum.skills : [
+        { icon: '🧩', name: 'Tư duy phản biện & Giải quyết vấn đề', desc: 'Phân tích và tìm kiếm giải pháp tối ưu cho thách thức thực tế.' },
+        { icon: '💻', name: 'Ứng dụng công nghệ vào chuyên môn', desc: 'Thành thạo công cụ số và phần mềm chuyên môn trong công việc.' },
+        { icon: '🤝', name: 'Kỹ năng làm việc nhóm & Thuyết trình', desc: 'Giao tiếp rõ ràng, phối hợp hiệu quả và trình bày ý tưởng tự tin.' },
+        { icon: '🌐', name: 'Ngoại ngữ chuyên ngành vững vàng', desc: 'Tự tin đọc hiểu tài liệu và giao tiếp trong môi trường quốc tế.' }
+    ];
+    let skills = rawSkills.slice(0, 4);
 
-    if (cNorm.includes('tin') || cNorm.includes('phần mềm') || cNorm.includes('ai') || cNorm.includes('dữ liệu')) {
-        salaryFresh = '10 – 16 Triệu / tháng';
-        salaryExperienced = '35 – 60+ Triệu / tháng';
-        growthMultiplier = '×3.5 (Gấp 3.5 lần)';
-    } else if (cNorm.includes('thiết kế') || cNorm.includes('mỹ thuật')) {
-        salaryFresh = '8 – 12 Triệu / tháng';
-        salaryExperienced = '22 – 38+ Triệu / tháng';
-        growthMultiplier = '×3 (Gấp 3 lần)';
-    } else if (cNorm.includes('kinh') || cNorm.includes('marketing') || cNorm.includes('tài chính')) {
-        salaryFresh = '9 – 13 Triệu / tháng';
-        salaryExperienced = '30 – 50+ Triệu / tháng';
-        growthMultiplier = '×3.2 (Gấp 3.2 lần)';
-    } else if (cNorm.includes('y') || cNorm.includes('dược')) {
-        salaryFresh = '8 – 11 Triệu / tháng';
-        salaryExperienced = '30 – 70+ Triệu / tháng';
-        growthMultiplier = '×4 (Gấp 4 lần khi có CCHN)';
-    }
+    // KHỐI 4: CÁI GIÁ PHẢI TRẢ (ĐÚNG 3 ÁP LỰC THỰC TẾ)
+    let rawTradeoffs = (insight && Array.isArray(insight.harshRealities)) ? insight.harshRealities : [
+        { icon: '⏰', title: 'Áp lực chỉ tiêu & Tiến độ dự án', desc: 'Phải làm quen với cường độ công việc cao, giải quyết các sự cố phát sinh bất ngờ ngoài giờ làm việc.' },
+        { icon: '📚', title: 'Yêu cầu không ngừng tự học nâng cao tay nghề', desc: 'Sự phát triển của công nghệ và AI đòi hỏi người đi làm phải liên tục cập nhật năng lực để không bị đào thải.' },
+        { icon: '⚖️', title: 'Cân bằng giữa công việc và cuộc sống cá nhân', desc: 'Đòi hỏi kỷ luật cá nhân cao để tránh bị kiệt sức (burnout) trong những năm đầu đi làm.' }
+    ];
+    let tradeoffs = rawTradeoffs.slice(0, 3);
+
+    // KHỐI 5: MỨC LƯƠNG & TRIỂN VỌNG THU NHẬP
+    let salaryFresh = (insight && insight.salary && insight.salary.entry) || '9 – 14 Triệu / tháng';
+    let salaryExperienced = (insight && insight.salary && insight.salary.experienced) || '28 – 45+ Triệu / tháng';
+    let growthMultiplier = (insight && insight.salary && insight.salary.multiplier) || '×3';
+    let salaryNote = (insight && insight.salary && insight.salary.note) || 'Chỉ để tham khảo: tùy công ty và kỹ năng. Phụ thuộc vào năng lực thực chiến, ngoại ngữ và quy mô doanh nghiệp.';
+
+    let closingQuestion = (insight && insight.closingQuestion) || '';
 
     return {
         combosList,
@@ -3556,18 +3805,24 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
         maxCut,
         minCut,
         cutoffDiff,
+        cutoffDiffText,
+        schoolAdviceAbilityFit,
+        schoolAdviceAdmissionNotice,
         duration,
+        timeline,
         essence,
         tools,
         skills,
         tradeoffs,
         salaryFresh,
         salaryExperienced,
-        growthMultiplier
+        growthMultiplier,
+        salaryNote,
+        closingQuestion
     };
 }
 
-// RENDER CHÍNH CHO TỪNG CARD NGÀNH
+// RENDER CHÍNH CHO TỪNG CARD NGÀNH (CHUẨN 5 KHỐI ĐỒNG BỘ DARK MODE & RESPONSIVE)
 function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
     const scores = (p && p.scores) || {};
     const bestCombo = String(x.bestCombo || (x.combinations && x.combinations[0]) || 'A00').split(' ')[0].toUpperCase();
@@ -3581,15 +3836,15 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
         <div class="career-v2-card ${isTop1 ? 'career-v2-top1' : ''}" id="careerCard_${i}">
             <!-- CARD HEADER -->
             <div class="career-v2-header">
-                <div style="flex: 1;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;">
+                <div class="career-v2-header-info">
+                    <div class="career-v2-meta-row">
                         <span class="career-v2-rank-badge ${isTop1 ? 'rank-top1' : 'rank-sub'}">
                             ${isTop1 ? '🏆 HẠNG 1' : `HẠNG #${i + 1}`}
                         </span>
                         <span class="career-v2-fit-badge">
                             ${fitLevel}
                         </span>
-                        <span style="font-size: 12px; color: #94a3b8; background: rgba(255,255,255,0.06); padding: 3px 10px; border-radius: 999px;">
+                        <span class="career-v2-combo-badge">
                             Tổ hợp chính: <strong style="color: #67e8f9;">${bestCombo}</strong>
                         </span>
                     </div>
@@ -3606,10 +3861,10 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
 
             <!-- EVIDENCE SUMMARY BAR -->
             <div class="career-v2-evidence-bar">
-                <div style="font-weight: 700; color: #a5b4fc; font-size: 13px; margin-bottom: 4px;">
+                <div class="evidence-title">
                     🔍 Căn cứ đề xuất cốt lõi:
                 </div>
-                <div style="font-size: 12.5px; color: #cbd5e1; line-height: 1.55;">
+                <div class="evidence-desc">
                     ${x.evidence && x.evidence.academic ? `• <strong>Điểm số:</strong> ${x.evidence.academic} ` : ''}
                     ${x.evidence && x.evidence.mbti ? `• <strong>Bản sắc:</strong> ${x.evidence.mbti} ` : ''}
                     ${x.evidence && x.evidence.hobby ? `• <strong>Sở thích:</strong> ${x.evidence.hobby}` : (x.reason || '')}
@@ -3641,9 +3896,10 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
 
                 <!-- Cảnh báo môn cốt lõi bắt buộc -->
                 <div class="core-warning-banner">
-                    <span style="font-size: 20px; line-height: 1;">⚠️</span>
-                    <div style="font-size: 13px; color: #fecaca; line-height: 1.55;">
-                        <strong style="color: #f87171;">MÔN CỐT LÕI BẮT BUỘC:</strong> ${data.coreWarning}
+                    <span class="warning-icon" aria-hidden="true">⚠️</span>
+                    <div class="warning-body">
+                        <strong class="warning-title">MÔN CỐT LÕI BẮT BUỘC:</strong>
+                        <span class="warning-text">${data.coreWarning}</span>
                     </div>
                 </div>
             </div>
@@ -3652,28 +3908,28 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                  KHỐI 2 — [2 · TRƯỜNG & ĐIỂM CHUẨN]
                  ======================================================== -->
             <div class="career-block-wrapper">
-                <div class="block-section-header" style="justify-content: space-between;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="block-section-header header-between">
+                    <div class="header-left-group">
                         <span class="block-section-badge block-badge-purple">2 · TRƯỜNG &amp; ĐIỂM CHUẨN</span>
                         <h3 class="block-section-title">Top 5 Trường Tiêu biểu (Điểm chuẩn từ Cao đến Thấp)</h3>
                     </div>
                     <div class="cutoff-diff-badge">
-                        🔥 CHÊNH ${data.cutoffDiff} ĐIỂM (${data.minCut}đ – ${data.maxCut}đ)
+                        🔥 CHÊNH ${data.cutoffDiffText} ĐIỂM (${data.minCut}đ – ${data.maxCut}đ)
                     </div>
                 </div>
 
                 <div class="top5-schools-list">
                     ${data.top5Schools.map(s => `
                         <div class="school-cutoff-row">
-                            <div class="school-cutoff-left">
-                                <span class="school-rank-num">#${s.rank}</span>
-                                <span class="school-row-name">${s.name} ${s.code ? `<span class="school-row-code">[${s.code}]</span>` : ''}</span>
-                            </div>
-                            <div class="school-cutoff-right">
-                                <div class="school-score-display">${s.score}đ</div>
-                                <div class="school-progress-wrap">
-                                    <div class="school-progress-bar" style="width: ${s.pct}%;"></div>
+                            <div class="school-cutoff-top">
+                                <div class="school-cutoff-left">
+                                    <span class="school-rank-num">#${s.rank}</span>
+                                    <span class="school-row-name">${s.name} ${s.code ? `<span class="school-row-code">[${s.code}]</span>` : ''}</span>
                                 </div>
+                                <div class="school-score-display">${s.score}đ</div>
+                            </div>
+                            <div class="school-progress-wrap" title="Tỷ lệ: ${s.pct}% (Thang 30đ)">
+                                <div class="school-progress-bar" style="width: ${s.pct}%;"></div>
                             </div>
                         </div>
                     `).join('')}
@@ -3682,15 +3938,17 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                 <!-- 2 Ghi chú chiến thuật -->
                 <div class="school-notes-grid">
                     <div class="school-note-box note-box-green">
-                        <span style="font-size: 18px;">💡</span>
-                        <div>
-                            <strong>Chọn trường VỪA SỨC MÌNH:</strong> Đừng chỉ nhìn vào trường top 1. Điểm chuẩn vừa vặn với phong độ thi thử giúp bạn tự tin cạnh tranh học bổng và không bị ngợp học thuật.
+                        <span class="note-icon" aria-hidden="true">💡</span>
+                        <div class="note-body">
+                            <strong class="note-title">Chọn trường VỪA SỨC MÌNH:</strong>
+                            <span class="note-desc">${data.schoolAdviceAbilityFit}</span>
                         </div>
                     </div>
                     <div class="school-note-box note-box-amber">
-                        <span style="font-size: 18px;">📌</span>
-                        <div>
-                            <strong>Tra ĐỀ ÁN TUYỂN SINH:</strong> Mỗi trường mỗi khác — Chú ý các tiêu chí phụ (môn nhân hệ số 2, chứng chỉ IELTS quy đổi, điểm sàn ĐGNL) trong đề án chính thức của từng trường.
+                        <span class="note-icon" aria-hidden="true">📌</span>
+                        <div class="note-body">
+                            <strong class="note-title">Tra ĐỀ ÁN TUYỂN SINH: mỗi trường mỗi khác:</strong>
+                            <span class="note-desc">${data.schoolAdviceAdmissionNotice}</span>
                         </div>
                     </div>
                 </div>
@@ -3700,57 +3958,62 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                  KHỐI 3 — [3 · VÀO HỌC THÌ HỌC GÌ?]
                  ======================================================== -->
             <div class="career-block-wrapper">
-                <div class="block-section-header" style="justify-content: space-between;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="block-section-header header-between">
+                    <div class="header-left-group">
                         <span class="block-section-badge block-badge-cyan">3 · VÀO HỌC THÌ HỌC GÌ?</span>
-                        <h3 class="block-section-title">Hành trình Đào tạo, Bản chất Môn học &amp; Công cụ Thực chiến</h3>
+                        <h3 class="block-section-title">Hành trình Đào tạo, Bản chất Môn học &amp; Công cụ Thực tế</h3>
                     </div>
                     <span class="duration-pill">
                         ⏱️ ${data.duration}
                     </span>
                 </div>
 
-                <!-- Lộ trình 4 năm học -->
-                <div class="curriculum-timeline-grid">
-                    <div class="timeline-year-card">
-                        <div class="year-num">NĂM 1</div>
-                        <div class="year-title">Đại cương &amp; Nền tảng</div>
-                        <div class="year-desc">Toán cao cấp, Nhập môn ngành, Tiếng Anh cơ bản &amp; Kỹ năng học đại học.</div>
+                <!-- Thanh tiến độ theo từng năm (Annual Progress & Curriculum Timeline) -->
+                <div class="curriculum-timeline-wrapper">
+                    <div class="curriculum-timeline-bar" aria-hidden="true">
+                        <div class="curriculum-timeline-fill"></div>
+                        <div class="timeline-step-dot dot-1" title="Năm 1: 25%"></div>
+                        <div class="timeline-step-dot dot-2" title="Năm 2: 50%"></div>
+                        <div class="timeline-step-dot dot-3" title="Năm 3: 75%"></div>
+                        <div class="timeline-step-dot dot-4" title="Năm 4-5: 100%"></div>
                     </div>
-                    <div class="timeline-year-card">
-                        <div class="year-num">NĂM 2</div>
-                        <div class="year-title">Môn cơ sở &amp; Công cụ</div>
-                        <div class="year-desc">Nguyên lý chuyên ngành, cấu trúc dữ liệu / thiết kế, làm quen phần mềm thực tế.</div>
-                    </div>
-                    <div class="timeline-year-card">
-                        <div class="year-num">NĂM 3</div>
-                        <div class="year-title">Chuyên sâu &amp; Đồ án</div>
-                        <div class="year-desc">Thực hành phòng Lab, giải quyết bài toán thực tế, làm đồ án môn học theo nhóm.</div>
-                    </div>
-                    <div class="timeline-year-card">
-                        <div class="year-num">NĂM 4-5</div>
-                        <div class="year-title">Thực tập &amp; Khóa luận</div>
-                        <div class="year-desc">Thực tập tại doanh nghiệp (OJT), xây dựng đồ án/portfolio tốt nghiệp và đi làm.</div>
+                    <div class="curriculum-timeline-grid">
+                        ${data.timeline.map((item, idx) => `
+                            <div class="timeline-year-card">
+                                <div class="year-header">
+                                    <span class="year-num">${item.year}</span>
+                                    <span class="year-pct">${(idx + 1) * 25}%</span>
+                                </div>
+                                <div class="year-title">${item.stage}</div>
+                                <div class="year-desc">${item.desc}</div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
 
-                <!-- Bản chất môn học & công cụ -->
+                <!-- Bản chất môn học & công cụ thực tế -->
                 <div class="curriculum-essence-box">
-                    <div style="margin-bottom: 8px;">
-                        <strong style="color: #67e8f9;">Bản chất cốt lõi:</strong> ${data.essence}
+                    <div class="essence-line">
+                        <strong class="essence-label">Bản chất môn học cốt lõi:</strong>
+                        <span class="essence-text">${data.essence}</span>
                     </div>
-                    <div style="font-size: 12.5px; color: #cbd5e1;">
-                        <strong style="color: #f1f5f9;">🛠️ Công cụ / Phần mềm thực chiến hay dùng:</strong> 
-                        <span style="color: #fde047; font-family: monospace; font-size: 13px; font-weight: 600;">${data.tools}</span>
+                    <div class="tools-line">
+                        <strong class="tools-label">🛠️ Công cụ &amp; Phần mềm thực tế:</strong>
+                        <div class="tools-pills-row">
+                            ${data.tools.map(tool => `<span class="tool-pill">${tool}</span>`).join('')}
+                        </div>
                     </div>
                 </div>
 
-                <!-- Thẻ kỹ năng trọng tâm -->
-                <div class="skills-chips-row">
+                <!-- 3–4 Thẻ kỹ năng trọng tâm -->
+                <div class="skills-grid">
                     ${data.skills.map(sk => `
-                        <div class="skill-chip">
-                            <span>${sk.icon}</span>
-                            <span>${sk.title}</span>
+                        <div class="skill-card">
+                            <span class="skill-icon" aria-hidden="true">${sk.icon || '✨'}</span>
+                            <div class="skill-info">
+                                <div class="skill-name">${sk.name || sk.title}</div>
+                                ${sk.desc ? `<div class="skill-desc">${sk.desc}</div>` : ''}
+                            </div>
                         </div>
                     `).join('')}
                 </div>
@@ -3766,24 +4029,26 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                 </div>
 
                 <div class="tradeoffs-cards-grid">
-                    ${data.tradeoffs.map((t, tIdx) => `
+                    ${data.tradeoffs.map(t => `
                         <div class="tradeoff-card">
-                            <div class="tradeoff-card-head">
-                                <span class="tradeoff-icon">${t.icon}</span>
-                                <strong class="tradeoff-title">${t.title}</strong>
+                            <div class="tradeoff-icon-col">
+                                <span class="tradeoff-icon" aria-hidden="true">${t.icon || '⚠️'}</span>
                             </div>
-                            <div class="tradeoff-desc">${t.desc}</div>
+                            <div class="tradeoff-content-col">
+                                <h4 class="tradeoff-title">${t.title}</h4>
+                                <p class="tradeoff-desc">${t.desc}</p>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
             </div>
 
             <!-- ========================================================
-                 KHỐI 5 — [5 · MỨC LƯƠNG]
+                 KHỐI 5 — [4 · MỨC LƯƠNG]
                  ======================================================== -->
             <div class="career-block-wrapper">
                 <div class="block-section-header">
-                    <span class="block-section-badge block-badge-emerald">5 · MỨC LƯƠNG</span>
+                    <span class="block-section-badge block-badge-emerald">4 · MỨC LƯƠNG</span>
                     <h3 class="block-section-title">So sánh Mức Lương: Khởi điểm vs Sau 5–8 Năm</h3>
                 </div>
 
@@ -3796,12 +4061,12 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                                 <span class="salary-bar-val">${data.salaryFresh}</span>
                             </div>
                         </div>
-                        <div class="salary-col-sub">Giai đoạn học việc &amp; tích lũy kinh nghiệm (1-2 năm đầu)</div>
+                        <div class="salary-col-sub">Giai đoạn 1–2 năm đầu (Học việc &amp; Tích lũy)</div>
                     </div>
 
                     <!-- Giữa: Multiplier Growth -->
                     <div class="salary-multiplier-box">
-                        <div class="salary-multiplier-icon">🚀</div>
+                        <div class="salary-multiplier-icon" aria-hidden="true">🚀</div>
                         <div class="salary-multiplier-val">${data.growthMultiplier}</div>
                         <div class="salary-multiplier-lbl">Tốc độ thăng tiến</div>
                     </div>
@@ -3814,18 +4079,28 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                                 <span class="salary-bar-val">${data.salaryExperienced}</span>
                             </div>
                         </div>
-                        <div class="salary-col-sub">Vị trí Senior / Trưởng nhóm / Chuyên gia quản lý</div>
+                        <div class="salary-col-sub">Vị trí Senior / Quản lý / Chuyên gia</div>
                     </div>
                 </div>
 
-                <!-- Ghi chú lương nhỏ màu vàng -->
+                <!-- Ghi chú lương màu vàng -->
                 <div class="salary-disclaimer-box">
-                    <span style="font-size: 16px;">⚠️</span>
-                    <div>
-                        <strong>Ghi chú tham khảo:</strong> Mức lương thực tế tùy thuộc vào năng lực thực chiến, ngoại ngữ, thái độ làm việc và quy mô doanh nghiệp (công ty khởi nghiệp, doanh nghiệp nhà nước hay tập đoàn đa quốc gia).
+                    <span class="disclaimer-icon" aria-hidden="true">⚠️</span>
+                    <div class="disclaimer-text">
+                        <strong>Chỉ để tham khảo: tùy công ty và kỹ năng:</strong> ${data.salaryNote}
                     </div>
                 </div>
             </div>
+
+            ${data.closingQuestion ? `
+                <div class="career-closing-question">
+                    <span class="closing-icon" aria-hidden="true">🤔</span>
+                    <div class="closing-body">
+                        <strong class="closing-title">Câu hỏi tự vấn trước khi chọn ngành:</strong>
+                        <p class="closing-text">${data.closingQuestion}</p>
+                    </div>
+                </div>
+            ` : ''}
         </div>
     `;
 }

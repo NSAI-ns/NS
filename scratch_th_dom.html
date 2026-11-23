@@ -1,0 +1,747 @@
+﻿<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>NS AI</title>
+
+<link rel="stylesheet" href="style.css">
+<style>
+/* ================= CSS SO SÁNH TRƯỜNG & DOCK NỔI & WISHLIST ================= */
+.school-compare-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.school-compare-btn:hover {
+    background: rgba(99, 102, 241, 0.25);
+    border-color: rgba(129, 140, 248, 0.6);
+    color: #e0e7ff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+.school-compare-btn.active {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.45), rgba(147, 51, 234, 0.45));
+    border-color: #818cf8;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(99, 102, 241, 0.5);
+}
+.school-card.card-selected-compare {
+    border-color: rgba(129, 140, 248, 0.7) !important;
+    background: rgba(30, 27, 75, 0.38) !important;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.25) !important;
+}
+.btn-filter-fav {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fde047;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-filter-fav:hover {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: rgba(245, 158, 11, 0.5);
+    transform: translateY(-1px);
+}
+.btn-filter-fav.active {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(217, 119, 6, 0.35));
+    border-color: #f59e0b;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+}
+.school-compare-dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1040px, calc(100% - 32px));
+    z-index: 99;
+    background: rgba(15, 23, 42, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(129, 140, 248, 0.45);
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 24px rgba(99, 102, 241, 0.3);
+    padding: 12px 20px;
+    animation: dockSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+@keyframes dockSlideUp {
+    from { transform: translate(-50%, 40px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+.dock-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.dock-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 280px;
+    flex-wrap: wrap;
+}
+.dock-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+.dock-icon { font-size: 24px; }
+.dock-title {
+    margin: 0;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+.dock-count-badge {
+    display: inline-block;
+    font-size: 11.5px;
+    color: #818cf8;
+    font-weight: 600;
+}
+.dock-slots-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+.dock-slot-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(129, 140, 248, 0.4);
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: #f1f5f9;
+    max-width: 220px;
+    transition: all 0.2s ease;
+}
+.dock-slot-item:hover {
+    border-color: #818cf8;
+    background: rgba(49, 46, 129, 0.4);
+}
+.dock-slot-name {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+.dock-slot-badge {
+    font-size: 10.5px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(99, 102, 241, 0.25);
+    color: #c7d2fe;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.dock-slot-remove {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.dock-slot-remove:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+}
+.dock-slot-empty {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1.5px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.dock-slot-empty:hover {
+    border-color: rgba(129, 140, 248, 0.5);
+    color: #c7d2fe;
+    background: rgba(99, 102, 241, 0.08);
+}
+.dock-slot-empty-plus {
+    font-weight: 700;
+    font-size: 14px;
+    color: #818cf8;
+}
+.dock-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.btn-dock-clear {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #cbd5e1;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-dock-clear:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+}
+.btn-dock-compare {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border: 1px solid rgba(167, 139, 250, 0.5);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.45);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-dock-compare:hover {
+    background: linear-gradient(135deg, #4338ca, #6d28d9);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+}
+.compare-modal-dialog {
+    width: min(1200px, 96vw) !important;
+    max-height: 90vh;
+    padding: 24px !important;
+    background: rgba(15, 23, 42, 0.96) !important;
+    border: 1.5px solid rgba(129, 140, 248, 0.4) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(99, 102, 241, 0.25) !important;
+    overflow-y: auto;
+    position: relative;
+}
+.compare-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.compare-table-wrap {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 24px;
+}
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13.5px;
+}
+.compare-table th,
+.compare-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: top;
+}
+.compare-table th:last-child,
+.compare-table td:last-child {
+    border-right: none;
+}
+.compare-table tr:last-child td {
+    border-bottom: none;
+}
+.compare-table th.col-feature {
+    width: 220px;
+    min-width: 180px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
+.compare-table th.col-school {
+    min-width: 280px;
+    background: rgba(30, 41, 59, 0.6);
+    color: #ffffff;
+}
+.compare-school-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.compare-school-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+.compare-school-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 4px 0 2px;
+    line-height: 1.35;
+}
+.compare-btn-remove {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+.compare-btn-remove:hover {
+    background: rgba(239, 68, 68, 0.35);
+    color: #fff;
+}
+.compare-synthesis-card {
+    background: linear-gradient(135deg, rgba(30, 27, 75, 0.5), rgba(15, 23, 42, 0.7));
+    border: 1.5px solid rgba(129, 140, 248, 0.4);
+    border-radius: 18px;
+    padding: 20px 22px;
+    margin-top: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+.compare-synthesis-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.compare-synthesis-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #c7d2fe;
+    margin: 0;
+}
+.compare-synthesis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+}
+.compare-synthesis-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 14px 16px;
+}
+.compare-synthesis-item h5 {
+    margin: 0 0 6px;
+    font-size: 13.5px;
+    color: #fde047;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.compare-synthesis-item p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #cbd5e1;
+}
+@media (max-width: 768px) {
+    .school-compare-dock {
+        bottom: 12px;
+        padding: 10px 14px;
+    }
+    .dock-title-wrap {
+        border-right: none;
+        padding-right: 0;
+    }
+    .dock-slots-row {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+    .dock-slot-item {
+        max-width: 180px;
+    }
+    .compare-modal-dialog {
+        padding: 16px !important;
+    }
+}
+.school-load-more-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 28px 0 16px;
+    width: 100%;
+}
+.school-load-more-btn {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(124, 58, 237, 0.35));
+    border: 1.5px solid rgba(167, 139, 250, 0.5);
+    color: #ffffff;
+    padding: 12px 28px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 18px rgba(79, 70, 229, 0.3);
+}
+.school-load-more-btn:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.45), rgba(124, 58, 237, 0.55));
+    border-color: #c7d2fe;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+}
+.school-load-more-btn:active {
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-beam"></div>
+<div class="stars"></div>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="topbar topbar-collapsed">
+
+<a class="brand" href="index.html">
+    <span>NS</span> NS AI
+</a>
+
+<nav class="nav-collapsed">
+
+<a href="index.html">Trang chủ</a>
+<div class="nav-dropdown">
+  <button class="nav-dropdown-trigger">📊 Đánh giá năng lực ▾</button>
+  <div class="nav-dropdown-menu">
+    <a href="thongtin.html">📝 Bước 1: Thông tin</a>
+    <a href="diemso.html">📊 Bước 2: Điểm số</a>
+    <a href="sothich.html">❤️ Bước 3: Sở thích</a>
+    <a href="tinhcach.html">🧠 Bước 4: Tính cách</a>
+    <a href="muctieu.html">🎯 Bước 5: Mục tiêu</a>
+  </div>
+</div>
+<a class="active" href="truonghoc.html">Trường học</a>
+<a href="ketqua.html" class="nav-gate-locked" title="Chưa mở khóa kết quả: Cần hoàn thành tối thiểu 3 bước (1, 2, 4) (Hiện tại: 0/5 bước)">🔒 Kết quả</a>
+<a href="chatbot.html">Chatbot</a>
+
+
+
+<div class="auth-nav-item">
+      <a href="dangnhap.html" class="user-badge " title="Tài khoản đang đăng nhập">
+        <span class="user-avatar-icon">👤</span>
+        <span class="user-name-text">Học sinh 8922</span>
+      </a>
+      <button type="button" class="auth-logout-btn" onclick="logoutUser()" title="Đăng xuất khỏi tài khoản">Đăng xuất</button>
+    </div></nav>
+
+<div class="topbar-toggle-wrap">
+    <span class="topbar-current-badge" style="display: inline-flex;">📍 Trường học</span>
+    <button type="button" id="btnToggleTopbar" class="btn-toggle-topbar btn-collapsed" onclick="toggleTopbarNav(event)" title="Mở rộng thanh điều hướng" aria-label="Thu gọn hoặc mở rộng thanh điều hướng" aria-expanded="false">
+      <span class="btn-toggle-icon">☰</span>
+      <span class="btn-toggle-text">Menu</span>
+    </button>
+  </div></header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="page">
+
+<section class="glass form-card wide">
+
+<p class="eyebrow">
+    NATIONAL &amp; GLOBAL UNIVERSITY SEARCH
+</p>
+
+<h1>
+    🔎 Tra cứu trường Đại học &amp; Cao đẳng
+</h1>
+
+<p class="muted">
+    Khám phá hơn 250+ trường trọng điểm Việt Nam và Top 1.000 Đại học Thế giới.
+    Tra cứu tổ hợp xét tuyển GDPT 2018, điểm chuẩn tham khảo, điều kiện du học và lưu nguyện vọng yêu thích.
+</p>
+
+<!-- ================= HUY HIỆU & DISCLAIMER MINH BẠCH DỮ LIỆU TĨNH ================= -->
+<div style="margin: 12px 0 16px;">
+    <span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(129, 140, 248, 0.45); border-radius: 999px; font-size: 13px; font-weight: 600; color: #c7d2fe;">
+        📅 Dữ liệu tuyển sinh mới nhất &amp; Xếp hạng đại học thế giới (OpenAlex Citation Rank)
+    </span>
+</div>
+
+<div class="disclaimer-transparency-box" style="margin: 0 0 20px; padding: 14px 18px; background: rgba(245, 158, 11, 0.12); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 14px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.6;">
+    <span style="font-size: 22px; line-height: 1.2;">⚠️</span>
+    <div style="font-size: 13.5px; color: #cbd5e1;">
+        <strong style="color: #fde047; font-size: 14px;">Lưu ý về tính cập nhật dữ liệu:</strong> Dữ liệu điểm chuẩn, chỉ tiêu và phương thức xét tuyển hiện vận hành trên kho dữ liệu tĩnh được tổng hợp định kỳ; hệ thống chưa kết nối API thời gian thực từ Bộ GD&amp;ĐT hay các trường đại học nên thí sinh cần đối chiếu thêm với đề án tuyển sinh chính thức của từng trường tại thời điểm nộp hồ sơ.
+    </div>
+</div>
+
+<!-- ================= HỒ SƠ ================= -->
+<div id="profileHint" class="notice profile-hint">
+      🎯 <b>Hồ sơ hiện tại:</b> chưa chọn tỉnh/thành · chưa chọn lớp · ngành quan tâm: <b>chưa chọn ngành</b>
+    </div>
+
+<!-- ================= 2 TABS ================= -->
+<div class="school-tabs" role="tablist">
+    <button type="button" class="school-tab-btn active" id="tabVN" role="tab" aria-selected="true" onclick="switchSchoolTab('vn')">
+        🇻🇳 Đại học &amp; Cao đẳng Việt Nam
+    </button>
+    <button type="button" class="school-tab-btn" id="tabGlobal" role="tab" aria-selected="false" onclick="switchSchoolTab('global')">
+        🌍 Top 1.000 Đại học Thế giới (Du học)
+    </button>
+</div>
+
+<!-- ================= SEARCH INPUT (DEBOUNCE 250MS) ================= -->
+<div class="search-bar-wrap">
+    <span class="search-bar-icon">🔎</span>
+    <input id="q" type="text" placeholder="🔎 Tìm tên trường, mã trường, tỉnh/thành hoặc ngành học..." autocomplete="off">
+    <button type="button" id="searchClearBtn" class="search-bar-clear" title="Xóa tìm kiếm" style="display:none;" onclick="clearSchoolSearch()">✕</button>
+</div>
+
+<!-- ================= BỘ LỌC TAB VIỆT NAM ================= -->
+<div id="filterPanelVN" class="school-filter-panel">
+    <div class="school-filter-group">
+        <label for="filterRegion">📍 Khu vực</label>
+        <select id="filterRegion">
+            <option value="">Tất cả khu vực</option>
+            <option value="Bắc">Miền Bắc</option>
+            <option value="Trung">Miền Trung</option>
+            <option value="Nam">Miền Nam</option>
+        </select>
+    </div>
+    <div class="school-filter-group">
+        <label for="filterTypeVN">🏛️ Loại hình</label>
+        <select id="filterTypeVN">
+            <option value="">Tất cả loại hình</option>
+            <option value="Công lập">🏛️ Đại học / Học viện Công lập</option>
+            <option value="Tư thục">🏢 Đại học Tư thục / Dân lập</option>
+            <option value="Quốc tế">🌐 Đại học Quốc tế</option>
+            <option value="Quân đội - Công an">⭐ Khối Quân đội - Công an</option>
+            <option value="Cao đẳng">🎓 Hệ Cao đẳng (Công lập &amp; Tư thục)</option>
+        </select>
+    </div>
+    <div class="school-filter-group">
+        <label for="filterCombo">📐 Tổ hợp xét tuyển GDPT 2018</label>
+        <select id="filterCombo">
+            <option value="">Tất cả tổ hợp</option>
+            <option value="A00">A00 (Toán, Lý, Hóa)</option>
+            <option value="A01">A01 (Toán, Lý, Anh)</option>
+            <option value="B00">B00 (Toán, Hóa, Sinh)</option>
+            <option value="C00">C00 (Văn, Sử, Địa)</option>
+            <option value="D01">D01 (Toán, Văn, Anh)</option>
+            <option value="D07">D07 (Toán, Hóa, Anh)</option>
+            <option value="H00">H00 (Văn, Vẽ, Vẽ)</option>
+            <option value="V00">V00 (Toán, Lý, Vẽ)</option>
+        </select>
+    </div>
+    <div class="school-filter-group">
+        <label for="filterScoreRange">📊 Khung điểm sàn / chuẩn</label>
+        <select id="filterScoreRange">
+            <option value="">Tất cả mức điểm</option>
+            <option value="under20">&lt; 20 điểm</option>
+            <option value="20-24">20 – 24 điểm</option>
+            <option value="24-27">24 – 27 điểm</option>
+            <option value="over27">&gt; 27 điểm</option>
+        </select>
+    </div>
+</div>
+
+<!-- ================= BỘ LỌC TAB THẾ GIỚI ================= -->
+<div id="filterPanelGlobal" class="school-filter-panel" style="display:none;">
+    <div class="school-filter-group">
+        <label for="filterCountry">🌍 Châu lục / Quốc gia</label>
+        <select id="filterCountry">
+            <option value="">Tất cả quốc gia</option>
+            <option value="Mỹ">Mỹ (Hoa Kỳ)</option>
+            <option value="Anh">Vương quốc Anh</option>
+            <option value="Úc">Úc (Australia)</option>
+            <option value="Canada">Canada</option>
+            <option value="Đức">Đức (Germany)</option>
+            <option value="Pháp">Pháp (France)</option>
+            <option value="Hà Lan">Hà Lan (Netherlands)</option>
+            <option value="Thụy Sĩ">Thụy Sĩ (Switzerland)</option>
+            <option value="Singapore">Singapore</option>
+            <option value="Nhật Bản">Nhật Bản (Japan)</option>
+            <option value="Hàn Quốc">Hàn Quốc (South Korea)</option>
+            <option value="Trung Quốc">Trung Quốc (China)</option>
+            <option value="Đài Loan">Đài Loan (Taiwan)</option>
+            <option value="New Zealand">New Zealand</option>
+        </select>
+    </div>
+    <div class="school-filter-group">
+        <label for="filterRank">🏆 Khoảng thứ hạng quốc tế</label>
+        <select id="filterRank">
+            <option value="">Tất cả thứ hạng</option>
+            <option value="top100">Top 100 thế giới</option>
+            <option value="top300">Top 101 – 300</option>
+            <option value="top500">Top 301 – 500</option>
+            <option value="top1000">Top 501 – 1000</option>
+        </select>
+    </div>
+    <div class="school-filter-group">
+        <label for="filterStrength">🔬 Nhóm ngành thế mạnh</label>
+        <select id="filterStrength">
+            <option value="">Tất cả nhóm ngành</option>
+            <option value="Khoa học máy tính">Khoa học máy tính &amp; AI</option>
+            <option value="Kỹ thuật">Kỹ thuật &amp; Công nghệ</option>
+            <option value="Kinh tế">Kinh tế &amp; Quản trị kinh doanh</option>
+            <option value="Y Dược">Y Dược &amp; Sức khỏe</option>
+            <option value="Khoa học tự nhiên">Khoa học tự nhiên &amp; Toán học</option>
+            <option value="Khoa học xã hội">Khoa học xã hội &amp; Nhân văn</option>
+            <option value="Nghệ thuật">Nghệ thuật, Thiết kế &amp; Kiến trúc</option>
+            <option value="Luật">Luật &amp; Quan hệ quốc tế</option>
+        </select>
+    </div>
+</div>
+
+<!-- ================= KẾT QUẢ ĐẾM & RESET ================= -->
+<div class="school-results-header" id="schoolResultsHeader">
+    <div id="schoolCountLabel">Đang tải dữ liệu trường học...</div>
+    <div class="school-results-actions" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button type="button" id="btnFilterFavorites" class="btn-filter-fav" onclick="toggleFavoritesOnlyFilter()" title="Chỉ hiển thị các trường đã lưu trong danh sách nguyện vọng">
+            ⭐ Đã lưu (<span id="favCountBadge">0</span>)
+        </button>
+        <button type="button" class="btn-reset-filter" onclick="resetSchoolFilters()">
+            ↺ Đặt lại bộ lọc
+        </button>
+    </div>
+</div>
+
+<!-- ================= DANH SÁCH TRƯỜNG & PHÂN TRANG ================= -->
+<div id="schoolsSection">
+    <div id="schools" class="school-grid">
+      <div class="school-loading-state" style="grid-column: 1 / -1;">
+        <div class="school-spinner"></div>
+        <p style="color:#cbd5e1;font-weight:600;margin:0 0 6px;">Đang tải cơ sở dữ liệu trường học...</p>
+        <span style="font-size:12.5px;color:#94a3b8;">Đang nạp 255+ trường Đại học &amp; Cao đẳng Việt Nam...</span>
+      </div>
+    </div>
+    <div id="schoolLoadMoreWrap" class="school-load-more-wrap" style="display: none;"></div>
+    <div id="schoolPagination" class="school-pagination"></div>
+</div>
+
+</section>
+
+</main>
+
+
+<!-- ================= SCHOOL MODAL ================= -->
+
+<div id="schoolModal" class="modal-backdrop" hidden="">
+
+    <div class="modal glass">
+
+        <button class="modal-close" onclick="closeSchool()">
+            ×
+        </button>
+
+        <div id="schoolDetail"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FLOATING COMPARISON DOCK ================= -->
+<div id="schoolCompareDock" class="school-compare-dock" style="display: none;" role="region" aria-label="So sánh trường đại học">
+    <div class="dock-container">
+        <div class="dock-header">
+            <div class="dock-title-wrap">
+                <span class="dock-icon">⚖️</span>
+                <div>
+                    <h4 class="dock-title">So sánh trường</h4>
+                    <span id="compareCountBadge" class="dock-count-badge">0/3 trường</span>
+                </div>
+            </div>
+            <div id="dockSchoolSlots" class="dock-slots-row"></div>
+        </div>
+        <div class="dock-actions">
+            <button type="button" class="btn-dock-clear" onclick="clearSchoolCompareSelection()" title="Bỏ chọn tất cả các trường đang so sánh">
+                ✕ Xóa chọn
+            </button>
+            <button type="button" id="btnOpenCompareModal" class="btn-dock-compare" onclick="openSchoolCompareModal()">
+                ⚖️ Xem so sánh ➔
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================= COMPARISON MODAL ================= -->
+<div id="schoolCompareModal" class="modal-backdrop compare-modal-backdrop" hidden="">
+    <div class="modal glass compare-modal-dialog">
+        <div class="compare-modal-header">
+            <div>
+                <p class="eyebrow" style="margin: 0 0 4px; color: #a78bfa;">⚖️ ĐỐI CHIẾU ĐA CHIỀU (TỐI ĐA 3 TRƯỜNG)</p>
+                <h2 style="font-size: 22px; margin: 0 0 6px; color: #ffffff;">Bảng so sánh trường Đại học &amp; Cao đẳng</h2>
+                <p style="font-size: 13px; color: #94a3b8; margin: 0;">
+                    Đối chiếu trực diện 7 tiêu chí: Tên &amp; Mã trường, Loại hình, Điểm chuẩn &amp; Thứ hạng quốc tế (OpenAlex), Tổ hợp &amp; Yêu cầu đầu vào, Khu vực địa lý, Ngành đào tạo mũi nhọn, và Cổng tuyển sinh chính thức
+                </p>
+            </div>
+            <button class="modal-close" onclick="closeSchoolCompareModal()" title="Đóng bảng so sánh">×</button>
+        </div>
+        <div id="schoolCompareContent" class="compare-modal-body"></div>
+    </div>
+</div>
+
+
+<!-- ================= MAIN JS ================= -->
+
+<script src="main.js"></script>
+<script src="truonghoc.js"></script>
+
+
+<div id="mouseSpotlightOverlay" style="position: fixed; inset: 0px; pointer-events: none; z-index: 1; transition: opacity 0.3s; opacity: 1; background: radial-gradient(600px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), rgba(99, 102, 241, 0.07), transparent 80%); will-change: background;"></div></body></html>
