@@ -3149,6 +3149,9 @@ function createNewChatSession() {
   if (typeof updateChatStartedState === 'function') {
     updateChatStartedState();
   }
+  if (typeof toggleQuickPrompts === 'function') {
+    toggleQuickPrompts(false);
+  }
 
   const inputEl = document.getElementById('input');
   if (inputEl) {
@@ -3410,6 +3413,70 @@ function getCurrentChatSession() {
   return sessions.find(s => s.id === currentId) || null;
 }
 
+// =========================================================================
+// QUICK PROMPTS TAB NAVIGATION & COLLAPSIBLE CONTROLS
+// =========================================================================
+
+function switchQuickPromptTab(tabIndex) {
+  const container = document.getElementById('quickGroups') || document.querySelector('.quick-groups');
+  if (!container) return;
+
+  const tabs = container.querySelectorAll('.quick-tab-btn');
+  const panels = container.querySelectorAll('.quick-tab-panel');
+
+  const idx = parseInt(tabIndex, 10);
+  if (isNaN(idx)) return;
+
+  tabs.forEach((tab, i) => {
+    const isActive = i === idx;
+    tab.classList.toggle('active', isActive);
+    tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+
+  panels.forEach((panel, i) => {
+    const isActive = i === idx;
+    panel.classList.toggle('active', isActive);
+    if (isActive) {
+      panel.scrollLeft = 0;
+    }
+  });
+
+  // Nếu đang thu gọn mà người dùng click chọn tab, mở rộng thanh gợi ý ra
+  if (container.classList.contains('collapsed')) {
+    toggleQuickPrompts(false);
+  }
+}
+
+function toggleQuickPrompts(forceCollapse) {
+  const container = document.getElementById('quickGroups') || document.querySelector('.quick-groups');
+  if (!container) return;
+
+  const shouldCollapse = (typeof forceCollapse === 'boolean')
+    ? forceCollapse
+    : !container.classList.contains('collapsed');
+
+  container.classList.toggle('collapsed', shouldCollapse);
+
+  const iconEl = document.getElementById('quickToggleIcon');
+  const toggleBtn = document.getElementById('btnToggleQuick');
+  const toggleText = container.querySelector('.quick-toggle-text');
+
+  if (iconEl) {
+    iconEl.textContent = shouldCollapse ? '▴' : '▾';
+  }
+
+  if (toggleBtn) {
+    toggleBtn.title = shouldCollapse ? 'Mở gợi ý nhanh' : 'Thu gọn gợi ý nhanh';
+  }
+
+  if (toggleText) {
+    toggleText.textContent = shouldCollapse ? '💡 Gợi ý nhanh' : 'Gợi ý nhanh';
+  }
+}
+
+window.switchQuickPromptTab = switchQuickPromptTab;
+window.toggleQuickPrompts = toggleQuickPrompts;
+
 function updateChatStartedState() {
   const panel = document.querySelector('.chat-main-panel');
   const pageWrapper = document.querySelector('.chat-page-wrapper');
@@ -3425,9 +3492,9 @@ function updateChatStartedState() {
     pageWrapper.classList.toggle('chat-started', hasUserMsg);
   }
 
-  const quickGroups = document.querySelector('.quick-groups');
-  if (quickGroups) {
-    quickGroups.style.display = hasUserMsg ? 'none' : '';
+  // Tự động thu gọn thanh gợi ý nhanh khi đã có tin nhắn trao đổi
+  if (typeof toggleQuickPrompts === 'function') {
+    toggleQuickPrompts(hasUserMsg);
   }
 }
 
@@ -3830,6 +3897,11 @@ async function send() {
   const q = inputEl.value.trim();
   if (!q) return;
 
+  // Tự động thu gọn thanh gợi ý nhanh ngay khi gửi tin nhắn đầu tiên
+  if (typeof toggleQuickPrompts === 'function') {
+    toggleQuickPrompts(true);
+  }
+
   chatState.isSending = true;
   addMsg(q, 'user');
   saveMessageToCurrentSession('user', q);
@@ -3976,6 +4048,9 @@ function initAllChatbot() {
   initChatInput();
   initChatHistory();
   updateChatStartedState();
+  if (typeof switchQuickPromptTab === 'function') {
+    switchQuickPromptTab(0);
+  }
   checkUrlPrompt();
 }
 

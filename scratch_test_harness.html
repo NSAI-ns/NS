@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<iframe id="chatFrame" src="../khkt/HTML/chatbot.html" style="width:1440px; height:900px; border:none;"></iframe>
+<div id="geoResults">RUNNING</div>
+<script>
+window.addEventListener('message', (e) => {});
+const iframe = document.getElementById('chatFrame');
+iframe.onload = () => {
+    try {
+        const iWin = iframe.contentWindow;
+        const iDoc = iframe.contentDocument;
+        
+        // Inject student profile
+        iWin.localStorage.setItem('ns_user_info', JSON.stringify({
+            name: 'Nguyễn Hoàng Nam',
+            province: 'Hà Nội',
+            grade: '12'
+        }));
+        iWin.localStorage.setItem('ns_student_scores', JSON.stringify({
+            Toan: 9.2, Ly: 8.8, Hoa: 7.5
+        }));
+        
+        if (typeof iWin.updatePersonalProfileUI === 'function') {
+            iWin.updatePersonalProfileUI();
+        }
+        
+        setTimeout(() => {
+            const profile = iDoc.getElementById('personalProfile');
+            const messages = iDoc.getElementById('messages');
+            const firstMsg = iDoc.querySelector('.msg') || iDoc.getElementById('initialBotGreeting');
+            
+            const pRect = profile ? profile.getBoundingClientRect() : null;
+            const mRect = messages ? messages.getBoundingClientRect() : null;
+            const fRect = firstMsg ? firstMsg.getBoundingClientRect() : null;
+            
+            const isOverlap = (pRect && fRect) ? (pRect.bottom > fRect.top) : false;
+            const isProfileAbove = (pRect && mRect) ? (pRect.bottom <= mRect.top + 5) : true;
+            
+            document.getElementById('geoResults').textContent = JSON.stringify({
+                profileDisplay: profile ? iWin.getComputedStyle(profile).display : 'null',
+                profileBottom: pRect ? pRect.bottom : null,
+                messagesTop: mRect ? mRect.top : null,
+                firstMsgTop: fRect ? fRect.top : null,
+                isOverlap: isOverlap,
+                isProfileAbove: isProfileAbove,
+                status: 'PASSED'
+            });
+        }, 300);
+    } catch(err) {
+        document.getElementById('geoResults').textContent = 'ERROR: ' + err.message;
+    }
+};
+</script>
+</body>
+</html>

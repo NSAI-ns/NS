@@ -15,6 +15,12 @@
    CSS CHO CHỐT CHẶN AN TOÀN TÂM LÝ & EMERGENCY SUPPORT CARD
    ========================================================================== */
 .emergency-safety-card {
+  background: rgba(239, 68, 68, 0.12) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1.5px solid rgba(248, 113, 113, 0.5) !important;
+  color: #fecdd3 !important;
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.25) !important;
   transition: all 0.25s ease-in-out;
   animation: pulseSafetyCard 3s infinite alternate;
 }
@@ -99,6 +105,7 @@
     height: 100vh !important;
     height: 100dvh !important;
     overflow: hidden !important;
+    background: transparent !important;
   }
   .chat-page-wrapper {
     height: calc(100vh - 54px) !important;
@@ -110,11 +117,16 @@
     padding: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+    background: transparent !important;
   }
   .chat-header-bar {
     height: 48px !important;
     min-height: 48px !important;
     padding: 0 10px !important;
+    background: rgba(12, 16, 38, 0.85) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
   .chat-title h1 {
     font-size: 15px !important;
@@ -130,16 +142,24 @@
   }
   .profile-mini {
     font-size: 11.5px !important;
-    padding: 6px 10px !important;
-    margin: 6px 8px !important;
-    width: calc(100% - 16px) !important;
+    padding: 7px 12px !important;
+    margin: 8px 10px 4px 10px !important;
+    width: calc(100% - 20px) !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    z-index: 10 !important;
+    background: rgba(124, 58, 237, 0.18) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.3) !important;
+    color: #e0e7ff !important;
   }
   .messages {
     flex: 1 !important;
     min-height: 0 !important;
     height: auto !important;
     max-height: none !important;
-    padding: 10px 10px !important;
+    padding: 10px 10px 14px !important;
     gap: 12px !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
@@ -155,6 +175,11 @@
     word-break: break-word !important;
   }
   .msg.bot {
+    background: rgba(24, 28, 58, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.22) !important;
+    color: #e2e8f0 !important;
     border-bottom-left-radius: 4px !important;
   }
   .msg.user {
@@ -170,44 +195,42 @@
   }
   .quick-groups {
     margin: 0 0 4px 0 !important;
-    gap: 4px !important;
-  }
-  .quick-group {
-    padding: 2px 0 !important;
-  }
-  .quick {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
+    padding: 6px 8px !important;
     gap: 6px !important;
-    padding: 2px 0 4px 0 !important;
+    background: rgba(24, 28, 58, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.22) !important;
   }
-  .quick::-webkit-scrollbar {
-    display: none !important;
+  .quick-tab-btn {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
   }
-  .quick button {
+  .quick-tab-panel button {
     white-space: nowrap !important;
     flex-shrink: 0 !important;
-    min-height: 38px !important;
-    padding: 6px 12px !important;
+    min-height: 34px !important;
+    padding: 5px 10px !important;
     font-size: 12px !important;
     touch-action: manipulation !important;
   }
-  /* Thanh nhập liệu trên mobile: Dạng dock thanh thoát không gãy hàng */
+  /* Thanh nhập liệu trên mobile: Dạng dock kính mờ thanh thoát không gãy hàng */
   .chat-input {
     display: flex !important;
     flex-wrap: nowrap !important;
     align-items: center !important;
     gap: 6px !important;
     padding: 4px 6px !important;
-    background: rgba(22, 26, 45, 0.96) !important;
+    background: rgba(20, 24, 52, 0.85) !important;
     backdrop-filter: blur(14px) !important;
     -webkit-backdrop-filter: blur(14px) !important;
-    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    border: 1px solid rgba(167, 139, 250, 0.28) !important;
     border-radius: 26px !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+  }
+  .chat-input:focus-within {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25), 0 4px 20px rgba(0, 0, 0, 0.45) !important;
   }
   .chat-input input {
     min-width: 0 !important;
@@ -220,6 +243,9 @@
     background: transparent !important;
     border: none !important;
     color: #ffffff !important;
+  }
+  .chat-input input::placeholder {
+    color: #94a3b8 !important;
   }
   .chat-input input:focus {
     background: transparent !important;
@@ -234,6 +260,9 @@
     order: unset !important;
     font-size: 17px !important;
     touch-action: manipulation !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    color: #cbd5e1 !important;
   }
   .chat-input .btn.primary {
     width: auto !important;
@@ -255,6 +284,7 @@
   .chat-bottom-disclaimer {
     font-size: 10.5px !important;
     margin-top: 3px !important;
+    color: #94a3b8 !important;
   }
 }
 
@@ -281,9 +311,7 @@
 .chat-main-panel.chat-started .chat-title p {
   display: none !important;
 }
-.chat-main-panel.chat-started .quick-groups {
-  display: none !important;
-}
+/* Trạng thái thu gọn gợi ý nhanh khi chat đã bắt đầu được điều khiển linh hoạt qua class .collapsed */
 
 #personalProfile:empty {
   display: none !important;
@@ -307,8 +335,8 @@
 }
 .btn-rename-conv:hover {
   opacity: 1 !important;
-  color: #a78bfa;
-  background: rgba(168, 85, 247, 0.15);
+  color: #c4b5fd;
+  background: rgba(168, 85, 247, 0.18);
 }
 @media (max-width: 768px) {
   .btn-rename-conv, .btn-delete-conv {
@@ -465,100 +493,69 @@
     <!-- BOTTOM DOCK CỐ ĐỊNH Ở ĐÁY KHUNG CHAT, CĂN GIỮA 820px -->
     <div class="chat-bottom-dock">
 
-    <!-- CÂU HỎI NHANH THEO NHÓM -->
+    <!-- CÂU HỎI NHANH DẠNG TAB SIÊU GỌN THEO PHONG CÁCH HIỆN ĐẠI -->
     <div class="quick-groups" id="quickGroups">
-
-        <!-- TÍNH MỚI ĐỘT PHÁ KHKT: TRẢI NGHIỆM THỬ 1 NGÀY LÀM NGHỀ -->
-        <div class="quick-group quick-group-roleplay" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(6, 182, 212, 0.12)); border: 1.5px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 6px 10px;">
-            <div style="font-size: 12px; font-weight: 700; color: #f3e8ff; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between;">
-                <span style="display: flex; align-items: center; gap: 6px;">
-                    <span>🎭</span> Chế độ: Trải nghiệm thử 1 ngày làm nghề
-                </span>
-            </div>
-            <div class="quick" style="margin: 0;">
-                <button type="button" class="quick-chip-roleplay" onclick="quick('Cho mình trải nghiệm thử 1 tình huống thực tế của ngành học phù hợp nhất')">
-                    🎭 Cho mình trải nghiệm thử 1 tình huống thực tế của ngành học phù hợp nhất
-                </button>
-            </div>
+      <div class="quick-header-bar">
+        <div class="quick-tabs-nav" id="quickTabsNav" role="tablist">
+          <button type="button" class="quick-tab-btn active" data-tab="0" role="tab" aria-selected="true" onclick="switchQuickPromptTab(0)">
+            <span>🎭</span> Trải nghiệm nghề
+          </button>
+          <button type="button" class="quick-tab-btn" data-tab="1" role="tab" aria-selected="false" onclick="switchQuickPromptTab(1)">
+            <span>🎯</span> Trắc nghiệm ngành
+          </button>
+          <button type="button" class="quick-tab-btn" data-tab="2" role="tab" aria-selected="false" onclick="switchQuickPromptTab(2)">
+            <span>🎓</span> Hướng nghiệp &amp; Tuyển sinh
+          </button>
+          <button type="button" class="quick-tab-btn" data-tab="3" role="tab" aria-selected="false" onclick="switchQuickPromptTab(3)">
+            <span>💚</span> Tâm sự &amp; Giải tỏa
+          </button>
         </div>
+        <button type="button" class="btn-toggle-quick" id="btnToggleQuick" onclick="toggleQuickPrompts()" title="Ẩn/hiện gợi ý nhanh">
+          <span class="quick-toggle-text">Gợi ý nhanh</span> <span id="quickToggleIcon" class="quick-toggle-icon">▾</span>
+        </button>
+      </div>
 
-        <!-- Nhóm 1: Hướng nghiệp & Tuyển sinh -->
-        <div class="quick-group">
-            <div style="font-size: 12px; font-weight: 700; color: #a5b4fc; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                <span>🎯</span> Trắc nghiệm tình huống theo ngành
-            </div>
-            <div class="quick" style="margin: 0;">
-                <button type="button" onclick="quick('thử ngành công nghệ thông tin')">💻 CNTT</button>
-                <button type="button" onclick="quick('thử ngành y khoa')">🩺 Y khoa</button>
-                <button type="button" onclick="quick('thử ngành kinh tế')">📈 Kinh tế</button>
-                <button type="button" onclick="quick('thử ngành sư phạm')">👩‍🏫 Sư phạm</button>
-                <button type="button" onclick="quick('thử ngành luật')">⚖️ Luật</button>
-                <button type="button" onclick="quick('thử ngành thiết kế đồ họa')">🎨 Thiết kế</button>
-                <button type="button" onclick="quick('thử ngành tâm lý')">🧠 Tâm lý</button>
-                <button type="button" onclick="quick('thử ngành logistics')">🚚 Logistics</button>
-            </div>
+      <div class="quick-content-wrapper" id="quickContentWrapper">
+        <div class="quick-tab-panel active" id="quickPanel0" data-panel="0" role="tabpanel">
+          <button type="button" class="quick-chip-accent" onclick="quick('Cho mình trải nghiệm thử 1 tình huống thực tế của ngành học phù hợp nhất')">
+            🎭 Cho mình trải nghiệm thử 1 tình huống thực tế của ngành học phù hợp nhất
+          </button>
+          <button type="button" onclick="quick('Cho mình trải nghiệm thử 1 ngày làm lập trình viên CNTT')">
+            💻 1 ngày làm Developer CNTT
+          </button>
+          <button type="button" onclick="quick('Cho mình trải nghiệm thử 1 ngày làm bác sĩ Y khoa')">
+            🩺 1 ngày làm Bác sĩ Y khoa
+          </button>
         </div>
-
-        <!-- Nhóm 2: Hướng nghiệp & Tuyển sinh -->
-        <div class="quick-group">
-            <div style="font-size: 12px; font-weight: 700; color: #a5b4fc; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                <span>🎓</span> Hỏi về Hướng nghiệp &amp; Tuyển sinh
-            </div>
-            <div class="quick" style="margin: 0;">
-                <button type="button" onclick="quick('Ngành nào phù hợp với em?')">
-                    🎯 Ngành phù hợp
-                </button>
-                <button type="button" onclick="quick('Tìm trường phù hợp với em.')">
-                    🏫 Tìm trường
-                </button>
-                <button type="button" onclick="quick('Ngành này nên theo tổ hợp gì?')">
-                    📚 Tổ hợp môn nên theo
-                </button>
-                <button type="button" onclick="quick('Phân tích nhóm tính cách MBTI của em')">
-                    🧠 Tính cách [MBTI]
-                </button>
-                <button type="button" onclick="quick('Phân tích dấu ấn cá nhân từ câu trả lời tự nhập của em')">
-                    ✨ Dấu ấn cá nhân (Câu E)
-                </button>
-                <button type="button" onclick="quick('Bạn có tài liệu học tập và đề thi có giải chi tiết không?')">
-                    📚 Tài liệu &amp; Đề thi
-                </button>
-                <button type="button" onclick="quick('Em sợ trượt đại học và điểm thi thấp')">
-                    📈 Sợ trượt &amp; Điểm thấp
-                </button>
-            </div>
+        <div class="quick-tab-panel" id="quickPanel1" data-panel="1" role="tabpanel">
+          <button type="button" onclick="quick('thử ngành công nghệ thông tin')">💻 CNTT</button>
+          <button type="button" onclick="quick('thử ngành y khoa')">🩺 Y khoa</button>
+          <button type="button" onclick="quick('thử ngành kinh tế')">📈 Kinh tế</button>
+          <button type="button" onclick="quick('thử ngành sư phạm')">👩‍🏫 Sư phạm</button>
+          <button type="button" onclick="quick('thử ngành luật')">⚖️ Luật</button>
+          <button type="button" onclick="quick('thử ngành thiết kế đồ họa')">🎨 Thiết kế</button>
+          <button type="button" onclick="quick('thử ngành tâm lý')">🧠 Tâm lý</button>
+          <button type="button" onclick="quick('thử ngành logistics')">🚚 Logistics</button>
         </div>
-
-        <!-- Nhóm 2: Tâm lý & Giải tỏa áp lực -->
-        <div class="quick-group">
-            <div style="font-size: 12px; font-weight: 700; color: #6ee7b7; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                <span>💚</span> Tâm sự &amp; Giải tỏa áp lực học đường
-            </div>
-            <div class="quick" style="margin: 0;">
-                <button type="button" onclick="quick('Em bị mất động lực học tập, phải làm sao?')">
-                    ⚡ Lấy lại động lực
-                </button>
-                <button type="button" onclick="quick('Tôi muốn được lắng nghe và tư vấn tâm lý')">
-                    💚 Lắng nghe &amp; Tâm sự
-                </button>
-                <button type="button" onclick="quick('Em đang bị áp lực từ bố mẹ và gia đình')">
-                    👨‍👩‍👧 Áp lực gia đình
-                </button>
-                <button type="button" onclick="quick('Làm sao để bớt lười và tập trung học?')">
-                    ⏱️ Cai lười &amp; Trì hoãn
-                </button>
-                <button type="button" onclick="quick('Hướng dẫn em bài tập thở 4-7-8 để thư giãn')">
-                    🧘 Bài tập thở 4-7-8
-                </button>
-                <button type="button" onclick="quick('Em cảm thấy buồn và mệt mỏi quá')">
-                    🫂 Tâm sự nỗi buồn
-                </button>
-                <button type="button" onclick="quick('Làm sao để nói chuyện bằng giọng nói với bạn?')">
-                    🎙️ Trò chuyện bằng giọng nói
-                </button>
-            </div>
+        <div class="quick-tab-panel" id="quickPanel2" data-panel="2" role="tabpanel">
+          <button type="button" onclick="quick('Ngành nào phù hợp với em?')">🎯 Ngành phù hợp</button>
+          <button type="button" onclick="quick('Tìm trường phù hợp với em.')">🏫 Tìm trường</button>
+          <button type="button" onclick="quick('Ngành này nên theo tổ hợp gì?')">📚 Tổ hợp môn nên theo</button>
+          <button type="button" onclick="quick('Phân tích nhóm tính cách MBTI của em')">🧠 Tính cách [MBTI]</button>
+          <button type="button" onclick="quick('Phân tích dấu ấn cá nhân từ câu trả lời tự nhập của em')">✨ Dấu ấn cá nhân (Câu E)</button>
+          <button type="button" onclick="quick('Bạn có tài liệu học tập và đề thi có giải chi tiết không?')">📚 Tài liệu &amp; Đề thi</button>
+          <button type="button" onclick="quick('Em sợ trượt đại học và điểm thi thấp')">📈 Sợ trượt &amp; Điểm thấp</button>
         </div>
-
+        <div class="quick-tab-panel" id="quickPanel3" data-panel="3" role="tabpanel">
+          <button type="button" onclick="quick('Em bị mất động lực học tập, phải làm sao?')">⚡ Lấy lại động lực</button>
+          <button type="button" onclick="quick('Tôi muốn được lắng nghe và tư vấn tâm lý')">💚 Lắng nghe &amp; Tâm sự</button>
+          <button type="button" onclick="quick('Em đang bị áp lực từ bố mẹ và gia đình')">👨‍👩‍👧 Áp lực gia đình</button>
+          <button type="button" onclick="quick('Làm sao để bớt lười và tập trung học?')">⏱️ Cai lười &amp; Trì hoãn</button>
+          <button type="button" onclick="quick('Hướng dẫn em bài tập thở 4-7-8 để thư giãn')">🧘 Bài tập thở 4-7-8</button>
+          <button type="button" onclick="quick('Em cảm thấy buồn và mệt mỏi quá')">🫂 Tâm sự nỗi buồn</button>
+          <button type="button" onclick="quick('Làm sao để nói chuyện bằng giọng nói với bạn?')">🎙️ Trò chuyện bằng giọng nói</button>
+        </div>
+      </div>
     </div>
 
 

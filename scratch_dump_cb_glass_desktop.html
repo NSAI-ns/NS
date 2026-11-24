@@ -1,0 +1,754 @@
+﻿<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+
+<title>NS AI</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* ==========================================================================
+   CSS CHO CHỐT CHẶN AN TOÀN TÂM LÝ & EMERGENCY SUPPORT CARD
+   ========================================================================== */
+.emergency-safety-card {
+  background: rgba(239, 68, 68, 0.12) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1.5px solid rgba(248, 113, 113, 0.5) !important;
+  color: #fecdd3 !important;
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.25) !important;
+  transition: all 0.25s ease-in-out;
+  animation: pulseSafetyCard 3s infinite alternate;
+}
+@keyframes pulseSafetyCard {
+  0% {
+    box-shadow: 0 8px 30px rgba(239, 68, 68, 0.25);
+    border-color: rgba(248, 113, 113, 0.5);
+  }
+  100% {
+    box-shadow: 0 12px 42px rgba(239, 68, 68, 0.45);
+    border-color: rgba(248, 113, 113, 0.85);
+  }
+}
+.emergency-safety-card a:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+.emergency-safety-card button:hover {
+  filter: brightness(1.18);
+  transform: translateY(-1px);
+}
+@media (max-width: 640px) {
+  .emergency-safety-card {
+    padding: 14px 14px !important;
+  }
+}
+
+/* ==========================================================================
+   BADGE TIÊU ĐỀ 5 KHỐI TRỰC QUAN HƯỚNG NGHIỆP TRONG CHATBOT
+   ========================================================================== */
+.chat-block-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 14px 0 6px 0;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+.chat-block-badge .badge-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.badge-blue {
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  color: #93c5fd;
+}
+.badge-purple {
+  background: rgba(168, 85, 247, 0.18);
+  border: 1px solid rgba(192, 132, 252, 0.5);
+  color: #e9d5ff;
+}
+.badge-cyan {
+  background: rgba(6, 182, 212, 0.18);
+  border: 1px solid rgba(103, 232, 249, 0.5);
+  color: #a5f3fc;
+}
+.badge-rose {
+  background: rgba(244, 63, 94, 0.18);
+  border: 1px solid rgba(251, 113, 133, 0.5);
+  color: #fecdd3;
+}
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  color: #a7f3d0;
+}
+
+/* ==========================================================================
+   TỐI ƯU GIAO DIỆN KHUNG CHAT TRÊN MOBILE (< 768px)
+   - Bố cục 100vh không cuộn đôi trang web
+   - Padding gọn gàng, thanh nhập liệu dễ bấm 44px
+   - Cuộn mượt mà 60fps
+   ========================================================================== */
+@media (max-width: 768px) {
+  body.chat-body {
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    background: transparent !important;
+  }
+  .chat-page-wrapper {
+    height: calc(100vh - 54px) !important;
+    height: calc(100dvh - 54px) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .chat-main-panel {
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  .chat-header-bar {
+    height: 48px !important;
+    min-height: 48px !important;
+    padding: 0 10px !important;
+    background: rgba(12, 16, 38, 0.85) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  .chat-title h1 {
+    font-size: 15px !important;
+  }
+  .chat-title p {
+    display: none !important;
+  }
+  .bot-avatar {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    font-size: 12px !important;
+  }
+  .profile-mini {
+    font-size: 11.5px !important;
+    padding: 7px 12px !important;
+    margin: 8px 10px 4px 10px !important;
+    width: calc(100% - 20px) !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    z-index: 10 !important;
+    background: rgba(124, 58, 237, 0.18) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.3) !important;
+    color: #e0e7ff !important;
+  }
+  .messages {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 10px 10px 14px !important;
+    gap: 12px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: smooth !important;
+    overscroll-behavior-y: contain !important;
+  }
+  .msg {
+    max-width: 92% !important;
+    padding: 10px 14px !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    border-radius: 14px !important;
+    word-break: break-word !important;
+  }
+  .msg.bot {
+    background: rgba(24, 28, 58, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.22) !important;
+    color: #e2e8f0 !important;
+    border-bottom-left-radius: 4px !important;
+  }
+  .msg.user {
+    border-bottom-right-radius: 4px !important;
+  }
+  .chat-block-badge {
+    font-size: 12px !important;
+    padding: 4px 9px !important;
+    margin: 10px 0 4px 0 !important;
+  }
+  .chat-bottom-dock {
+    padding: 4px 8px 8px !important;
+  }
+  .quick-groups {
+    margin: 0 0 4px 0 !important;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    background: rgba(24, 28, 58, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.22) !important;
+  }
+  .quick-tab-btn {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+  }
+  .quick-tab-panel button {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    min-height: 34px !important;
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+    touch-action: manipulation !important;
+  }
+  /* Thanh nhập liệu trên mobile: Dạng dock kính mờ thanh thoát không gãy hàng */
+  .chat-input {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 4px 6px !important;
+    background: rgba(20, 24, 52, 0.85) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.28) !important;
+    border-radius: 26px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+  }
+  .chat-input:focus-within {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25), 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+  }
+  .chat-input input {
+    min-width: 0 !important;
+    flex: 1 !important;
+    order: unset !important;
+    height: 44px !important;
+    font-size: 16px !important; /* >=16px ngăn Safari iOS tự phóng to */
+    padding: 0 12px !important;
+    border-radius: 22px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+  }
+  .chat-input input::placeholder {
+    color: #94a3b8 !important;
+  }
+  .chat-input input:focus {
+    background: transparent !important;
+  }
+  .btn-mic, .btn-voice-toggle {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+    order: unset !important;
+    font-size: 17px !important;
+    touch-action: manipulation !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    color: #cbd5e1 !important;
+  }
+  .chat-input .btn.primary {
+    width: auto !important;
+    min-width: 56px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0 14px !important;
+    order: unset !important;
+    border-radius: 22px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    touch-action: manipulation !important;
+  }
+  .btn-toggle-sidebar {
+    min-height: 36px !important;
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+  }
+  .chat-bottom-disclaimer {
+    font-size: 10.5px !important;
+    margin-top: 3px !important;
+    color: #94a3b8 !important;
+  }
+}
+
+/* ==========================================================================
+   TRẠNG THÁI CUỘC TRÒ CHUYỆN ĐÃ BẮT ĐẦU (CHAT STARTED)
+   - Thu gọn banner chào mừng thành 1 dòng header mỏng thanh lịch
+   - Ẩn khối câu hỏi nhanh quick-groups để nhường tối đa diện tích cho tin nhắn
+   ========================================================================== */
+.chat-main-panel.chat-started .chat-title {
+  padding: 4px 10px !important;
+  margin-bottom: 4px !important;
+  gap: 8px !important;
+}
+.chat-main-panel.chat-started .chat-title .bot-avatar {
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  font-size: 11px !important;
+}
+.chat-main-panel.chat-started .chat-title h1 {
+  font-size: 13px !important;
+  margin: 0 !important;
+}
+.chat-main-panel.chat-started .chat-title p {
+  display: none !important;
+}
+/* Trạng thái thu gọn gợi ý nhanh khi chat đã bắt đầu được điều khiển linh hoạt qua class .collapsed */
+
+#personalProfile:empty {
+  display: none !important;
+}
+
+/* NÚT ĐỔI TÊN ĐOẠN CHAT */
+.btn-rename-conv {
+  opacity: 0;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+.conversation-item:hover .btn-rename-conv {
+  opacity: 0.7;
+}
+.btn-rename-conv:hover {
+  opacity: 1 !important;
+  color: #c4b5fd;
+  background: rgba(168, 85, 247, 0.18);
+}
+@media (max-width: 768px) {
+  .btn-rename-conv, .btn-delete-conv {
+    opacity: 0.85 !important;
+    padding: 6px 8px !important;
+  }
+}
+</style>
+
+</head>
+
+<body class="chat-body">
+
+<div class="bg-grid"></div>
+<div class="bg-beam"></div>
+<div class="stars"></div>
+
+
+<header class="topbar topbar-collapsed">
+
+    <a class="brand" href="index.html">
+        <span>NS</span> NS AI
+    </a>
+
+    <nav class="nav-collapsed">
+
+        <a href="index.html">Trang chủ</a>
+
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-trigger">📊 Đánh giá năng lực ▾</button>
+          <div class="nav-dropdown-menu">
+            <a href="thongtin.html">📝 Bước 1: Thông tin</a>
+            <a href="diemso.html">📊 Bước 2: Điểm số</a>
+            <a href="sothich.html">❤️ Bước 3: Sở thích</a>
+            <a href="tinhcach.html">🧠 Bước 4: Tính cách</a>
+            <a href="muctieu.html">🎯 Bước 5: Mục tiêu</a>
+          </div>
+        </div>
+
+        <a href="truonghoc.html">Trường học</a>
+
+        <a href="ketqua.html" class="nav-gate-locked" title="Chưa mở khóa kết quả: Cần hoàn thành tối thiểu 3 bước (1, 2, 4) (Hiện tại: 0/5 bước)">🔒 Kết quả</a>
+
+        <a class="active" href="chatbot.html">Chatbot</a>
+
+        
+
+    <div class="auth-nav-item">
+      <a href="dangnhap.html" class="user-badge " title="Tài khoản đang đăng nhập">
+        <span class="user-avatar-icon">👤</span>
+        <span class="user-name-text">Học sinh 8232</span>
+      </a>
+      <button type="button" class="auth-logout-btn" onclick="logoutUser()" title="Đăng xuất khỏi tài khoản">Đăng xuất</button>
+    </div></nav>
+
+<div class="topbar-toggle-wrap">
+    <span class="topbar-current-badge" style="display: inline-flex;">📍 Chatbot</span>
+    <button type="button" id="btnToggleTopbar" class="btn-toggle-topbar btn-collapsed" onclick="toggleTopbarNav(event)" title="Mở rộng thanh điều hướng" aria-label="Thu gọn hoặc mở rộng thanh điều hướng" aria-expanded="false">
+      <span class="btn-toggle-icon">☰</span>
+      <span class="btn-toggle-text">Menu</span>
+    </button>
+  </div></header>
+
+
+<main class="page chat-page-wrapper">
+
+  <!-- BACKDROP OVERLAY TRÊN MOBILE -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebarMobile(false)"></div>
+
+  <div class="chat-layout-wrapper">
+
+    <!-- SIDEBAR MỤC LƯU LỊCH SỬ CHAT (CHÍNH XÁC NHƯ ẢNH) -->
+    <aside class="chat-sidebar" id="chatSidebar">
+
+      <div class="sidebar-header">
+        <button type="button" class="btn-new-chat" onclick="createNewChatSession()">
+          <span class="icon-plus">＋</span> Đoạn chat mới
+        </button>
+        <button type="button" class="btn-sidebar-collapse" id="btnSidebarCollapse" onclick="toggleSidebar()" title="Thu gọn thanh bên" aria-label="Thu gọn thanh bên">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- FILTER ROW: "All" và Icon lọc như trong ảnh -->
+      <div class="sidebar-filter-row">
+        <span class="sidebar-filter-title">All</span>
+        <button type="button" class="sidebar-filter-btn" id="sidebarFilterBtn" onclick="toggleSidebarFilter()" title="Lọc / Tìm kiếm đoạn chat">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Khung tìm kiếm/lọc khi bấm icon filter -->
+      <div class="sidebar-search-box" id="sidebarSearchBox" style="display: none;">
+        <input type="text" id="sidebarSearchInput" placeholder="Tìm đoạn chat..." oninput="handleSearchConversations(this.value)">
+      </div>
+
+      <!-- DANH SÁCH CÁC ĐOẠN CHAT ĐÃ LƯU (NHƯ TRONG ẢNH) -->
+      <div class="conversation-list" id="conversationList"><div class="conversation-empty" style="padding: 28px 12px; text-align: center; color: #64748b; font-size: 13px; line-height: 1.5;">Chưa có đoạn chat nào.<br><span style="font-size: 12px; color: #475569;">Gửi câu hỏi để bắt đầu lưu lịch sử!</span></div></div>
+
+      <!-- PROFILE USER Ở CUỐI SIDEBAR -->
+      <div class="sidebar-footer-profile">
+        <div class="user-avatar-circle" id="sidebarUserAvatar">H</div>
+        <div class="user-profile-info">
+          <div class="user-display-name" id="sidebarUserName">Học sinh 8232</div>
+          <div class="user-subtext" id="sidebarUserSubtext" title="Tài khoản đã đăng nhập">Đã đăng nhập</div>
+        </div>
+        <a href="dangnhap.html" class="sidebar-gear-btn" title="Cài đặt &amp; Quản lý tài khoản">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- KHUNG CHAT CHÍNH -->
+    <section class="glass chat-card chat-main-panel">
+
+      <!-- SLIM HEADER BAR (CHỈ 1 DÒNG MỎNG THANH LỊCH THEO PHONG CÁCH CHATGPT/GEMINI) -->
+      <div class="chat-header-bar">
+        <div class="chat-header-left">
+          <button type="button" class="btn-toggle-sidebar" id="btnToggleSidebar" onclick="toggleSidebar()" title="Thu gọn / Mở rộng thanh bên" aria-label="Thu gọn / Mở rộng thanh bên">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+            </svg>
+            <span class="btn-sidebar-label">Lịch sử chat</span>
+          </button>
+          <div class="chat-title">
+            <div class="bot-avatar">NS</div>
+            <div class="chat-title-content">
+              <h1>NS AI Assistant</h1>
+              <p>Trợ lý định hướng &amp; tư vấn tâm lý học đường</p>
+            </div>
+          </div>
+        </div>
+        <div class="chat-header-right"></div>
+        <!-- Giữ nguyên activeChatBadge trong DOM với display: none để hoàn toàn ẩn pill thừa và bảo đảm JS an toàn tuyệt đối -->
+        <span class="active-chat-badge" id="activeChatBadge" style="display: none;" title="Đoạn chat mới">Đoạn chat mới</span>
+      </div>
+
+      <!-- HỒ SƠ: Ẩn mặc định khi rỗng để tránh vệt ngang trống màu tím -->
+      <div id="personalProfile" class="profile-mini" style="display: block;"><b>Hồ sơ đang dùng:</b> <strong>Học sinh 8232</strong> · xu hướng đang được xác định · Ngành thế mạnh: <strong>Công nghệ thông tin &amp; Lập trình phần mềm</strong></div>
+
+      <!-- KHUNG TIN NHẮN (Cuộn độc lập, căn giữa max-width: 820px) -->
+      <div id="messages" class="messages">
+        <div class="msg bot">
+          Chào <strong>Học sinh 8232</strong>! 🌟 Mình là <strong>NS AI Assistant</strong> – trợ lý cá nhân hóa về định hướng học đường và đồng hành tâm lý của bạn.
+
+Hệ thống đã nhận diện và đồng bộ đầy đủ hồ sơ của bạn:
+• 🎯 <strong>Định hướng mục tiêu:</strong> Xét tuyển đại học trong nước.
+• 🌟 <strong>Gợi ý nghề nghiệp phù hợp nhất:</strong> <strong>Công nghệ thông tin &amp; Lập trình phần mềm</strong>.
+
+Toàn bộ dữ liệu trên đã được nạp sẵn trong phiên làm việc, bạn <strong>không cần phải nhập lại bất kỳ thông tin nào</strong>!
+
+Hôm nay bạn muốn mình hỗ trợ bạn điều gì nhất trên hành trình này? Bạn có thể yêu cầu mình:
+1. 🎯 <em>Phân tích chi tiết cơ hội xét tuyển theo điểm số &amp; tổ hợp</em>
+2. ⚖️ <em>Gợi ý danh sách trường đại học Thử thách (Reach), Vừa sức (Match) và An toàn (Safety)</em>
+3. 💚 <em>Tâm sự, giải tỏa áp lực thi cử và duy trì năng lượng học tập</em>
+
+Hãy gõ câu hỏi hoặc bấm 🎙️ Micro để trò chuyện cùng mình nhé!
+          <div class="msg-tools">
+            <button type="button" class="btn-read-msg" title="Đọc bằng giọng nói" onclick="speakMessage(this)">🔊 Nghe đọc</button>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- BOTTOM DOCK CỐ ĐỊNH Ở ĐÁY KHUNG CHAT, CĂN GIỮA 820px -->
+    <div class="chat-bottom-dock">
+
+    <!-- CÂU HỎI NHANH DẠNG TAB SIÊU GỌN THEO PHONG CÁCH HIỆN ĐẠI -->
+    <div class="quick-groups" id="quickGroups">
+      <div class="quick-header-bar">
+        <div class="quick-tabs-nav" id="quickTabsNav" role="tablist">
+          <button type="button" class="quick-tab-btn active" data-tab="0" role="tab" aria-selected="true" onclick="switchQuickPromptTab(0)">
+            <span>🎭</span> Trải nghiệm nghề
+          </button>
+          <button type="button" class="quick-tab-btn" data-tab="1" role="tab" aria-selected="false" onclick="switchQuickPromptTab(1)">
+            <span>🎯</span> Trắc nghiệm ngành
+          </button>
+          <button type="button" class="quick-tab-btn" data-tab="2" role="tab" aria-selected="false" onclick="switchQuickPromptTab(2)">
+            <span>🎓</span> Hướng nghiệp &amp; Tuyển sinh
+          </button>
+          <button type="button" class="quick-tab-btn" data-tab="3" role="tab" aria-selected="false" onclick="switchQuickPromptTab(3)">
+            <span>💚</span> Tâm sự &amp; Giải tỏa
+          </button>
+        </div>
+        <button type="button" class="btn-toggle-quick" id="btnToggleQuick" onclick="toggleQuickPrompts()" title="Thu gọn gợi ý nhanh">
+          <span class="quick-toggle-text">Gợi ý nhanh</span> <span id="quickToggleIcon" class="quick-toggle-icon">▾</span>
+        </button>
+      </div>
+
+      <div class="quick-content-wrapper" id="quickContentWrapper">
+        <div class="quick-tab-panel active" id="quickPanel0" data-panel="0" role="tabpanel">
+          <button type="button" class="quick-chip-accent" onclick="quick('Cho mình trải nghiệm thử 1 tình huống thực tế của ngành học phù hợp nhất')">
+            🎭 Cho mình trải nghiệm thử 1 tình huống thực tế của ngành học phù hợp nhất
+          </button>
+          <button type="button" onclick="quick('Cho mình trải nghiệm thử 1 ngày làm lập trình viên CNTT')">
+            💻 1 ngày làm Developer CNTT
+          </button>
+          <button type="button" onclick="quick('Cho mình trải nghiệm thử 1 ngày làm bác sĩ Y khoa')">
+            🩺 1 ngày làm Bác sĩ Y khoa
+          </button>
+        </div>
+        <div class="quick-tab-panel" id="quickPanel1" data-panel="1" role="tabpanel">
+          <button type="button" onclick="quick('thử ngành công nghệ thông tin')">💻 CNTT</button>
+          <button type="button" onclick="quick('thử ngành y khoa')">🩺 Y khoa</button>
+          <button type="button" onclick="quick('thử ngành kinh tế')">📈 Kinh tế</button>
+          <button type="button" onclick="quick('thử ngành sư phạm')">👩‍🏫 Sư phạm</button>
+          <button type="button" onclick="quick('thử ngành luật')">⚖️ Luật</button>
+          <button type="button" onclick="quick('thử ngành thiết kế đồ họa')">🎨 Thiết kế</button>
+          <button type="button" onclick="quick('thử ngành tâm lý')">🧠 Tâm lý</button>
+          <button type="button" onclick="quick('thử ngành logistics')">🚚 Logistics</button>
+        </div>
+        <div class="quick-tab-panel" id="quickPanel2" data-panel="2" role="tabpanel">
+          <button type="button" onclick="quick('Ngành nào phù hợp với em?')">🎯 Ngành phù hợp</button>
+          <button type="button" onclick="quick('Tìm trường phù hợp với em.')">🏫 Tìm trường</button>
+          <button type="button" onclick="quick('Ngành này nên theo tổ hợp gì?')">📚 Tổ hợp môn nên theo</button>
+          <button type="button" onclick="quick('Phân tích nhóm tính cách MBTI của em')">🧠 Tính cách [MBTI]</button>
+          <button type="button" onclick="quick('Phân tích dấu ấn cá nhân từ câu trả lời tự nhập của em')">✨ Dấu ấn cá nhân (Câu E)</button>
+          <button type="button" onclick="quick('Bạn có tài liệu học tập và đề thi có giải chi tiết không?')">📚 Tài liệu &amp; Đề thi</button>
+          <button type="button" onclick="quick('Em sợ trượt đại học và điểm thi thấp')">📈 Sợ trượt &amp; Điểm thấp</button>
+        </div>
+        <div class="quick-tab-panel" id="quickPanel3" data-panel="3" role="tabpanel">
+          <button type="button" onclick="quick('Em bị mất động lực học tập, phải làm sao?')">⚡ Lấy lại động lực</button>
+          <button type="button" onclick="quick('Tôi muốn được lắng nghe và tư vấn tâm lý')">💚 Lắng nghe &amp; Tâm sự</button>
+          <button type="button" onclick="quick('Em đang bị áp lực từ bố mẹ và gia đình')">👨‍👩‍👧 Áp lực gia đình</button>
+          <button type="button" onclick="quick('Làm sao để bớt lười và tập trung học?')">⏱️ Cai lười &amp; Trì hoãn</button>
+          <button type="button" onclick="quick('Hướng dẫn em bài tập thở 4-7-8 để thư giãn')">🧘 Bài tập thở 4-7-8</button>
+          <button type="button" onclick="quick('Em cảm thấy buồn và mệt mỏi quá')">🫂 Tâm sự nỗi buồn</button>
+          <button type="button" onclick="quick('Làm sao để nói chuyện bằng giọng nói với bạn?')">🎙️ Trò chuyện bằng giọng nói</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Ô NHẬP & TƯƠNG TÁC GIỌNG NÓI -->
+
+    <div class="chat-input">
+
+        <input id="input" placeholder="Nhập tâm sự hoặc bấm micro 🎙️ để nói..." autocomplete="off" data-bound="true">
+
+        <button id="btnMic" class="btn-mic" type="button" onclick="toggleSpeechRecognition()" title="Bấm để nói (Lắng nghe bằng giọng nói)" aria-label="Nhận diện giọng nói bằng micro">
+            🎙️
+        </button>
+
+        <button id="btnVoiceToggle" class="btn-voice-toggle" type="button" onclick="toggleAutoSpeak()" title="Bật/Tắt trợ lý đọc câu trả lời">
+            🔇
+        </button>
+
+        <button class="btn primary" onclick="send()">
+            Gửi
+        </button>
+
+    </div>
+
+    <!-- TRẠNG THÁI NHẬN DIỆN GIỌNG NÓI & BÁO LỖI -->
+    <div id="voiceStatus" class="voice-status" style="display: none;" role="status" aria-live="polite"></div>
+
+    <p class="tiny chat-bottom-disclaimer">
+        Chatbot hỗ trợ định hướng &amp; giải tỏa tâm lý học đường. Trường hợp khẩn cấp, liên hệ <strong>Phòng Tư vấn Tâm lý Học đường</strong> hoặc <strong>Tổng đài Quốc gia 111</strong> (miễn phí 24/7).
+    </p>
+
+    <!-- THÔNG ĐIỆP ĐẠO ĐỨC AI & AN TOÀN TÂM LÝ (Bảo toàn DOM) -->
+    <div class="chat-ethics-notice" style="display: none;">
+        <span style="font-size: 15px; line-height: 1.2;">💙</span>
+        <div>
+            <strong>Thông điệp Đạo đức AI &amp; An toàn tâm lý:</strong> NS AI luôn lắng nghe bạn. Nếu bạn đang gặp khủng hoảng tâm lý nghiêm trọng, hãy liên hệ <strong>Phòng Tư vấn Tâm lý Học đường</strong> hoặc <strong>Tổng đài Quốc gia 111</strong> (miễn phí 24/7) để được hỗ trợ trực tiếp.
+        </div>
+    </div>
+
+    </div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="main.js"></script>
+<!-- phantich.js đã bỏ: bản trong main.js mới hơn, nạp thêm sẽ ghi đè sai -->
+<script src="truonghoc.js"></script>
+<script src="career_quiz.js"></script>
+<script src="career_insights.js"></script>
+<script src="chatbot.js"></script>
+
+
+<script>
+
+const p = (typeof getProfile === "function") ? getProfile() : { info: {}, scores: {}, hobbies: {}, goals: {} };
+
+// Cập nhật lời chào ban đầu theo tên học sinh và hồ sơ tiêm nhập (nếu có)
+const initGreetingEl = document.getElementById("initialBotGreeting");
+if (initGreetingEl && typeof getInitialGreetingMessage === "function") {
+    const rawGreeting = getInitialGreetingMessage();
+    const formattedGreeting = (typeof formatMsg === "function") ? formatMsg(rawGreeting) : rawGreeting;
+    initGreetingEl.innerHTML = `
+        ${formattedGreeting}
+        <div class="msg-tools">
+            <button type="button" class="btn-read-msg" title="Đọc bằng giọng nói" onclick="speakMessage(this)">🔊 Nghe đọc</button>
+        </div>
+    `;
+}
+
+const analysis = (typeof analyzeCareer === "function") ? analyzeCareer() : { results: [] };
+
+const top = analysis.results && analysis.results.length
+    ? analysis.results[0]
+    : null;
+
+// Lấy hồ sơ đã được tiêm nhập tự động (Context-Aware Injected Profile)
+const injected = (typeof loadInjectedUserProfile === "function") ? loadInjectedUserProfile() : null;
+
+let profileDisplay = `<b>Hồ sơ đang dùng:</b> `;
+if (injected && injected.hasProfile) {
+    const parts = [];
+    if (injected.name && injected.name !== "bạn" && injected.name !== "Học sinh") {
+        parts.push(`<strong>${injected.name}</strong>`);
+    }
+    if (injected.province) parts.push(injected.province);
+    if (injected.grade) {
+        parts.push(injected.grade.toString().includes("Lớp") ? injected.grade : `Lớp ${injected.grade}`);
+    }
+    if (injected.bestCombo) {
+        parts.push(`Tổ hợp cao nhất: <strong>${injected.bestCombo.code} (${injected.bestCombo.score}đ)</strong>`);
+    } else if (injected.scoreCount) {
+        parts.push(`${injected.scoreCount} môn đã nhập`);
+    }
+    if (injected.hollandCode) {
+        parts.push(`Mã Holland: <strong>${injected.hollandCode}</strong>`);
+    } else if (p.personality && p.personality !== "chưa xác định") {
+        parts.push(`xu hướng ${p.personality}`);
+    }
+    if (injected.goals && injected.goals.isStudyAbroad) {
+        parts.push(`✈️ <strong>Du học${injected.goals.studyAbroadCountry ? ` (${injected.goals.studyAbroadCountry})` : ""}</strong>`);
+    } else if (injected.goals && injected.goals.dreamMajor) {
+        parts.push(`🎯 <strong>${injected.goals.dreamMajor}</strong>`);
+    }
+    if (top) {
+        parts.push(`Ngành thế mạnh: <strong>${top.name}</strong>`);
+    }
+    profileDisplay += parts.join(" · ");
+} else {
+    profileDisplay += `
+        ${p.info.province || "Chưa chọn tỉnh"} · 
+        ${p.info.grade ? "Lớp " + p.info.grade : "Chưa chọn lớp"} · 
+        ${p.scoreCount ? p.scoreCount + " môn đã nhập" : "Chưa nhập điểm"} · 
+        xu hướng ${p.personality || "chưa xác định"}.
+        ${top ? ` Bạn phù hợp nhất với ngành: <strong>${top.name}</strong>.` : ""}
+    `;
+}
+
+const profileEl = document.getElementById("personalProfile");
+if (profileEl) {
+    if (injected && injected.hasProfile) {
+        profileEl.innerHTML = profileDisplay;
+        profileEl.style.display = "block";
+    } else if (p && (p.info && (p.info.province || p.info.grade) || p.scoreCount || (p.personality && p.personality !== "chưa xác định") || top)) {
+        profileEl.innerHTML = profileDisplay;
+        profileEl.style.display = "block";
+    } else {
+        profileEl.innerHTML = "";
+        profileEl.style.display = "none";
+    }
+}
+
+</script>
+
+
+
+<div id="mouseSpotlightOverlay" style="position: fixed; inset: 0px; pointer-events: none; z-index: 1; transition: opacity 0.3s; opacity: 1; background: radial-gradient(600px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), rgba(99, 102, 241, 0.07), transparent 80%); will-change: background;"></div><div class="gemini-modal-backdrop" id="geminiModalBackdrop">
+    <div class="gemini-modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 22px;">✨</span>
+          <h3 style="margin: 0; font-size: 17px; font-weight: 700; color: #f3e8ff;">Cấu hình Google Gemini AI</h3>
+        </div>
+        <button type="button" onclick="closeGeminiModal()" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; padding: 4px;" title="Đóng">✕</button>
+      </div>
+      <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px;">
+        Kết nối trực tiếp với mô hình Google Gemini để nhận câu trả lời hướng nghiệp tự nhiên, thông minh và giải đáp mọi thắc mắc học đường.
+      </p>
+      <div style="margin-bottom: 14px;">
+        <label style="display: block; font-size: 12.5px; font-weight: 600; color: #c084fc; margin-bottom: 6px;">Gemini API Key:</label>
+        <input type="password" id="geminiApiKeyInput" placeholder="Dán mã API Key (AIzaSy...)" style="width: 100%; padding: 10px 14px; background: rgba(0,0,0,0.35); border: 1px solid rgba(168,85,247,0.3); border-radius: 10px; color: #fff; font-size: 13px; box-sizing: border-box; outline: none;">
+        <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 11.5px; color: #94a3b8;">
+          <span>Key được lưu an toàn tại máy của bạn (LocalStorage)</span>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: underline;">Lấy API Key miễn phí ↗</a>
+        </div>
+      </div>
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 12.5px; font-weight: 600; color: #c084fc; margin-bottom: 6px;">Mô hình (Model):</label>
+        <select id="geminiModelSelect" style="width: 100%; padding: 9px 12px; background: #0f172a; border: 1px solid rgba(168,85,247,0.3); border-radius: 10px; color: #fff; font-size: 13px; box-sizing: border-box; outline: none;">
+          <option value="gemini-1.5-flash">Gemini 1.5 Flash (Phản hồi siêu tốc - Khuyên dùng)</option>
+          <option value="gemini-2.0-flash">Gemini 2.0 Flash (Mô hình mới nhất)</option>
+          <option value="gemini-1.5-pro">Gemini 1.5 Pro (Suy luận sâu &amp; chi tiết)</option>
+        </select>
+      </div>
+      <div style="margin-bottom: 18px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); padding: 10px 12px; border-radius: 10px;">
+        <input type="checkbox" id="geminiEnableToggle" style="width: 17px; height: 17px; accent-color: #8b5cf6; cursor: pointer;">
+        <label for="geminiEnableToggle" style="font-size: 13px; color: #e2e8f0; cursor: pointer; user-select: none;">Kích hoạt Google Gemini (Nếu mất kết nối, hệ thống tự động fallback về AI Cố vấn Cục bộ)</label>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" onclick="closeGeminiModal()" style="padding: 8px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #cbd5e1; font-size: 13px; cursor: pointer;">Đóng</button>
+        <button type="button" onclick="saveGeminiModalSettings()" style="padding: 8px 18px; background: linear-gradient(135deg, #7c3aed, #6366f1); border: none; border-radius: 8px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(124,58,237,0.35);">Lưu cấu hình</button>
+      </div>
+    </div>
+  </div></body></html>
