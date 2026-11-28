@@ -44,30 +44,13 @@
 
 <h1>Thông tin cơ bản</h1>
 
-<p class="muted">
-Không cần nhập họ tên. Các thông tin này giúp NS AI
-cá nhân hóa kết quả và chatbot.
-</p>
+<p class="muted">Nhập tên, tỉnh/thành và lớp để AI cá nhân hóa gợi ý.</p>
 
-<div class="info-box-grid">
-
-<div class="info-box">
-<b>📍 Tỉnh/thành</b>
-<span>Giúp gợi ý trường đại học thuận tiện theo khu vực.</span>
-</div>
-
-<div class="info-box">
-<b>🎓 Lớp</b>
-<span>Giúp đặt kết quả và lộ trình trong đúng bối cảnh học tập.</span>
-</div>
-
-</div>
-
-<label for="studentName">Họ và tên hoặc Biệt danh của bạn (tùy chọn)</label>
+<label for="studentName">Họ và tên hoặc biệt danh</label>
 <input
 id="studentName"
 type="text"
-placeholder="Ví dụ: Minh Khang, An Nhiên (để NS AI xưng hô thân mật hơn)..."
+placeholder="Ví dụ: Minh Khang"
 autocomplete="name"
 style="margin-bottom: 16px;">
 
@@ -136,17 +119,11 @@ autocomplete="off">
 
 <div class="actions">
 
-<a href="index.html" class="btn secondary">
-← Về trang chủ
-</a>
+<a href="index.html" class="btn secondary">← Trang chủ</a>
 
 <button
 class="btn primary"
-onclick="saveInfo()">
-
-Lưu &amp; tiếp tục sang Bước 2 (Điểm số) →
-
-</button>
+onclick="saveInfo()">Lưu &amp; tiếp tục →</button>
 
 </div>
 

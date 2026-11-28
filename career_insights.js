@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================================================
  * NS AI — BỘ DỮ LIỆU TRI THỨC NGHỀ NGHIỆP DÙNG CHUNG (CAREER INSIGHTS DATA)
  * Cung cấp thông tin chuẩn hóa 5 khối cho 24 nhóm ngành đào tạo chính quy:
@@ -32,14 +32,14 @@
                 { combo: "D01", subjects: "Toán · Ngữ văn · Tiếng Anh", tag: "Một số trường", isPopular: false },
                 { combo: "D07", subjects: "Toán · Hóa học · Tiếng Anh", tag: "Tổ hợp dự phòng", isPopular: false }
             ],
-            coreSubjectWarning: "Toán học & Tư duy logic — Chương trình học sử dụng Toán cao cấp, Giải thuật và Cấu trúc dữ liệu rất nặng. Bắt buộc rèn luyện tư duy logic mỗi ngày.",
+            coreSubjectWarning: "Toán học & Tư duy logic — Học sâu Toán cao cấp, Giải thuật và Cấu trúc dữ liệu. Cần rèn tư duy logic mỗi ngày.",
             coreSubjectAlert: {
                 subject: "Toán học (Tư duy logic & Giải thuật)",
-                reason: "Chương trình đại học học sâu về Toán rời rạc, Giải thuật và Cấu trúc dữ liệu. Sợ Toán sẽ rất chật vật khi học lập trình nâng cao."
+                reason: "Nền tảng Toán rời rạc và Giải thuật rất nặng. Học yếu Toán sẽ khó tiếp cận lập trình nâng cao và tối ưu hệ thống."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Ưu tiên trường có điểm chuẩn các năm trước thấp hơn điểm thi thử của bạn từ 1.0 – 1.5 điểm để an toàn nguyện vọng.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Mỗi trường mỗi khác về chứng chỉ ngoại ngữ quy đổi (IELTS, TOEFL), tiêu chí phụ xét môn Toán và chỉ tiêu theo ĐGNL."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Ưu tiên trường có điểm chuẩn thấp hơn điểm thi thử 1.0 – 1.5 điểm để an toàn nguyện vọng.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Chú ý quy đổi IELTS, tiêu chí phụ môn Toán và phân bổ chỉ tiêu ĐGNL/ĐGTD của từng trường."
             },
             curriculum: {
                 duration: "4 – 4.5 NĂM",
@@ -49,29 +49,29 @@
                     { year: "Năm 3", stage: "Chuyên sâu & Đồ án", desc: "Phát triển Web/Mobile, Kiến trúc phần mềm, DevOps, Đồ án nhóm." },
                     { year: "Năm 4-5", stage: "Thực tập & Khóa luận", desc: "Thực tập doanh nghiệp (OJT 6 tháng), Khóa luận tốt nghiệp và đi làm." }
                 ],
-                plainExplanation: "Không chỉ là gõ code đơn thuần mà là xây dựng giải pháp công nghệ: thiết kế web/app, quản trị dữ liệu lớn, bảo mật hệ thống và tự động hóa quy trình vận hành.",
+                plainExplanation: "Xây dựng giải pháp công nghệ số: lập trình web/app, quản trị dữ liệu lớn, bảo mật hệ thống và tự động hóa quy trình.",
                 tools: ["VS Code", "Git/GitHub", "Python", "JavaScript/TypeScript", "Docker", "PostgreSQL", "React/Node.js", "Postman"],
                 skills: [
                     { icon: "🧩", name: "Tư duy giải thuật & Tối ưu", desc: "Phân tích và biến bài toán đời thực thành các thuật toán xử lý tối ưu" },
                     { icon: "💻", name: "Lập trình & Clean Code", desc: "Viết mã nguồn chuẩn mực, dễ đọc, dễ bảo trì và mở rộng" },
                     { icon: "🤝", name: "Làm việc nhóm Agile/Scrum", desc: "Phối hợp nhịp nhàng theo sprint, quản lý task trên Jira và review code" },
-                    { icon: "🌐", name: "Tiếng Anh chuyên ngành", desc: "Tự đọc hiểu tài liệu kỹ thuật, cập nhật công nghệ mới trên StackOverflow/GitHub" }
+                    { icon: "🌐", name: "Tiếng Anh chuyên ngành", desc: "Đọc hiểu tài liệu kỹ thuật tiếng Anh, tự cập nhật công nghệ mới trên GitHub." }
                 ]
             },
             harshRealities: [
-                { icon: "⏰", title: "OT cày đêm fix bug & chạy dự án", desc: "Trước ngày release sản phẩm hoặc khi hệ thống gặp sự cố sập server, thức trắng đêm cùng team là chuyện bình thường." },
-                { icon: "🔄", title: "Tốc độ đào thải cao — Tự học suốt đời", desc: "Công nghệ đổi mới sau mỗi 2–3 năm. Ngừng cập nhật 1 năm là tụt hậu so với lứa kỹ sư trẻ." },
-                { icon: "🩺", title: "Bệnh văn phòng & Căng thẳng tinh thần", desc: "Ngồi liên tục 8–12 tiếng/ngày trước màn hình gây thoái hóa cột sống, cận thị, đau dạ dày và kiệt sức sáng tạo (burnout)." }
+                { icon: "⏰", title: "OT cày đêm fix bug & chạy dự án", desc: "Áp lực OT cày đêm sửa lỗi khi hệ thống gặp sự cố server hoặc sắp đến hạn release." },
+                { icon: "🔄", title: "Tốc độ đào thải cao — Tự học suốt đời", desc: "Công nghệ đổi mới sau 2–3 năm. Ngừng tự học 1 năm là tụt hậu so với thị trường." },
+                { icon: "🩺", title: "Bệnh văn phòng & Căng thẳng tinh thần", desc: "Ngồi máy tính 8–12 tiếng/ngày dễ mắc bệnh cột sống, cận thị và kiệt sức tinh thần." }
             ],
             salary: {
                 entry: "9 – 15 Triệu / tháng",
                 experienced: "30 – 50 Triệu / tháng",
                 multiplier: "×3.2",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Lương kỹ sư làm cho doanh nghiệp nước ngoài hoặc thị trường remote quốc tế có thể lên đến $2,500 – $4,000/tháng.",
+                note: "Tham khảo: Lương kỹ sư làm remote cho doanh nghiệp nước ngoài có thể đạt $2,000 – $3,500/tháng.",
                 entryBarPercent: 35,
                 expBarPercent: 90
             },
-            closingQuestion: "Bạn có sẵn sàng ngồi liên tục 4–5 tiếng trước màn hình máy tính chỉ để tìm và sửa một lỗi logic dòng lệnh nhỏ không?"
+            closingQuestion: "Điểm Toán và tư duy logic của bạn hiện có đạt từ 7.5 trở lên để tự tin cày thuật toán mỗi ngày không?"
         },
 
         "Khoa học máy tính & Trí tuệ nhân tạo (AI)": {
@@ -87,13 +87,13 @@
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Ưu tiên xét tuyển quốc tế", isPopular: true },
                 { combo: "D01", subjects: "Toán · Ngữ văn · Tiếng Anh", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Toán cao cấp & Đại số tuyến tính — Nền tảng cốt lõi của Machine Learning và Deep Learning là Xác suất thống kê, Đại số tuyến tính và Giải tích đa biến.",
+            coreSubjectWarning: "Toán cao cấp & Đại số tuyến tính — Trọng tâm là Xác suất thống kê, Đại số ma trận và Giải tích đa biến.",
             coreSubjectAlert: {
                 subject: "Toán cao cấp (Đại số tuyến tính & Xác suất)",
-                reason: "Toàn bộ mô hình học sâu và mạng nơ-ron được xây dựng trên ma trận và đạo hàm. Không vững Toán thì chỉ dừng lại ở mức cài thư viện có sẵn."
+                reason: "Mô hình Machine Learning và Deep Learning xây dựng trên ma trận. Hổng Toán chỉ dừng ở mức cài thư viện có sẵn."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Các ngành AI/KHMT tại trường top đầu lấy điểm cực cao (27-29đ). Hãy chuẩn bị nguyện vọng dự phòng ngành CNTT hoặc Hệ thống thông tin.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Ngành AI trường top lấy điểm rất cao (27–29đ); nên đặt nguyện vọng dự phòng ngành CNTT.",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Ưu tiên điểm thi ĐGNL ĐHQG và chứng chỉ tiếng Anh (IELTS từ 6.5 trở lên) được quy đổi hệ số cao."
             },
             curriculum: {
@@ -104,7 +104,7 @@
                     { year: "Năm 3", stage: "Chuyên sâu AI & Học máy", desc: "Machine Learning, Deep Learning, Xử lý ảnh số (CV), Xử lý ngôn ngữ tự nhiên (NLP)." },
                     { year: "Năm 4-5", stage: "Nghiên cứu & Khóa luận", desc: "Huấn luyện mô hình LLM/GenAI, Nghiên cứu R&D, Viết bài báo khoa học và thực tập." }
                 ],
-                plainExplanation: "Nghiên cứu cách dạy máy tính tự học và đưa ra quyết định thông minh: từ nhận diện giọng nói, thị giác máy tính, phân tích dữ liệu lớn đến phát triển mô hình AI tạo sinh.",
+                plainExplanation: "Nghiên cứu dạy máy tính tự học: thị giác máy tính, xử lý ngôn ngữ tự nhiên (NLP) và mô hình AI tạo sinh.",
                 tools: ["Python", "PyTorch", "TensorFlow", "Jupyter", "Scikit-Learn", "HuggingFace", "CUDA", "Pandas/NumPy"],
                 skills: [
                     { icon: "🧠", name: "Toán mô hình & Đại số ma trận", desc: "Hiểu sâu bản chất toán học đằng sau các thuật toán tối ưu Gradient Descent" },
@@ -114,19 +114,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "📈", title: "Nền tảng Toán học cực nặng & trừu tượng", desc: "Khối lượng lý thuyết toán giải tích, ma trận không gian đa chiều và thống kê rất khó, đòi hỏi tư duy trừu tượng cao độ." },
-                { icon: "⚔️", title: "Cạnh tranh khốc liệt bằng công bố & năng lực R&D", desc: "Thị trường AI tuyển chọn rất gắt gao; bằng cử nhân thông thường khó cạnh tranh nếu không có bài báo nghiên cứu hoặc sản phẩm thực chiến xuất sắc." },
-                { icon: "💥", title: "Rủi ro dự án R&D thất bại cao", desc: "Huấn luyện mô hình tốn hàng nghìn giờ GPU nhưng độ chính xác không đạt yêu cầu là điều xảy ra thường xuyên trong nghiên cứu." }
+                { icon: "📈", title: "Nền tảng Toán học cực nặng & trừu tượng", desc: "Khối lượng lý thuyết Toán giải tích, ma trận không gian đa chiều cực khó và trừu tượng." },
+                { icon: "⚔️", title: "Cạnh tranh khốc liệt bằng công bố & năng lực R&D", desc: "Thị trường AI tuyển chọn khắt khe; cử nhân cần có bài báo hoặc sản phẩm thực chiến nổi bật." },
+                { icon: "💥", title: "Rủi ro dự án R&D thất bại cao", desc: "Dự án R&D huấn luyện mô hình tốn hàng trăm giờ GPU nhưng vẫn có thể không đạt độ chính xác." }
             ],
             salary: {
                 entry: "12 – 20 Triệu / tháng",
                 experienced: "45 – 80 Triệu / tháng",
                 multiplier: "×3.8",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Kỹ sư AI / MLOps giỏi có thể nhận mức đãi ngộ trên 100 triệu/tháng tại các tập đoàn công nghệ lớn.",
+                note: "Tham khảo: Kỹ sư AI / MLOps giỏi có thể nhận mức đãi ngộ trên 60–80 triệu/tháng tại các tập đoàn lớn.",
                 entryBarPercent: 40,
                 expBarPercent: 95
             },
-            closingQuestion: "Bạn có đam mê tìm hiểu sâu bản chất các công thức Toán học để biến chúng thành thuật toán thông minh không?"
+            closingQuestion: "Điểm Toán và tư duy Đại số/Xác suất của bạn có đủ vững (trên 8.0) để theo đuổi giải thuật AI không?"
         },
 
         "Kinh tế / Quản trị kinh doanh & Marketing": {
@@ -143,13 +143,13 @@
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Ưu tiên khối Kinh tế", isPopular: true },
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Tiếng Anh & Toán tư duy số liệu — Ngành kinh doanh hiện đại vận hành bằng dữ liệu (Data-driven) và tài liệu tiếng Anh quốc tế.",
+            coreSubjectWarning: "Tiếng Anh & Toán tư duy số liệu — Kinh doanh hiện đại vận hành bằng phân tích dữ liệu và tài liệu quốc tế.",
             coreSubjectAlert: {
                 subject: "Tiếng Anh & Tư duy phân tích số liệu",
-                reason: "Toàn bộ tài liệu tiếp thị số, báo cáo thị trường và case study quốc tế đều bằng tiếng Anh. Kém ngoại ngữ sẽ rất khó thăng tiến."
+                reason: "Chiến dịch tiếp thị số và case study quốc tế đều bằng tiếng Anh; thiếu ngoại ngữ sẽ rất khó thăng tiến quản lý."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Các trường top 1 (Ngoại thương, NEU, UEH) có điểm chuẩn từ 26.5-28đ; nên cân nhắc thêm các trường công lập uy tín như Thương mại, HV Ngân hàng, HV Tài chính.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Trường top 1 (FTU, NEU, UEH) lấy 26.5–28đ; cân nhắc thêm Thương mại, HV Ngân hàng.",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Chú ý phương thức xét tuyển kết hợp chứng chỉ IELTS với điểm học bạ hoặc điểm tốt nghiệp THPT."
             },
             curriculum: {
@@ -160,7 +160,7 @@
                     { year: "Năm 3", stage: "Chuyên sâu & Chiến dịch", desc: "Digital Marketing, Quản trị chuỗi giá trị, Brand Management, Chạy chiến dịch giả lập." },
                     { year: "Năm 4", stage: "Thực tập & Khóa luận", desc: "Thực tập tại phòng Marketing/Sales doanh nghiệp, Đồ án kinh doanh tốt nghiệp." }
                 ],
-                plainExplanation: "Học cách phát hiện nhu cầu của thị trường, xây dựng sản phẩm/dịch vụ giải quyết nỗi đau khách hàng, lên chiến lược truyền thông và vận hành doanh nghiệp sinh lời.",
+                plainExplanation: "Nghiên cứu thị trường, phát triển sản phẩm giải quyết nhu cầu khách hàng, chạy tiếp thị và vận hành sinh lời.",
                 tools: ["Excel nâng cao", "PowerBI", "Google Analytics", "Meta Ads Manager", "Canva", "HubSpot CRM", "TikTok Ads"],
                 skills: [
                     { icon: "📊", name: "Phân tích số liệu thị trường", desc: "Đọc hiểu báo cáo nghiên cứu thị trường và đo lường chỉ số ROI chiến dịch" },
@@ -170,19 +170,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🌊", title: "Bằng cấp dễ bão hòa nếu thiếu kinh nghiệm thực chiến", desc: "Số lượng cử nhân kinh tế tốt nghiệp mỗi năm rất đông; nhà tuyển dụng chỉ đánh giá cao ứng viên có kinh nghiệm làm dự án thực tế." },
-                { icon: "🎯", title: "Áp lực chỉ tiêu doanh số (KPI) đè nặng mỗi tháng", desc: "Hiệu quả công việc được đo đếm trực tiếp bằng số lead, lượt click, doanh thu mang về; luôn bắt đầu lại từ con số 0 mỗi đầu tháng." },
-                { icon: "⚡", title: "Môi trường biến động, đào thải nhanh", desc: "Thuật toán quảng cáo thay đổi liên tục; xu hướng tiêu dùng chuyển biến nhanh khiến các chiến dịch hôm qua có thể thất bại hôm nay." }
+                { icon: "🌊", title: "Bằng cấp dễ bão hòa nếu thiếu kinh nghiệm thực chiến", desc: "Cử nhân kinh tế tốt nghiệp rất đông; nhà tuyển dụng chỉ ưu tiên ứng viên có kinh nghiệm thực chiến." },
+                { icon: "🎯", title: "Áp lực chỉ tiêu doanh số (KPI) đè nặng mỗi tháng", desc: "Áp lực chỉ tiêu doanh số (KPI) đè nặng; mỗi tháng đều bắt đầu lại từ con số 0 với mục tiêu mới." },
+                { icon: "⚡", title: "Môi trường biến động, đào thải nhanh", desc: "Thuật toán quảng cáo đổi liên tục; chiến dịch thành công hôm nay có thể lỗi thời ngay ngày mai." }
             ],
             salary: {
                 entry: "7 – 12 Triệu / tháng",
                 experienced: "25 – 45 Triệu / tháng",
                 multiplier: "×3.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Vị trí Trưởng phòng Marketing (CMO) hoặc Giám đốc Kinh doanh có thể hưởng thêm hoa hồng doanh số không giới hạn.",
+                note: "Tham khảo: Trưởng phòng Marketing (CMO) hoặc Giám đốc Kinh doanh có hoa hồng doanh số không giới hạn.",
                 entryBarPercent: 30,
                 expBarPercent: 85
             },
-            closingQuestion: "Bạn có tự tin thuyết phục một người lạ tin tưởng và chọn mua sản phẩm mà mình đang giới thiệu không?"
+            closingQuestion: "Điểm Tiếng Anh hoặc Toán của bạn có đạt từ 7.5 trở lên để tự tin đọc tài liệu thị trường quốc tế không?"
         },
 
         "Tài chính - Ngân hàng & Kế toán - Kiểm toán": {
@@ -199,14 +199,14 @@
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Khối kinh tế ưu tiên", isPopular: true },
                 { combo: "D01", subjects: "Toán · Ngữ văn · Tiếng Anh", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Toán học & Tư duy số liệu chuẩn xác — Ngành đòi hỏi sự tỉ mỉ, chính xác tuyệt đối với các con số; một sai sót nhỏ có thể dẫn tới rủi ro pháp lý lớn.",
+            coreSubjectWarning: "Toán học & Tư duy số liệu chuẩn xác — Đòi hỏi sự tỉ mỉ tuyệt đối với số liệu, phòng ngừa rủi ro pháp lý.",
             coreSubjectAlert: {
                 subject: "Toán học & Tính cẩn trọng với số liệu",
-                reason: "Báo cáo tài chính và sổ sách kế toán yêu cầu độ chính xác 100%. Nếu tính cách hấp tấp, ngại làm việc với bảng tính số liệu thì sẽ rất căng thẳng."
+                reason: "Báo cáo tài chính yêu cầu chính xác 100%. Tính cách hấp tấp, sợ bảng tính Excel sẽ rất áp lực khi làm việc."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Tài chính, Học viện Ngân hàng, ĐH Kinh tế Quốc dân là top đầu. Cân nhắc thêm ĐH Thương mại hoặc ĐH Công đoàn cho mức điểm an toàn hơn.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhiều trường xét chứng chỉ nghề nghiệp quốc tế (ACCA, CFA, ICAEW) hoặc IELTS để cộng điểm ưu tiên."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: HV Tài chính, HV Ngân hàng, NEU là top đầu; cân nhắc ĐH Thương mại mức điểm an toàn hơn.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhiều trường xét chứng chỉ nghề quốc tế (ACCA, CFA) hoặc IELTS để cộng điểm ưu tiên."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -216,7 +216,7 @@
                     { year: "Năm 3", stage: "Chuyên sâu & Kiểm toán", desc: "Kiểm toán căn bản, Thẩm định giá, Định giá chứng khoán, Phần mềm kế toán MISA/SAP." },
                     { year: "Năm 4", stage: "Thực tập & Khóa luận", desc: "Thực tập tại công ty kiểm toán Big 4 hoặc ngân hàng, Hoàn thiện khóa luận." }
                 ],
-                plainExplanation: "Học cách 'bắt mạch' sức khỏe tiền tệ của doanh nghiệp: ghi nhận dòng tiền, lập báo cáo tài chính minh bạch, phân tích rủi ro đầu tư và hoạch định chiến lược vốn.",
+                plainExplanation: "Quản trị sức khỏe tiền tệ doanh nghiệp: ghi nhận dòng tiền, lập báo cáo tài chính và thẩm định rủi ro đầu tư.",
                 tools: ["Excel Advanced", "MISA", "SAP ERP", "PowerBI", "Bloomberg Terminal", "SPSS", "Python tài chính"],
                 skills: [
                     { icon: "🔢", name: "Đọc hiểu Báo cáo tài chính", desc: "Phân tích cấu trúc bảng cân đối kế toán, báo cáo lãi lỗ và lưu chuyển tiền tệ" },
@@ -226,19 +226,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "📅", title: "Mùa kiểm toán & Báo cáo cuối năm làm việc 14–16 tiếng/ngày", desc: "Từ tháng 12 đến tháng 4 hàng năm là mùa cao điểm; kiểm toán viên phải đi công tác liên tục và làm việc đến nửa đêm." },
-                { icon: "⚖️", title: "Rủi ro pháp lý & Trách nhiệm bồi hoàn lớn", desc: "Sai sót trong ký duyệt chứng từ hoặc báo cáo kiểm toán có thể bị truy cứu trách nhiệm hành chính và bồi thường thiệt hại." },
+                { icon: "📅", title: "Mùa kiểm toán & Báo cáo cuối năm làm việc 14–16 tiếng/ngày", desc: "Mùa kiểm toán và báo cáo tài chính cuối năm (tháng 12–4) thường xuyên làm việc 12–15 tiếng/ngày." },
+                { icon: "⚖️", title: "Rủi ro pháp lý & Trách nhiệm bồi hoàn lớn", desc: "Ký duyệt sai chứng từ hoặc báo cáo kiểm toán có thể bị truy cứu trách nhiệm pháp lý và bồi thường." },
                 { icon: "🔁", title: "Công việc dễ đơn điệu, áp lực chính xác 100%", desc: "Hàng ngày phải đối chiếu từng dòng chứng từ, hóa đơn; tính chất công việc lặp đi lặp lại đòi hỏi tính kiên nhẫn cao độ." }
             ],
             salary: {
                 entry: "8 – 13 Triệu / tháng",
                 experienced: "28 – 45 Triệu / tháng",
                 multiplier: "×3.2",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Chuyên gia có chứng chỉ CFA hoặc ACCA làm tại các quỹ đầu tư quốc tế có mức lương hàng nghìn USD.",
+                note: "Tham khảo: Chuyên gia có chứng chỉ CFA/ACCA làm tại các quỹ đầu tư quốc tế nhận mức lương hàng nghìn USD.",
                 entryBarPercent: 32,
                 expBarPercent: 88
             },
-            closingQuestion: "Bạn có đủ kiên nhẫn để ngồi rà soát từng dòng số liệu trong một bảng tính hàng trăm nghìn ô để tìm ra sai số 1 đồng không?"
+            closingQuestion: "Điểm Toán và độ cẩn trọng với số liệu của bạn có tự tin đạt trên 7.5 để tránh mọi sai sót kế toán không?"
         },
 
         "Y khoa / Dược học & Khoa học sức khỏe": {
@@ -255,13 +255,13 @@
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Ngành Dược / Y sinh", isPopular: false },
                 { combo: "D07", subjects: "Toán · Hóa học · Tiếng Anh", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Sinh học & Hóa học — Khối lượng kiến thức ghi nhớ khổng lồ về cơ thể người, bệnh học và dược lý. Đòi hỏi khả năng tự học bền bỉ nhiều năm.",
+            coreSubjectWarning: "Sinh học & Hóa học — Khối lượng kiến thức bệnh học, giải phẫu khổng lồ. Cần khả năng tự học bền bỉ nhiều năm.",
             coreSubjectAlert: {
                 subject: "Sinh học & Hóa học (Giải phẫu & Dược lý)",
-                reason: "Chương trình học cực kỳ nặng, hàng nghìn trang giáo trình giải phẫu, dược chất và sinh lý bệnh. Bắt buộc có trí nhớ tốt và sự kiên trì phi thường."
+                reason: "Hàng nghìn trang giáo trình giải phẫu, dược lý và sinh lý bệnh. Bắt buộc có trí nhớ tốt và sự kiên trì phi thường."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Y Hà Nội và ĐH Y Dược TP.HCM điểm sàn rất cao (27.5-28.5đ). Các trường ĐH Y Hải Phòng, ĐH Y Thái Bình, ĐH Y Cần Thơ là phương án an toàn hơn.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Y Hà Nội, Y Dược TPHCM lấy 27.5–28.5đ; Y Hải Phòng, Y Thái Bình vừa tầm hơn.",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Một số trường ưu tiên xét tuyển chứng chỉ tiếng Anh (IELTS từ 6.5 trở lên) kết hợp điểm khối B00."
             },
             curriculum: {
@@ -272,7 +272,7 @@
                     { year: "Năm 4-5", stage: "Lâm sàng chuyên khoa", desc: "Nội khoa, Ngoại khoa, Sản khoa, Nhi khoa; Trực đêm cấp cứu tại bệnh viện." },
                     { year: "Năm 6", stage: "Thực tập tốt nghiệp", desc: "Thực tập toàn diện tại các viện tuyến đầu, Thi tốt nghiệp lâm sàng & Lý thuyết quốc gia." }
                 ],
-                plainExplanation: "Đào tạo người thầy thuốc cứu người: thấu hiểu cơ chế bệnh sinh, đọc kết quả xét nghiệm/hình ảnh, chẩn đoán chính xác và đưa ra phác đồ điều trị hiệu quả cho bệnh nhân.",
+                plainExplanation: "Đào tạo thầy thuốc chữa bệnh: giải phẫu cơ thể, chẩn đoán triệu chứng, xét nghiệm và lên phác đồ điều trị.",
                 tools: ["Ống nghe y tế", "Hệ thống Bệnh án điện tử (EMR)", "Mô hình phẫu thuật 3D", "Dược thư Quốc gia", "Máy đo điện tim ECG", "Phần mềm chẩn đoán PACS"],
                 skills: [
                     { icon: "🩺", name: "Khám lâm sàng & Chẩn đoán", desc: "Quan sát, thăm khám tỉ mỉ và tổng hợp triệu chứng để đưa ra kết luận bệnh chính xác" },
@@ -282,19 +282,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "⏳", title: "Thời gian đào tạo dài nhất & Khởi đầu muộn", desc: "6 năm đại học + 18 tháng thực hành lấy chứng chỉ hành nghề (CCHN) + 3 năm bác sĩ nội trú; khi bạn bè đã ổn định thì bạn vẫn đi học." },
-                { icon: "🩸", title: "Áp lực trực đêm thâu đêm & Sinh mạng con người", desc: "Trực cấp cứu 24 tiếng liên tục, đối mặt với máu me, ranh giới sinh tử và áp lực từ phía người nhà bệnh nhân; không được phép sai sót." },
-                { icon: "📉", title: "Thu nhập khởi điểm thấp so với công sức bỏ ra", desc: "Lương bác sĩ mới ra trường tại bệnh viện công lập khởi điểm theo ngạch viên chức chỉ khoảng 6–9 triệu; phải mất 8–10 năm mới đạt thu nhập cao." }
+                { icon: "⏳", title: "Thời gian đào tạo dài nhất & Khởi đầu muộn", desc: "Đào tạo dài nhất: 6 năm đại học + 18 tháng thực hành lấy CCHN + 3 năm nội trú trước khi có thu nhập tốt." },
+                { icon: "🩸", title: "Áp lực trực đêm thâu đêm & Sinh mạng con người", desc: "Trực cấp cứu 24/7 thâu đêm, đối diện ranh giới sinh tử và áp lực nặng nề từ phía người nhà bệnh nhân." },
+                { icon: "📉", title: "Thu nhập khởi điểm thấp so với công sức bỏ ra", desc: "Lương bác sĩ mới ra trường tại viện công chỉ 6–9 triệu; cần 8–10 năm phấn đấu để có thu nhập vững vàng." }
             ],
             salary: {
                 entry: "7 – 11 Triệu / tháng",
                 experienced: "35 – 70 Triệu / tháng",
                 multiplier: "×4.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Khi có Chứng chỉ hành nghề và mở phòng khám riêng hoặc làm bệnh viện quốc tế, thu nhập có thể đạt 80–120 triệu/tháng.",
+                note: "Tham khảo: Bác sĩ có CCHN làm viện quốc tế hoặc mở phòng khám riêng có thể đạt 50–90+ triệu/tháng.",
                 entryBarPercent: 28,
                 expBarPercent: 92
             },
-            closingQuestion: "Bạn có đủ dũng khí và lòng kiên nhẫn để cống hiến 8–10 năm thanh xuân miệt mài học tập và trực viện trước khi có mức thu nhập ổn định không?"
+            closingQuestion: "Học lực Sinh - Hóa của bạn hiện có đủ sức đạt 25-28 điểm để theo học khối ngành Y Dược không?"
         },
 
         "Điều dưỡng & Kỹ thuật Y sinh": {
@@ -310,14 +310,14 @@
                 { combo: "B00", subjects: "Toán · Hóa học · Sinh học", tag: "Phổ biến nhất", isPopular: true },
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Sinh học & Sự kiên nhẫn thấu cảm — Công việc gắn liền trực tiếp với bệnh nhân và hệ thống thiết bị hỗ trợ sự sống.",
+            coreSubjectWarning: "Sinh học & Tinh thần kiên nhẫn — Công việc gắn liền trực tiếp với bệnh nhân và hệ thống máy theo dõi sinh hiệu.",
             coreSubjectAlert: {
                 subject: "Sinh học & Tinh thần phụng sự",
-                reason: "Chăm sóc người bệnh đòi hỏi nền tảng giải phẫu sinh lý tốt cùng đức tính cẩn trọng, kiên nhẫn và chịu khó trước mọi hoàn cảnh."
+                reason: "Chăm sóc bệnh nhân cần nền tảng sinh lý tốt cùng đức tính cẩn trọng, kiên nhẫn và chịu khó trước mọi ca bệnh."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Điểm chuẩn ngành Điều dưỡng dao động từ 19 – 23.5 điểm, dễ tiếp cận hơn nhiều so với Y đa khoa.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhiều chương trình Điều dưỡng liên kết việc làm tại Nhật Bản, CHLB Đức tuyển sinh kèm cam kết học bổng ngoại ngữ."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Điểm chuẩn ngành Điều dưỡng từ 19 – 23.5 điểm, dễ tiếp cận hơn nhiều so với Bác sĩ.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhiều chương trình Điều dưỡng liên kết làm việc tại Nhật Bản, Đức có học bổng ngoại ngữ."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -327,7 +327,7 @@
                     { year: "Năm 3", stage: "Chăm sóc chuyên khoa", desc: "Điều dưỡng Nội - Ngoại - Sản - Nhi, Vận hành máy theo dõi bệnh nhân (Monitor)." },
                     { year: "Năm 4", stage: "Thực tập toàn diện", desc: "Thực tập trực ca tại các bệnh viện lớn, Hoàn thành báo cáo tốt nghiệp." }
                 ],
-                plainExplanation: "Trụ cột chăm sóc bệnh nhân trong hệ thống y tế: thực hiện y lệnh, theo dõi sát sao diễn biến sinh hiệu (mạch, nhiệt độ, huyết áp) và hỗ trợ phục hồi sức khỏe.",
+                plainExplanation: "Trụ cột chăm sóc y tế: thực hiện y lệnh, theo dõi chỉ số sinh hiệu (mạch, huyết áp) và hỗ trợ hồi phục sức khỏe.",
                 tools: ["Máy Monitor theo dõi sinh hiệu", "Bơm tiêm điện", "Máy thở", "Hệ thống quản lý điều dưỡng EMR", "Dụng cụ chăm sóc vết thương"],
                 skills: [
                     { icon: "💉", name: "Thành thạo kỹ thuật tiêm truyền & sơ cứu", desc: "Thực hiện chính xác kỹ thuật điều dưỡng an toàn, không gây đau đớn cho bệnh nhân" },
@@ -337,19 +337,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🏃", title: "Áp lực thể lực rất lớn (Trực ca kíp 24/7)", desc: "Thường xuyên phải đi lại liên tục, nâng đỡ bệnh nhân nặng và đảo lộn đồng hồ sinh học do làm ca đêm kéo dài." },
-                { icon: "☣️", title: "Nguy cơ lây nhiễm chéo & Phơi nhiễm nghề nghiệp", desc: "Tiếp xúc trực tiếp hàng ngày với dịch tiết, máu và các nguồn bệnh truyền nhiễm đòi hỏi kỷ luật phòng hộ nghiêm ngặt." },
-                { icon: "💬", title: "Áp lực tâm lý từ phía người nhà bệnh nhân", desc: "Thường xuyên phải hứng chịu sự bức xúc, nóng nảy của thân nhân trong lúc lo lắng cấp bách mà vẫn phải giữ thái độ hòa nhã." }
+                { icon: "🏃", title: "Áp lực thể lực rất lớn (Trực ca kíp 24/7)", desc: "Trực ca kíp 24/7, đi lại liên tục và nâng đỡ bệnh nhân nặng gây quá tải thể lực và đảo lộn giấc ngủ." },
+                { icon: "☣️", title: "Nguy cơ lây nhiễm chéo & Phơi nhiễm nghề nghiệp", desc: "Tiếp xúc trực tiếp với dịch tiết, máu và nguồn lây nhiễm đòi hỏi kỷ luật phòng hộ y tế nghiêm ngặt." },
+                { icon: "💬", title: "Áp lực tâm lý từ phía người nhà bệnh nhân", desc: "Thường xuyên chịu áp lực, bức xúc từ người nhà bệnh nhân trong phòng bệnh mà vẫn phải hòa nhã." }
             ],
             salary: {
                 entry: "7 – 10 Triệu / tháng",
                 experienced: "18 – 30 Triệu / tháng",
                 multiplier: "×2.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Nếu làm việc tại Nhật Bản hoặc Đức theo diện điều dưỡng viên, thu nhập đạt từ 45 – 70 triệu/tháng.",
+                note: "Tham khảo: Điều dưỡng làm việc tại Nhật Bản hoặc Đức theo hợp đồng có thể đạt 40–65 triệu/tháng.",
                 entryBarPercent: 28,
                 expBarPercent: 75
             },
-            closingQuestion: "Bạn có lòng bao dung và sự tận tụy để chăm sóc người bệnh ốm đau như chính người thân của mình không?"
+            closingQuestion: "Học lực môn Sinh học và sức bền học tập của bạn có đủ vững để hoàn thành chương trình Điều dưỡng không?"
         },
 
         "Kỹ thuật / Cơ điện tử & Tự động hóa": {
@@ -366,13 +366,13 @@
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Ưu tiên xét tuyển", isPopular: true },
                 { combo: "C01", subjects: "Toán · Vật lí · Ngữ văn", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Vật lý & Toán ứng dụng — Môn học cốt lõi bao gồm Cơ học giải tích, Sức bền vật liệu, Lý thuyết điều khiển tự động và Điện tử công suất.",
+            coreSubjectWarning: "Vật lý & Toán ứng dụng — Môn học cốt lõi gồm Cơ học, Sức bền vật liệu, Lý thuyết điều khiển và Vi điều khiển.",
             coreSubjectAlert: {
                 subject: "Vật lý (Cơ học & Điện học) & Toán",
-                reason: "Chế tạo robot và dây chuyền tự động đòi hỏi hiểu sâu về cân bằng lực, truyền động cơ khí và thuật toán vi điều khiển."
+                reason: "Chế tạo robot và dây chuyền cần hiểu sâu về cân bằng lực, truyền động cơ khí và giải thuật lập trình PLC."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Bách Khoa Hà Nội và Bách Khoa TP.HCM điểm rất cao (26-27.5đ). ĐH Giao thông Vận tải, ĐH Công nghiệp, ĐH Sư phạm Kỹ thuật là lựa chọn tuyệt vời vừa tầm.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Bách Khoa lấy 26–27.5đ; Giao thông Vận tải, ĐH Công nghiệp điểm vừa tầm hơn.",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Ưu tiên điểm thi Đánh giá tư duy (ĐHBK) hoặc ĐGNL ĐHQG với trọng số cao môn Toán - Lý."
             },
             curriculum: {
@@ -383,7 +383,7 @@
                     { year: "Năm 3", stage: "Tự động hóa & Khí nén", desc: "Lập trình PLC, Hệ thống khí nén thủy lực, Cảm biến công nghiệp, Robot học." },
                     { year: "Năm 4-5", stage: "Đồ án & Thực tập nhà máy", desc: "Thiết kế dây chuyền SCADA/MES, Chế tạo tay máy robot, Thực tập tại nhà máy FDI." }
                 ],
-                plainExplanation: "Kết hợp cơ khí chính xác, điện tử thông minh và lập trình điều khiển để tạo ra các cỗ máy tự động: từ cánh tay robot hàn ô tô đến dây chuyền đóng gói thông minh.",
+                plainExplanation: "Kết hợp cơ khí, điện tử và lập trình để chế tạo robot hàn tự động, băng chuyền và hệ thống nhà máy thông minh.",
                 tools: ["AutoCAD", "SolidWorks", "Siemens TIA Portal", "MATLAB/Simulink", "Altium Designer", "LabVIEW", "Arduino/STM32"],
                 skills: [
                     { icon: "⚙️", name: "Thiết kế mô hình 3D cơ khí", desc: "Mô phỏng động lực học và thiết kế chi tiết máy trên phần mềm SolidWorks" },
@@ -393,19 +393,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🏭", title: "Môi trường làm việc tại nhà máy ồn ào, bụi bặm", desc: "Kỹ sư thường làm việc trực tiếp tại phân xưởng sản xuất, tiếp xúc với tiếng ồn máy dập, dầu mỡ và nhiệt độ cao." },
-                { icon: "🚗", title: "Thường xuyên công tác xa hoặc làm việc ở KCN ngoại ô", desc: "Các nhà máy sản xuất lớn thường nằm ở các khu công nghiệp xa trung tâm thành phố (Bắc Ninh, Bình Dương, Đồng Nai, Hải Phòng)." },
-                { icon: "⚠️", title: "Áp lực an toàn lao động & Rủi ro dừng dây chuyền", desc: "Một sự cố máy móc có thể làm ngưng trệ toàn bộ dây chuyền sản xuất của nhà máy, gây thiệt hại hàng trăm triệu mỗi giờ." }
+                { icon: "🏭", title: "Môi trường làm việc tại nhà máy ồn ào, bụi bặm", desc: "Làm việc tại phân xưởng sản xuất tiếp xúc với tiếng ồn máy dập, dầu mỡ cơ khí và nhiệt độ cao." },
+                { icon: "🚗", title: "Thường xuyên công tác xa hoặc làm việc ở KCN ngoại ô", desc: "Nhà máy lớn thường đặt ở KCN xa trung tâm thành phố (Bắc Ninh, Bình Dương, Hải Phòng, Đồng Nai)." },
+                { icon: "⚠️", title: "Áp lực an toàn lao động & Rủi ro dừng dây chuyền", desc: "Sự cố dừng dây chuyền gây thiệt hại hàng trăm triệu mỗi giờ, tạo áp lực sửa chữa rất căng thẳng." }
             ],
             salary: {
                 entry: "8 – 14 Triệu / tháng",
                 experienced: "25 – 45 Triệu / tháng",
                 multiplier: "×3.0",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Kỹ sư tự động hóa làm việc tại các tập đoàn FDI (Samsung, LG, VinFast, Foxconn) thường có chế độ đãi ngộ rất tốt.",
+                note: "Tham khảo: Kỹ sư tự động hóa làm tại các tập đoàn FDI (Samsung, LG, VinFast) có chế độ đãi ngộ rất tốt.",
                 entryBarPercent: 32,
                 expBarPercent: 86
             },
-            closingQuestion: "Bạn có thích tự tay tháo lắp, đấu nối vi mạch và lập trình để một cánh tay robot chuyển động theo ý mình không?"
+            closingQuestion: "Điểm Toán - Vật lý của bạn có đạt từ 7.5 trở lên để tự tin học Cơ điện tử và lập trình PLC không?"
         },
 
         "Điện - Điện tử & Năng lượng tái tạo": {
@@ -420,14 +420,14 @@
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Phổ biến nhất", isPopular: true },
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Ưu tiên khối Kỹ thuật", isPopular: true }
             ],
-            coreSubjectWarning: "Vật lý (Điện học) & Toán giải tích — Môn học nền tảng là Trường điện từ, Lý thuyết mạch điện, Điện tử công suất và Hệ thống điện quốc gia.",
+            coreSubjectWarning: "Vật lý (Điện học) & Toán giải tích — Môn cốt lõi gồm Mạch điện, Trường điện từ, Bán dẫn và Lưới điện thông minh.",
             coreSubjectAlert: {
                 subject: "Vật lý (Điện học & Mạch điện) & Toán",
-                reason: "Kiến thức về dòng điện xoay chiều, sóng điện từ và mạch bán dẫn rất trừu tượng, đòi hỏi tư duy hình học không gian và tích phân vi phân tốt."
+                reason: "Khái niệm dòng điện xoay chiều và sóng điện từ trừu tượng, đòi hỏi tư duy giải tích và tích phân vi phân tốt."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Bách Khoa, ĐH Điện lực, ĐH Sư phạm Kỹ thuật đều có thế mạnh đào tạo ngành này với nhiều dải điểm từ 20 – 26.5 điểm.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Ngành năng lượng tái tạo và bán dẫn vi mạch đang được các trường ưu tiên cấp học bổng tài năng từ doanh nghiệp."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Bách Khoa, Điện lực, Sư phạm Kỹ thuật đào tạo mạnh với dải điểm rộng từ 20–26đ.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Lĩnh vực thiết kế vi mạch bán dẫn và năng lượng sạch đang có nhiều học bổng doanh nghiệp."
             },
             curriculum: {
                 duration: "4.5 – 5 NĂM (Kỹ sư)",
@@ -437,7 +437,7 @@
                     { year: "Năm 3", stage: "Hệ thống điện & Năng lượng xanh", desc: "Điện tử công suất, Hệ thống điện pin mặt trời & điện gió, Trạm biến áp, Lưới điện thông minh." },
                     { year: "Năm 4-5", stage: "Thiết kế & Tốt nghiệp", desc: "Thiết kế trạm điện/hệ thống điện công nghiệp, Thực tập tại EVN/doanh nghiệp năng lượng." }
                 ],
-                plainExplanation: "Làm chủ huyết mạch năng lượng của xã hội: thiết kế hệ thống truyền tải điện lưới, chế tạo thiết bị bán dẫn và phát triển nguồn năng lượng sạch (điện mặt trời, điện gió, pin lưu trữ).",
+                plainExplanation: "Làm chủ năng lượng: thiết kế trạm biến áp, truyền tải lưới điện, chế tạo vi mạch và phát triển điện mặt trời, gió.",
                 tools: ["MATLAB", "ETAP", "Altium Designer", "PSCAD", "AutoCAD Electrical", "PVsyst (Năng lượng mặt trời)", "Multisim"],
                 skills: [
                     { icon: "⚡", name: "Tính toán & Thiết kế lưới điện", desc: "Phân tích trào lưu công suất, ngắn mạch và bảo vệ rơ-le cho trạm biến áp" },
@@ -447,19 +447,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "📚", title: "Khối lượng lý thuyết mạch cực kỳ trừu tượng", desc: "Lý thuyết trường điện từ và biến đổi Laplace trong phân tích mạch đòi hỏi tính toán giải tích phức tạp." },
-                { icon: "⚡", title: "Môi trường công trường trạm điện nhiều hiểm nguy", desc: "Kỹ sư năng lượng thường phải làm việc tại các trạm biến áp cao thế, cánh đồng điện gió giữa nắng gió khắc nghiệt." },
-                { icon: "⚠️", title: "Áp lực an toàn điện sinh mạng ở mức tối cao", desc: "Làm việc với lưới điện trung - cao thế đòi hỏi sự tập trung tuyệt đối; một sai sót quy trình có thể dẫn đến tai nạn phóng điện nghiêm trọng." }
+                { icon: "📚", title: "Khối lượng lý thuyết mạch cực kỳ trừu tượng", desc: "Lý thuyết giải tích mạch điện và trường điện từ rất trừu tượng, đòi hỏi tính toán toán học phức tạp." },
+                { icon: "⚡", title: "Môi trường công trường trạm điện nhiều hiểm nguy", desc: "Làm việc tại công trường trạm điện cao áp hoặc cánh đồng điện gió ngoài trời nắng gió khắc nghiệt." },
+                { icon: "⚠️", title: "Áp lực an toàn điện sinh mạng ở mức tối cao", desc: "Làm việc với lưới điện cao thế đòi hỏi kỷ luật an toàn tuyệt đối; sơ suất nhỏ có thể gây tai nạn." }
             ],
             salary: {
                 entry: "8 – 14 Triệu / tháng",
                 experienced: "26 – 45 Triệu / tháng",
                 multiplier: "×3.0",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Kỹ sư thiết kế vi mạch bán dẫn hoặc dự án điện gió ngoài khơi có thể đạt mức lương 50–80 triệu/tháng.",
+                note: "Tham khảo: Kỹ sư thiết kế vi mạch bán dẫn hoặc dự án điện gió ngoài khơi có thể đạt 40–70 triệu/tháng.",
                 entryBarPercent: 32,
                 expBarPercent: 86
             },
-            closingQuestion: "Bạn có hứng thú khám phá cách thức một trang trại điện gió khổng lồ biến sức gió thành dòng điện thắp sáng cả thành phố không?"
+            closingQuestion: "Điểm môn Vật lý (phần Điện học) và Toán của bạn có đạt từ 7.5 trở lên để giải các bài toán mạch điện không?"
         },
 
         "Kiến trúc & Thiết kế nội thất": {
@@ -476,14 +476,14 @@
                 { combo: "H00", subjects: "Ngữ văn · Hình họa · Bố cục màu", tag: "Khối năng khiếu", isPopular: true },
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Năng khiếu Hình họa & Vẽ mỹ thuật — Môn thi Vẽ thường nhân hệ số 2 và bắt buộc phải đạt điểm sàn năng khiếu từ 5.0 trở lên.",
+            coreSubjectWarning: "Năng khiếu Hình họa & Vẽ mỹ thuật — Môn Vẽ thường nhân hệ số 2 và bắt buộc phải đạt điểm sàn năng khiếu >= 5.0.",
             coreSubjectAlert: {
                 subject: "Vẽ mỹ thuật & Cảm nhận không gian 3D",
-                reason: "Bắt buộc phải luyện thi vẽ tĩnh vật, hình họa đầu tượng hoặc bố cục màu tại các lớp vẽ chuyên nghiệp từ 6 – 12 tháng trước kỳ thi."
+                reason: "Cần luyện thi vẽ chì tĩnh vật và bố cục không gian tại các lớp mỹ thuật chuyên nghiệp từ 6–12 tháng trước kỳ thi."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Kiến trúc Hà Nội, ĐH Kiến trúc TP.HCM, ĐH Xây dựng là top 1. Cân nhắc thêm ĐH Mỹ thuật Công nghiệp, ĐH Văn Lang, ĐH HUTECH cho phương án an toàn.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Theo dõi kỹ lịch thi môn Năng khiếu Vẽ do chính trường đại học tổ chức (thường vào tháng 6 hoặc tháng 7 hàng năm)."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Kiến trúc, ĐH Xây dựng top 1; cân nhắc Mỹ thuật Công nghiệp, Văn Lang vừa sức hơn.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Theo dõi kỹ lịch thi môn Năng khiếu Vẽ do chính trường tổ chức vào tháng 6 hoặc tháng 7."
             },
             curriculum: {
                 duration: "5 NĂM (Kiến trúc sư) / 4 NĂM (Nội thất)",
@@ -493,7 +493,7 @@
                     { year: "Năm 3", stage: "Công trình công cộng & Nội thất", desc: "Thiết kế trường học, bảo tàng, Chiếu sáng nội thất, Dựng hình 3Ds Max & Render V-Ray." },
                     { year: "Năm 4-5", stage: "Đô thị & Đồ án tốt nghiệp", desc: "Quy hoạch đô thị, Cấu tạo kiến trúc chuyên sâu, Bảo vệ đồ án tốt nghiệp trước hội đồng." }
                 ],
-                plainExplanation: "Nghệ sĩ tạo dựng không gian sống: kết hợp tư duy thẩm mỹ nghệ thuật và kiến thức kết cấu kỹ thuật để thiết kế nên những ngôi nhà, tòa cao ốc và không gian nội thất tinh tế.",
+                plainExplanation: "Kiến tạo không gian sống: phối hợp tư duy thẩm mỹ và kết cấu kỹ thuật để thiết kế nhà ở, cao ốc và nội thất.",
                 tools: ["AutoCAD", "SketchUp", "3Ds Max", "Revit BIM", "Photoshop", "Lumion / Enscape", "Corona Render"],
                 skills: [
                     { icon: "✏️", name: "Tư duy không gian 3D & Phác thảo", desc: "Biến ý tưởng trong đầu thành các bản phác tay và mô hình hình khối nhanh chóng" },
@@ -503,19 +503,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🌙", title: "Triền miên thức trắng đêm sửa đồ án", desc: "Sinh viên kiến trúc nổi tiếng với những tuần 'thông đồ án' thâu đêm ở xưởng trường để kịp tiến độ nộp bài." },
-                { icon: "🔄", title: "Khách hàng & Chủ đầu tư yêu cầu sửa đổi bản vẽ nhiều lần", desc: "Phải rèn luyện sự kiên nhẫn khi đứa con tinh thần của mình bị khách hàng yêu cầu đập đi vẽ lại vì phong thủy hoặc sở thích riêng." },
-                { icon: "🤖", title: "Cạnh tranh gay gắt từ công cụ AI tạo sinh ảnh", desc: "Các công cụ AI (Midjourney, DALL-E) có thể render phối cảnh trong vài giây; kiến trúc sư buộc phải đi sâu vào chi tiết kỹ thuật và am hiểu vật liệu thực tế." }
+                { icon: "🌙", title: "Triền miên thức trắng đêm sửa đồ án", desc: "Triền miên thức trắng đêm tại xưởng trường để kịp tiến độ nộp và bảo vệ đồ án kiến trúc." },
+                { icon: "🔄", title: "Khách hàng & Chủ đầu tư yêu cầu sửa đổi bản vẽ nhiều lần", desc: "Khách hàng yêu cầu sửa đổi phương án thiết kế nhiều lần vì sở thích cá nhân hoặc phong thủy." },
+                { icon: "🤖", title: "Cạnh tranh gay gắt từ công cụ AI tạo sinh ảnh", desc: "Công cụ AI tạo ảnh (Midjourney) rất nhanh; kiến trúc sư phải am hiểu sâu cấu tạo và vật liệu." }
             ],
             salary: {
                 entry: "8 – 13 Triệu / tháng",
                 experienced: "28 – 55 Triệu / tháng",
                 multiplier: "×3.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Kiến trúc sư nhận thiết kế trọn gói biệt thự, resort hoặc làm công ty thiết kế quốc tế có thu nhập rất cao.",
+                note: "Tham khảo: Kiến trúc sư nhận thiết kế biệt thự, căn hộ hoặc làm công ty đa quốc gia có thu nhập rất cao.",
                 entryBarPercent: 30,
                 expBarPercent: 90
             },
-            closingQuestion: "Bạn có sẵn sàng thức trọn đêm để chăm chút từng đường nét tỉ mỉ trên một bản vẽ phối cảnh công trình tâm huyết của mình không?"
+            closingQuestion: "Năng khiếu Hình họa và tư duy Toán - Lý của bạn có tự tin đạt điểm sàn năng khiếu ngành Kiến trúc không?"
         },
 
         "Xây dựng & Quản lý dự án": {
@@ -530,13 +530,13 @@
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Khối xét tuyển trọng tâm", isPopular: true },
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Toán & Vật lý cơ học — Nền tảng tính toán khả năng chịu lực: Sức bền vật liệu, Cơ học kết cấu, Kết cấu bê tông cốt thép và Cơ học đất móng.",
+            coreSubjectWarning: "Toán & Vật lý cơ học — Nền tảng tính toán chịu lực: Sức bền vật liệu, Kết cấu bê tông cốt thép và Nền móng.",
             coreSubjectAlert: {
                 subject: "Toán & Vật lý cơ học (Kết cấu công trình)",
-                reason: "Mọi tòa nhà cao tầng hay cây cầu đều phải được tính toán khả năng chịu tải trọng gió, động đất và trọng lực để đảm bảo tuyệt đối an toàn."
+                reason: "Mọi công trình cao tầng đều phải tính toán chính xác tải trọng gió, động đất để đảm bảo an toàn tuyệt đối."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Xây dựng Hà Nội, ĐH Bách Khoa, ĐH Giao thông Vận tải điểm chuẩn từ 19 – 24 điểm; phổ điểm khá dễ thở so với ngành IT.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Xây dựng, Giao thông Vận tải điểm chuẩn từ 19–24 điểm, mức độ cạnh tranh vừa tầm.",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhiều trường xét học bạ kết hợp phỏng vấn hoặc điểm thi ĐGNL với cơ hội trúng tuyển cao."
             },
             curriculum: {
@@ -547,7 +547,7 @@
                     { year: "Năm 3", stage: "Kết cấu Bê tông & Thép", desc: "Kết cấu bê tông cốt thép, Kết cấu thép, Nền móng công trình, Dự toán chi phí." },
                     { year: "Năm 4-5", stage: "Quản lý thi công & Tốt nghiệp", desc: "Tổ chức thi công, An toàn lao động, Quản lý dự án Primavera/MS Project, Bảo vệ đồ án." }
                 ],
-                plainExplanation: "Hiện thực hóa các bản vẽ trên giấy thành những công trình kiên cố ngoài đời thực: tính toán kết cấu thép bê tông, điều phối nhân lực máy móc và quản lý tiến độ bàn giao công trình.",
+                plainExplanation: "Biến bản vẽ thành công trình thực: tính toán kết cấu thép bê tông, quản lý máy móc, nhân lực và tiến độ dự án.",
                 tools: ["AutoCAD", "ETABS (Tính kết cấu)", "SAP2000", "Revit Structure", "MS Project", "Safe", "Phần mềm Dự toán G8"],
                 skills: [
                     { icon: "🏗️", name: "Tính toán & Thẩm tra kết cấu", desc: "Mô hình hóa tải trọng và phân tích nội lực bằng phần mềm ETABS/SAP2000" },
@@ -557,19 +557,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "☀️", title: "Phơi nắng mưa theo chân công trình, xa gia đình", desc: "Kỹ sư hiện trường phải bám trụ ở công trường từ sáng sớm đến đêm, thường xuyên ăn ở tại lán trại dự án xa nhà." },
-                { icon: "💸", title: "Nợ đọng vốn, áp lực tiến độ bàn giao công trình", desc: "Chủ đầu tư chậm giải ngân vốn, nhà thầu nợ lương và áp lực phải 'chạy tiến độ' trước mùa mưa bão gây căng thẳng thần kinh." },
-                { icon: "⚠️", title: "Rủi ro an toàn lao động tại công trường", desc: "Môi trường làm việc trên cao với giàn giáo, cần cẩu và hố móng tiềm ẩn nguy cơ tai nạn nếu thiếu kỷ luật an toàn lao động." }
+                { icon: "☀️", title: "Phơi nắng mưa theo chân công trình, xa gia đình", desc: "Phơi nắng mưa tại công trường xây dựng từ sớm đến tối, thường xuyên ăn ở tại lán trại xa nhà." },
+                { icon: "💸", title: "Nợ đọng vốn, áp lực tiến độ bàn giao công trình", desc: "Áp lực chạy đua tiến độ bàn giao trước mùa mưa bão cùng rủi ro chủ đầu tư chậm giải ngân vốn." },
+                { icon: "⚠️", title: "Rủi ro an toàn lao động tại công trường", desc: "Môi trường giàn giáo trên cao tiềm ẩn nguy cơ tai nạn nếu thiếu kỷ luật an toàn lao động." }
             ],
             salary: {
                 entry: "8 – 13 Triệu / tháng",
                 experienced: "25 – 45 Triệu / tháng",
                 multiplier: "×3.0",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Chỉ huy trưởng công trường hoặc Quản lý dự án tại các tập đoàn lớn (Coteccons, Hòa Bình, VinGroup) có thu nhập rất cao.",
+                note: "Tham khảo: Chỉ huy trưởng công trường tại các tổng thầu lớn (Coteccons, VinGroup) có thu nhập rất cao.",
                 entryBarPercent: 30,
                 expBarPercent: 86
             },
-            closingQuestion: "Bạn có chịu được sự vất vả phơi nắng gió tại công trường để tự hào nhìn thấy cây cầu hay tòa nhà do chính mình dựng nên không?"
+            closingQuestion: "Điểm Toán và Vật lý cơ học của bạn có đạt từ 7.0 trở lên để tính toán kết cấu công trình an toàn không?"
         },
 
         "Nông nghiệp công nghệ cao & Công nghệ thực phẩm": {
@@ -585,14 +585,14 @@
                 { combo: "B00", subjects: "Toán · Hóa học · Sinh học", tag: "Khối xét tuyển chính", isPopular: true },
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Hóa học & Sinh học — Hai môn nền tảng để nghiên cứu công nghệ vi sinh, hóa sinh học thực phẩm, kỹ thuật lên men và di truyền thực vật.",
+            coreSubjectWarning: "Hóa học & Sinh học — Hai môn nền tảng nghiên cứu vi sinh thực phẩm, công nghệ lên men và di truyền cây trồng.",
             coreSubjectAlert: {
                 subject: "Hóa học & Sinh học vi sinh",
-                reason: "Chế biến và bảo quản thực phẩm dựa hoàn toàn vào phản ứng hóa sinh và kiểm soát vi sinh vật gây hại để đảm bảo an toàn vệ sinh."
+                reason: "Chế biến và bảo quản thực phẩm dựa hoàn toàn vào phản ứng sinh hóa và kiểm soát vi sinh vật gây hại."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Nông nghiệp VN, ĐH Bách Khoa, ĐH Nông Lâm TP.HCM, ĐH Cần Thơ điểm chuẩn từ 18 – 24 điểm, cơ hội trúng tuyển rộng mở.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhu cầu nhân lực kỹ sư công nghệ thực phẩm tại các tập đoàn thực phẩm lớn (Masan, Vinamilk, CP, Nestlé) luôn rất cao."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Nông nghiệp, ĐH Bách Khoa, Nông Lâm TPHCM điểm chuẩn từ 18–24đ vừa sức.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhu cầu kỹ sư thực phẩm tại các tập đoàn lớn (Vinamilk, Masan, CP, Nestlé) luôn rất cao."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -602,7 +602,7 @@
                     { year: "Năm 3", stage: "Công nghệ chế biến chuyên sâu", desc: "Công nghệ chế biến sữa, thịt, đồ hộp, đồ uống lên men, Hệ thống quản lý chất lượng HACCP/ISO 22000." },
                     { year: "Năm 4", stage: "R&D sản phẩm & Khóa luận", desc: "Phát triển sản phẩm mới (R&D), Đánh giá cảm quan thực phẩm, Thực tập tại nhà máy chế biến." }
                 ],
-                plainExplanation: "Ứng dụng khoa học kỹ thuật để sản xuất và bảo quản thực phẩm sạch: từ lai tạo giống cây trồng năng suất cao trong nhà kính tự động đến đóng gói và kiểm định chất lượng thực phẩm xuất khẩu.",
+                plainExplanation: "Sản xuất thực phẩm an toàn: từ canh tác nhà kính IoT đến đóng gói, chế biến đồ hộp và kiểm định xuất khẩu.",
                 tools: ["Máy sắc ký lỏng HPLC", "Máy đo pH/độ nhớt", "Phần mềm quản lý chất lượng QA/QC", "Hệ thống tưới tự động IoT", "Thiết bị thanh trùng UHT"],
                 skills: [
                     { icon: "🧪", name: "Kiểm nghiệm & Đảm bảo chất lượng (QA/QC)", desc: "Phân tích dư lượng thuốc bảo vệ thực vật, vi khuẩn E.coli và độc tố trong sản phẩm" },
@@ -612,19 +612,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🧪", title: "Thời gian dài làm việc tại phòng thí nghiệm hoặc nhà kính", desc: "Môi trường làm việc ngửi mùi hóa chất, môi trường lên men hoặc chịu nhiệt độ cao trong nhà kính nông nghiệp suốt nhiều giờ." },
-                { icon: "🌦️", title: "Phụ thuộc vào yếu tố thời tiết, dịch bệnh và mùa vụ", desc: "Các dự án trồng trọt có thể bị thiệt hại nặng nề nếu bùng phát dịch hại hoặc bão lũ bất ngờ làm hư hại nông trại." },
-                { icon: "💬", title: "Định kiến xã hội về ngành nông nghiệp còn nặng", desc: "Nhiều người vẫn lầm tưởng học nông nghiệp là đi làm ruộng chân lấm tay bùn, dù thực tế ngày nay là làm việc với máy móc công nghệ cao." }
+                { icon: "🧪", title: "Thời gian dài làm việc tại phòng thí nghiệm hoặc nhà kính", desc: "Làm việc nhiều giờ trong phòng thí nghiệm mùi hóa chất hoặc trong nhà kính nông nghiệp nhiệt độ cao." },
+                { icon: "🌦️", title: "Phụ thuộc vào yếu tố thời tiết, dịch bệnh và mùa vụ", desc: "Các dự án trồng trọt có rủi ro bị bão lũ, thời tiết thất thường hoặc dịch hại gây thiệt hại mùa vụ." },
+                { icon: "💬", title: "Định kiến xã hội về ngành nông nghiệp còn nặng", desc: "Nhiều người vẫn lầm tưởng học nông nghiệp là làm ruộng, dù thực tế làm việc với công nghệ cao." }
             ],
             salary: {
                 entry: "7 – 11 Triệu / tháng",
                 experienced: "22 – 38 Triệu / tháng",
                 multiplier: "×2.8",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Chuyên viên R&D hoặc Quản lý chất lượng tại các tập đoàn đa quốc gia có mức lương từ 35–50 triệu/tháng.",
+                note: "Tham khảo: Chuyên viên R&D hoặc Quản lý chất lượng tại tập đoàn đa quốc gia đạt 30–45 triệu/tháng.",
                 entryBarPercent: 28,
                 expBarPercent: 78
             },
-            closingQuestion: "Bạn có đam mê sáng tạo ra những món đồ ăn, thức uống thơm ngon, an toàn cho hàng triệu người tiêu dùng mỗi ngày không?"
+            closingQuestion: "Học lực môn Hóa học và Sinh học của bạn có đạt từ 7.0 trở lên để làm chủ công nghệ thực phẩm không?"
         },
 
         "Môi trường & Khoa học bền vững": {
@@ -640,14 +640,14 @@
                 { combo: "B00", subjects: "Toán · Hóa học · Sinh học", tag: "Khối xét tuyển chính", isPopular: true },
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Sinh học & Địa lý — Nền tảng đánh giá tác động sinh thái, biến đổi khí hậu, xử lý nước thải và quản lý tài nguyên thiên nhiên.",
+            coreSubjectWarning: "Sinh học & Địa lý — Nền tảng đánh giá tác động sinh thái, biến đổi khí hậu và công nghệ xử lý chất thải.",
             coreSubjectAlert: {
                 subject: "Sinh học sinh thái & Hóa học môi trường",
-                reason: "Hiểu rõ vòng tuần hoàn vật chất, chỉ số ô nhiễm COD, BOD và các quy chuẩn xả thải để thiết kế hệ thống xử lý nước và khí thải."
+                reason: "Hiểu rõ vòng tuần hoàn vật chất và quy chuẩn xả thải để thiết kế hệ thống xử lý nước và kiểm kê carbon."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Khoa học Tự nhiên, ĐH Bách Khoa, ĐH Tài nguyên & Môi trường điểm chuẩn vừa tầm từ 17 – 23 điểm.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Xu hướng các doanh nghiệp phải tuân thủ chuẩn báo cáo phát triển bền vững (ESG) đang mở ra nhiều cơ hội việc làm mới."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Khoa học Tự nhiên, ĐH Bách Khoa, Tài nguyên Môi trường điểm chuẩn từ 17–23đ.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Doanh nghiệp xuất khẩu bắt buộc tuân thủ tiêu chuẩn xanh (ESG), mở ra nhiều việc làm."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -657,7 +657,7 @@
                     { year: "Năm 3", stage: "Công nghệ xử lý chất thải", desc: "Kỹ thuật xử lý nước thải, Xử lý khí thải, Quản lý chất thải rắn, Báo cáo ĐTM (Đánh giá tác động)." },
                     { year: "Năm 4", stage: "Kinh tế tuần hoàn & Khóa luận", desc: "Tín chỉ carbon, Kiểm kê khí nhà kính, Tiêu chuẩn ESG, Thực tập tại các sở ban ngành hoặc doanh nghiệp." }
                 ],
-                plainExplanation: "Bác sĩ chữa lành hành tinh: thiết kế hệ thống xử lý nước thải công nghiệp, đo lường lượng phát thải carbon và tư vấn cho doanh nghiệp các giải pháp sản xuất xanh không gây ô nhiễm.",
+                plainExplanation: "Bác sĩ môi trường: thiết kế trạm xử lý nước thải, kiểm kê khí nhà kính và tư vấn giải pháp sản xuất xanh.",
                 tools: ["ArcGIS / QGIS", "Máy đo khí đa chỉ tiêu", "Máy quang phổ hấp thụ nguyên tử AAS", "AutoCAD môi trường", "Phần mềm tính toán phát thải GHG"],
                 skills: [
                     { icon: "💧", name: "Thiết kế trạm xử lý nước thải", desc: "Tính toán bể vi sinh hiếu khí - kỵ khí và quy trình lắng bùn hoạt tính" },
@@ -667,19 +667,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "📉", title: "Thị trường việc làm trong nước chưa rộng mở bằng khối kinh tế", desc: "Nhiều doanh nghiệp nhỏ vẫn chưa mặn mà đầu tư cho xử lý môi trường do chi phí cao, dẫn đến số lượng việc làm chuyên sâu còn hạn chế." },
-                { icon: "☣️", title: "Thường xuyên lấy mẫu hiện trường ở các khu vực ô nhiễm", desc: "Kỹ sư phải trực tiếp đến bãi rác, cống xả thải công nghiệp, kênh rạch ô nhiễm để lấy mẫu phân tích bất kể thời tiết nắng mưa." },
-                { icon: "✂️", title: "Rào cản ngân sách khi doanh nghiệp khó khăn", desc: "Khi kinh tế suy thoái, ngân sách dành cho các hoạt động môi trường và phát triển bền vững thường bị doanh nghiệp cắt giảm đầu tiên." }
+                { icon: "📉", title: "Thị trường việc làm trong nước chưa rộng mở bằng khối kinh tế", desc: "Một số doanh nghiệp vừa và nhỏ chưa ưu tiên đầu tư ngân sách lớn cho xử lý môi trường." },
+                { icon: "☣️", title: "Thường xuyên lấy mẫu hiện trường ở các khu vực ô nhiễm", desc: "Kỹ sư phải trực tiếp đi lấy mẫu tại các cống xả thải, bãi rác và kênh rạch ô nhiễm." },
+                { icon: "✂️", title: "Rào cản ngân sách khi doanh nghiệp khó khăn", desc: "Khi kinh tế gặp khó khăn, chi phí dành cho các hoạt động môi trường dễ bị cắt giảm đầu tiên." }
             ],
             salary: {
                 entry: "7 – 11 Triệu / tháng",
                 experienced: "20 – 35 Triệu / tháng",
                 multiplier: "×2.8",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Chuyên gia tư vấn chứng chỉ Carbon và chuyên viên ESG cho các tập đoàn đa quốc gia có thể nhận mức thu nhập 40–60 triệu/tháng.",
+                note: "Tham khảo: Chuyên gia tư vấn tín chỉ Carbon và quản lý ESG cho tập đoàn lớn nhận lương 35–55 triệu/tháng.",
                 entryBarPercent: 28,
                 expBarPercent: 76
             },
-            closingQuestion: "Bạn có sẵn sàng đứng ra bảo vệ môi trường sống tự nhiên trước sức ép của sự phát triển công nghiệp hóa không?"
+            closingQuestion: "Điểm Sinh học hoặc Hóa học của bạn có đạt từ 7.0 trở lên để nghiên cứu sinh thái và xử lý môi trường không?"
         },
 
         "Luật / Ngoại giao & Khoa học xã hội": {
@@ -696,14 +696,14 @@
                 { combo: "C00", subjects: "Ngữ văn · Lịch sử · Địa lí", tag: "Khối truyền thống", isPopular: true },
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Ngữ văn & Tư duy phản biện logic — Đòi hỏi khả năng đọc hiểu khối lượng văn bản luật khổng lồ, diễn đạt câu chữ chặt chẽ không có kẽ hở.",
+            coreSubjectWarning: "Ngữ văn & Tư duy phản biện — Đòi hỏi khả năng đọc hiểu văn bản luật đồ sộ, diễn đạt logic không có kẽ hở.",
             coreSubjectAlert: {
                 subject: "Ngữ văn & Tư duy ngôn ngữ logic",
-                reason: "Một dấu phẩy hoặc một từ ngữ dùng sai trong hợp đồng kinh tế có thể gây thiệt hại hàng tỷ đồng và kéo theo tranh chấp kéo dài nhiều năm."
+                reason: "Một từ ngữ mơ hồ trong hợp đồng có thể gây tranh chấp kéo dài và thiệt hại tài chính rất lớn cho thân chủ."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Luật Hà Nội, ĐH Luật TP.HCM, Học viện Ngoại giao điểm chuẩn rất cao (26-28.5đ). ĐH Công đoàn, ĐH Mở, Khoa Luật ĐHQG là phương án dự phòng an toàn.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Chú ý phương thức xét tuyển riêng bằng chứng chỉ tiếng Anh (IELTS từ 6.5 trở lên) kết hợp học bạ các trường chuyên."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Luật Hà Nội, HV Ngoại giao điểm cao (26–28.5đ); Khoa Luật ĐHQG, ĐH Mở an toàn hơn.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Chú ý xét tuyển IELTS từ 6.5+ kết hợp học bạ trường chuyên."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -713,7 +713,7 @@
                     { year: "Năm 3", stage: "Luật kinh tế & Tố tụng", desc: "Luật Doanh nghiệp, Luật Thương mại quốc tế, Luật Tố tụng dân sự/hình sự, Kỹ năng soạn thảo hợp đồng." },
                     { year: "Năm 4", stage: "Thực hành phiên tòa & Thực tập", desc: "Tham gia diễn án phiên tòa giả định (Moot Court), Thực tập tại văn phòng luật sư hoặc tòa án." }
                 ],
-                plainExplanation: "Người bảo vệ công lý và lá chắn pháp lý cho doanh nghiệp: am hiểu các bộ luật, tư vấn phòng ngừa rủi ro hợp đồng, đại diện bảo vệ quyền lợi thân chủ trước tòa án và trọng tài.",
+                plainExplanation: "Lá chắn pháp lý: am hiểu pháp luật, tư vấn phòng ngừa rủi ro hợp đồng và bảo vệ quyền lợi thân chủ trước tòa.",
                 tools: ["Cơ sở dữ liệu Văn bản Pháp luật (Thư viện Pháp luật)", "Hệ thống Quản lý án điện tử", "Phần mềm so sánh hợp đồng", "LexisNexis"],
                 skills: [
                     { icon: "⚖️", name: "Tư duy phản biện & Lập luận sắc bén", desc: "Phát hiện kẽ hở logic trong lời khai đối phương và viện dẫn điều luật chuẩn xác" },
@@ -723,19 +723,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "📖", title: "Học thuộc và cập nhật hàng trăm bộ luật biến đổi liên tục", desc: "Hệ thống văn bản luật pháp sửa đổi hàng năm; ngừng đọc văn bản mới vài tháng là có thể áp dụng sai luật đã hết hiệu lực." },
-                { icon: "⏳", title: "Cần thêm ít nhất 2 năm đào tạo tư pháp để có chứng chỉ hành nghề", desc: "Tốt nghiệp đại học chỉ là cử nhân luật; muốn làm luật sư phải học thêm 1 năm tại Học viện Tư pháp + 1 năm tập sự + thi đỗ kỳ thi quốc gia." },
-                { icon: "🧠", title: "Áp lực tâm lý nặng nề khi đối diện tranh chấp", desc: "Thường xuyên phải giải quyết các vụ kiện tụng gay gắt, tranh chấp tài sản gia đình hoặc các vụ án hình sự phức tạp." }
+                { icon: "📖", title: "Học thuộc và cập nhật hàng trăm bộ luật biến đổi liên tục", desc: "Hệ thống văn bản luật pháp sửa đổi liên tục; ngừng đọc vài tháng là có thể áp dụng luật hết hiệu lực." },
+                { icon: "⏳", title: "Cần thêm ít nhất 2 năm đào tạo tư pháp để có chứng chỉ hành nghề", desc: "Muốn làm luật sư cần thêm 1 năm học nghiệp vụ tư pháp + 1 năm tập sự + thi đỗ kỳ thi quốc gia." },
+                { icon: "🧠", title: "Áp lực tâm lý nặng nề khi đối diện tranh chấp", desc: "Áp lực tâm lý nặng nề khi đối diện các vụ tranh chấp tài sản gay gắt hoặc án hình sự phức tạp." }
             ],
             salary: {
                 entry: "7 – 12 Triệu / tháng",
                 experienced: "25 – 50 Triệu / tháng",
                 multiplier: "×3.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Luật sư chuyên ngành M&A (mua bán sáp nhập) hoặc Trọng tài thương mại quốc tế tính phí tư vấn theo giờ lên tới hàng trăm USD/giờ.",
+                note: "Tham khảo: Luật sư chuyên ngành M&A hoặc Trọng tài quốc tế tính phí tư vấn hàng trăm USD/giờ làm việc.",
                 entryBarPercent: 30,
                 expBarPercent: 88
             },
-            closingQuestion: "Bạn có dám đứng lên bảo vệ lẽ phải và dùng lý lẽ sắc bén để đấu tranh cho sự công bằng trước mọi áp lực không?"
+            closingQuestion: "Học lực môn Ngữ văn hoặc Tiếng Anh của bạn có đạt từ 7.5 trở lên để đọc hiểu và phân tích điều luật không?"
         },
 
         "Công an & Quân đội": {
@@ -752,14 +752,14 @@
                 { combo: "C00", subjects: "Ngữ văn · Lịch sử · Địa lí", tag: "Nghiệp vụ Cảnh sát", isPopular: true },
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Một số ngành", isPopular: false }
             ],
-            coreSubjectWarning: "Thể lực chuẩn & Kỷ luật tự giác — Yêu cầu bắt buộc về chiều cao, thị lực, sức bền thể chất và vượt qua vòng sơ tuyển lý lịch chính trị khắt khe.",
+            coreSubjectWarning: "Thể lực chuẩn & Kỷ luật tự giác — Yêu cầu chiều cao, thị lực, sức bền và vượt qua vòng thẩm tra lý lịch.",
             coreSubjectAlert: {
                 subject: "Sức khỏe loại 1 & Kỷ luật thép",
-                reason: "Phải trải qua kiểm tra thể lực nghiêm ngặt (chạy 100m, co tay xà đơn, bật xa) và xác minh lý lịch 3 đời nghiêm ngặt trước khi nộp hồ sơ."
+                reason: "Kiểm tra thể lực khắt khe (chạy, co tay xà đơn) và thẩm tra lý lịch gia đình 3 đời đạt chuẩn chính trị."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện An ninh, Học viện Cảnh sát, Học viện Kỹ thuật Quân sự chỉ tiêu có hạn và điểm chuẩn thường rất cao.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Bắt buộc đăng ký sơ tuyển tại Công an hoặc Ban Chỉ huy Quân sự cấp quận/huyện từ tháng 3 đến tháng 4 hàng năm."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: HV An ninh, HV Cảnh sát chỉ tiêu ít và điểm chuẩn top đầu cả nước (25–28đ).",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Bắt buộc đăng ký sơ tuyển tại Công an hoặc Ban Chỉ huy Quân sự huyện từ tháng 3–4."
             },
             curriculum: {
                 duration: "4 – 5 NĂM",
@@ -769,7 +769,7 @@
                     { year: "Năm 3", stage: "Nghiệp vụ chuyên ngành", desc: "Trinh sát điều tra tội phạm, Kỹ thuật hình sự, Quản lý hành chính về trật tự xã hội." },
                     { year: "Năm 4-5", stage: "Thực tập đơn vị chiến đấu", desc: "Thực tập tại Công an các tỉnh/thành phố hoặc các quân đoàn, Hoàn thành đồ án tốt nghiệp." }
                 ],
-                plainExplanation: "Thanh kiếm và lá chắn bảo vệ Tổ quốc và bình yên cho nhân dân: giữ gìn an ninh trật tự xã hội, điều tra phá án tội phạm và sẵn sàng chiến đấu bảo vệ biên cương, vùng trời biển đảo.",
+                plainExplanation: "Bảo vệ bình yên Tổ quốc: giữ vững trật tự an ninh xã hội, điều tra phá án tội phạm và sẵn sàng chiến đấu.",
                 tools: ["Vũ khí quân dụng tiêu chuẩn", "Thiết bị giám sát an ninh", "Hệ thống trích xuất dữ liệu camera", "Phương tiện thông tin tác chiến liên lạc"],
                 skills: [
                     { icon: "🥋", name: "Võ thuật tác chiến & Bắn súng chuẩn xác", desc: "Thành thạo các đòn thế khống chế đối tượng nguy hiểm và sử dụng vũ khí an toàn" },
@@ -779,19 +779,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🎖️", title: "Kỷ luật quân ngũ nghiêm ngặt 24/7, hạn chế xuất cảnh", desc: "Sống hoàn toàn trong môi trường doanh trại quân đội; mọi hành vi phát ngôn, đi lại đều phải xin phép và không được tự do xuất cảnh." },
-                { icon: "🎒", title: "Thường xuyên điều động công tác xa nhà theo lệnh phân công", desc: "Sau khi tốt nghiệp sẽ được Bộ điều động công tác theo nhu cầu nhiệm vụ; không được tự chọn nơi làm việc như các ngành dân sự." },
-                { icon: "⚠️", title: "Hiểm nguy, rủi ro trực tiếp khi thực hiện nhiệm vụ", desc: "Đối mặt trực tiếp với tội phạm nguy hiểm, buôn ma túy có vũ khí hoặc cứu hộ trong bão lũ thiên tai bất chấp hiểm nguy." }
+                { icon: "🎖️", title: "Kỷ luật quân ngũ nghiêm ngặt 24/7, hạn chế xuất cảnh", desc: "Sống trong môi trường doanh trại quân ngũ 24/7; phát ngôn và đi lại theo điều lệnh, hạn chế xuất cảnh." },
+                { icon: "🎒", title: "Thường xuyên điều động công tác xa nhà theo lệnh phân công", desc: "Sau tốt nghiệp được phân công công tác theo nhu cầu của ngành, không được tự ý chọn nơi làm việc." },
+                { icon: "⚠️", title: "Hiểm nguy, rủi ro trực tiếp khi thực hiện nhiệm vụ", desc: "Đối mặt trực tiếp với tội phạm nguy hiểm và tham gia cứu hộ bão lũ bất chấp hiểm nguy sinh mạng." }
             ],
             salary: {
                 entry: "8 – 12 Triệu / tháng",
                 experienced: "20 – 35 Triệu / tháng",
                 multiplier: "×2.5",
-                note: "Chỉ để tham khảo: Lương được chi trả theo cấp bậc hàm sĩ quan, thâm niên và phụ cấp trách nhiệm đặc thù của lực lượng vũ trang nhân dân.",
+                note: "Tham khảo: Lương chi trả theo cấp bậc hàm, thâm niên và phụ cấp trách nhiệm đặc thù lực lượng vũ trang.",
                 entryBarPercent: 30,
                 expBarPercent: 80
             },
-            closingQuestion: "Bạn có sẵn sàng chấp nhận gác lại sự tự do cá nhân để khoác lên mình màu áo danh dự và cống hiến trọn đời cho bình yên Tổ quốc không?"
+            closingQuestion: "Thể lực và điểm các môn tổ hợp xét tuyển của bạn có tự tin vượt qua vòng sơ tuyển lực lượng vũ trang không?"
         },
 
         "Sư phạm & Quản lý giáo dục": {
@@ -808,14 +808,14 @@
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Sư phạm Tự nhiên", isPopular: true },
                 { combo: "C00", subjects: "Ngữ văn · Lịch sử · Địa lí", tag: "Sư phạm Xã hội", isPopular: false }
             ],
-            coreSubjectWarning: "Môn chuyên ngành giảng dạy & Ngữ văn — Nền tảng kiến thức môn học phải thật xuất sắc kết hợp năng lực truyền đạt ngôn từ truyền cảm hứng.",
+            coreSubjectWarning: "Môn chuyên ngành & Ngữ văn — Kiến thức môn học phải thật vững kết hợp khả năng truyền đạt lôi cuốn, dễ hiểu.",
             coreSubjectAlert: {
                 subject: "Môn chuyên ngành & Kỹ năng sư phạm",
-                reason: "Không chỉ giỏi kiến thức môn học mà còn phải biết phương pháp sư phạm tâm lý để giảng dạy cho học sinh hiểu và hào hứng học tập."
+                reason: "Không chỉ giỏi chuyên môn mà cần am hiểu tâm lý học đường để dẫn dắt và tạo cảm hứng học tập cho học sinh."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Sư phạm Hà Nội, ĐH Sư phạm TP.HCM điểm chuẩn rất cao (25-28đ). Các trường ĐH Sư phạm Huế, Thái Nguyên, Cần Thơ có điểm chuẩn vừa tầm hơn.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Sinh viên sư phạm được miễn học phí và hỗ trợ sinh hoạt phí 3.63 triệu/tháng theo Nghị định 116 của Chính phủ."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Sư phạm Hà Nội/TPHCM lấy 25–28đ; Sư phạm Huế, Thái Nguyên điểm chuẩn vừa sức hơn.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Sinh viên sư phạm được miễn học phí và hỗ trợ sinh hoạt phí 3.63 triệu/tháng (NĐ 116)."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -825,7 +825,7 @@
                     { year: "Năm 3", stage: "Phương pháp giảng dạy & Thực hành", desc: "Lý luận dạy học bộ môn, Thiết kế giáo án (Kế hoạch bài dạy), Tập giảng dạy thử nghiệm." },
                     { year: "Năm 4", stage: "Thực tập sư phạm tại trường phổ thông", desc: "Thực tập chủ nhiệm và giảng dạy thực tế tại trường THPT/THCS, Khóa luận tốt nghiệp." }
                 ],
-                plainExplanation: "Kỹ sư tâm hồn nuôi dưỡng tương lai: trang bị kiến thức bộ môn, phương pháp giáo dục hiện đại và đồng hành định hình nhân cách cho thế hệ trẻ.",
+                plainExplanation: "Kỹ sư tâm hồn: trang bị kiến thức bộ môn, phương pháp giáo dục hiện đại và đồng hành phát triển nhân cách học trò.",
                 tools: ["Canva for Education", "Kahoot! / Quizizz", "Google Classroom", "MS PowerPoint nâng cao", "Phần mềm mô phỏng thí nghiệm ảo"],
                 skills: [
                     { icon: "🗣️", name: "Năng lực thuyết trình & Truyền cảm hứng", desc: "Truyền đạt kiến thức sinh động, hấp dẫn, thu hút sự tập trung của học trò" },
@@ -835,19 +835,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "📑", title: "Áp lực lớn từ phụ huynh, nhà trường và thi cử", desc: "Gánh vác kỳ vọng điểm số từ phụ huynh, áp lực thành tích thi đua của nhà trường và cải cách chương trình giáo dục liên tục." },
-                { icon: "📉", title: "Mức lương ngạch viên chức khởi điểm khiêm tốn", desc: "Lương giáo viên mới ra trường theo hệ số nhà nước chỉ khoảng 6–8 triệu/tháng; cần thời gian phấn đấu tích lũy thâm niên." },
-                { icon: "👁️", title: "Trách nhiệm mô phạm, hành vi bị soi xét khắt khe", desc: "Người thầy luôn phải chuẩn mực trong từng lời ăn tiếng nói, trang phục và cả cách ứng xử trên mạng xã hội ngoài giờ học." }
+                { icon: "📑", title: "Áp lực lớn từ phụ huynh, nhà trường và thi cử", desc: "Gánh vác kỳ vọng điểm số từ phụ huynh, thành tích thi đua nhà trường và đổi mới chương trình học." },
+                { icon: "📉", title: "Mức lương ngạch viên chức khởi điểm khiêm tốn", desc: "Lương ngạch viên chức mới ra trường theo hệ số nhà nước chỉ khoảng 6–8 triệu/tháng." },
+                { icon: "👁️", title: "Trách nhiệm mô phạm, hành vi bị soi xét khắt khe", desc: "Người thầy luôn phải chuẩn mực trong lời nói, tác phong và ứng xử cả trên mạng xã hội." }
             ],
             salary: {
                 entry: "6 – 9 Triệu / tháng",
                 experienced: "18 – 35 Triệu / tháng",
                 multiplier: "×2.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Giáo viên giỏi dạy trường quốc tế, trường tư thục chất lượng cao hoặc luyện thi trực tuyến có thể đạt mức 25–40 triệu/tháng.",
+                note: "Tham khảo: Giáo viên dạy trường quốc tế, tư thục chất lượng cao có thể đạt mức lương 25–40 triệu/tháng.",
                 entryBarPercent: 25,
                 expBarPercent: 75
             },
-            closingQuestion: "Bạn có tình yêu thương trẻ con và sự kiên nhẫn vô bờ để giảng giải lại nhiều lần một bài toán cho học sinh chưa hiểu không?"
+            closingQuestion: "Học lực môn chuyên ngành bạn muốn dạy (Toán, Văn, Anh...) hiện có đạt mức Giỏi (trên 8.0) không?"
         },
 
         "Tâm lý học & Dịch vụ tham vấn / Xã hội": {
@@ -864,14 +864,14 @@
                 { combo: "B00", subjects: "Toán · Hóa học · Sinh học", tag: "Tâm lý học đường", isPopular: false },
                 { combo: "C00", subjects: "Ngữ văn · Lịch sử · Địa lí", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Ngữ văn & Sinh học thần kinh — Nền tảng thấu cảm cảm xúc con người kết hợp cùng kiến thức sinh học về chất dẫn truyền thần kinh não bộ.",
+            coreSubjectWarning: "Ngữ văn & Sinh học thần kinh — Cần khả năng thấu cảm cảm xúc kết hợp hiểu biết cơ chế dẫn truyền thần kinh não.",
             coreSubjectAlert: {
                 subject: "Ngữ văn (Thấu cảm) & Sinh học thần kinh",
-                reason: "Khả năng lắng nghe không phán xét và phân tích các triệu chứng rối loạn lo âu, trầm cảm dựa trên cơ chế tâm sinh lý."
+                reason: "Lắng nghe không phán xét và phân tích các triệu chứng rối loạn lo âu, trầm cảm dựa trên cơ sở khoa học."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH KHXH&NV Hà Nội và TP.HCM, ĐH Sư phạm điểm chuẩn dao động từ 24 – 27 điểm.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhu cầu chuyên viên tư vấn tâm lý học đường theo thông tư mới của Bộ Giáo dục đang tăng mạnh."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH KHXH&NV Hà Nội/TPHCM, ĐH Sư phạm điểm chuẩn dao động từ 24–27 điểm.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhu cầu chuyên viên tư vấn tâm lý học đường theo quy định Bộ GD&ĐT đang tăng cao."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -881,7 +881,7 @@
                     { year: "Năm 3", stage: "Chẩn đoán & Trắc nghiệm tâm lý", desc: "Tâm bệnh học, Kỹ thuật trắc nghiệm tâm lý (WISC, WAIS, MMPI), Kỹ năng tham vấn cơ bản." },
                     { year: "Năm 4", stage: "Thực hành trị liệu & Khóa luận", desc: "Tham vấn tâm lý học đường/lâm sàng, Thực tập tại bệnh viện tâm thần hoặc trung tâm trị liệu." }
                 ],
-                plainExplanation: "Người gỡ rối tơ lòng và chữa lành tâm hồn: lắng nghe không phán xét, đánh giá các sang chấn tâm lý và hỗ trợ thân chủ tìm lại sự cân bằng, nội lực bên trong.",
+                plainExplanation: "Chữa lành tâm hồn: lắng nghe không phán xét, đánh giá sang chấn tâm lý và hỗ trợ thân chủ tìm lại cân bằng.",
                 tools: ["Bộ trắc nghiệm WISC/WAIS", "Thang đo trầm cảm Beck/DASS-21", "Bộ bài trị liệu cảm xúc", "SPSS", "Mô hình phòng trị liệu cát"],
                 skills: [
                     { icon: "👂", name: "Lắng nghe tích cực & Không phán xét", desc: "Tạo không gian an toàn tuyệt đối để thân chủ thoải mái bộc bạch mọi nỗi đau thầm kín" },
@@ -891,19 +891,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🌪️", title: "Ô nhiễm cảm xúc thứ cấp (Secondary Trauma)", desc: "Thường xuyên lắng nghe những câu chuyện bi thương, trầm cảm, sang chấn của người khác khiến chuyên viên dễ bị quá tải cảm xúc tiêu cực." },
-                { icon: "📜", title: "Khung pháp lý cấp chứng chỉ hành nghề tại VN chưa hoàn thiện", desc: "Nghề tâm lý trị liệu tại Việt Nam còn mới mẻ; việc đào tạo sau đại học và cấp phép hành nghề còn nhiều điểm chưa đồng bộ." },
-                { icon: "📉", title: "Khó xây dựng tệp khách hàng trả phí cao lúc mới ra trường", desc: "Khách hàng thường tìm đến các chuyên gia lâu năm có nhiều kinh nghiệm; người mới ra trường phải kiên trì tích lũy giờ thực hành có giám sát." }
+                { icon: "🌪️", title: "Ô nhiễm cảm xúc thứ cấp (Secondary Trauma)", desc: "Lắng nghe nhiều câu chuyện bi thương, trầm cảm của người khác dễ gây quá tải cảm xúc tiêu cực." },
+                { icon: "📜", title: "Khung pháp lý cấp chứng chỉ hành nghề tại VN chưa hoàn thiện", desc: "Khung pháp lý cấp chứng chỉ hành nghề tâm lý trị liệu tại Việt Nam vẫn đang trong quá trình hoàn thiện." },
+                { icon: "📉", title: "Khó xây dựng tệp khách hàng trả phí cao lúc mới ra trường", desc: "Cần thời gian dài tích lũy giờ thực hành có giám sát trước khi có tệp khách hàng trả phí ổn định." }
             ],
             salary: {
                 entry: "7 – 11 Triệu / tháng",
                 experienced: "22 – 40 Triệu / tháng",
                 multiplier: "×2.8",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Chuyên gia tư vấn tâm lý độc lập uy tín tính phí từ 500,000 – 1,500,000 đ/giờ tham vấn.",
+                note: "Tham khảo: Chuyên gia tư vấn tâm lý độc lập uy tín tính phí từ 500,000 – 1,500,000 đ/giờ tham vấn.",
                 entryBarPercent: 28,
                 expBarPercent: 78
             },
-            closingQuestion: "Bạn có đôi tai đủ kiên nhẫn và trái tim đủ ấm áp để lắng nghe những nỗi đau sâu kín nhất của người khác mà không vội vàng phán xét không?"
+            closingQuestion: "Học lực môn Ngữ văn và khả năng thấu cảm ngôn từ của bạn có tự tin để theo đuổi ngành Tâm lý học không?"
         },
 
         "Truyền thông / Báo chí & Quan hệ công chúng (PR)": {
@@ -919,13 +919,13 @@
                 { combo: "C00", subjects: "Ngữ văn · Lịch sử · Địa lí", tag: "Khối truyền thống", isPopular: true },
                 { combo: "D14", subjects: "Ngữ văn · Lịch sử · Tiếng Anh", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Ngữ văn & Tiếng Anh — Khả năng sáng tạo ngôn từ sắc bén, tư duy kể chuyện (Storytelling) hấp dẫn và nhạy bén với tin tức thời sự.",
+            coreSubjectWarning: "Ngữ văn & Tiếng Anh — Sáng tạo ngôn từ sắc sảo, tư duy kể chuyện (Storytelling) và nhạy bén tin tức thời sự.",
             coreSubjectAlert: {
                 subject: "Ngữ văn (Viết lách) & Tiếng Anh",
-                reason: "Viết thông cáo báo chí, kịch bản video và xử lý khủng hoảng truyền thông đòi hỏi khả năng làm chủ ngôn ngữ tinh tế và nhanh nhạy."
+                reason: "Soạn thảo thông cáo báo chí và xử lý khủng hoảng truyền thông đòi hỏi khả năng làm chủ ngôn ngữ tinh tế."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Báo chí & Tuyên truyền, ĐH KHXH&NV điểm chuẩn rất cao (26-28.5đ). ĐH Văn hóa, ĐH Thăng Long, ĐH FPT là phương án dự phòng uy tín.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Báo chí, ĐH KHXH&NV lấy 26–28.5đ; ĐH Thăng Long, FPT là phương án dự phòng.",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Một số chuyên ngành Báo chí có tổ hợp thi năng khiếu Báo chí hoặc phỏng vấn portfolio sáng tạo."
             },
             curriculum: {
@@ -936,7 +936,7 @@
                     { year: "Năm 3", stage: "Chiến dịch PR & Quản trị khủng hoảng", desc: "Lập kế hoạch chiến dịch PR, Quan hệ với báo giới, Quản trị khủng hoảng truyền thông mạng xã hội." },
                     { year: "Năm 4", stage: "Thực tập Agency & Khóa luận", desc: "Thực tập tại cơ quan báo chí hoặc PR Agency, Hoàn thành đồ án chiến dịch truyền thông." }
                 ],
-                plainExplanation: "Người định hình dòng chảy thông tin: kể những câu chuyện truyền cảm hứng, xây dựng hình ảnh thương hiệu uy tín trong mắt công chúng và dập tắt các cuộc khủng hoảng tin đồn.",
+                plainExplanation: "Định hình dòng chảy thông tin: kể câu chuyện truyền cảm hứng, xây dựng thương hiệu và quản trị khủng hoảng.",
                 tools: ["CapCut / Premiere Pro", "Canva", "Social Listening Tools (Buzzmetrics, Younet)", "Mailchimp", "WordPress CMS"],
                 skills: [
                     { icon: "✍️", name: "Sáng tạo nội dung & Copywriting", desc: "Viết thông điệp sắc sảo, bắt trúng tâm lý độc giả và tạo hiệu ứng lan truyền (viral)" },
@@ -946,19 +946,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "⚡", title: "Áp lực 'cháy bài', chạy sự kiện bất kể ngày đêm hay lễ tết", desc: "Tin tức diễn ra 24/7; khi có sự kiện nóng hoặc sự cố phát sinh, người làm truyền thông phải làm việc ngay lập tức không kể nửa đêm." },
-                { icon: "🚨", title: "Khủng hoảng truyền thông ập đến bất ngờ, căng thẳng tinh thần", desc: "Một bài đăng sai sót có thể thổi bùng làn sóng tẩy chay dữ dội từ cộng đồng mạng chỉ sau vài giờ, gây áp lực nghẹt thở." },
-                { icon: "🔄", title: "Xu hướng mạng xã hội đổi theo tuần, đòi hỏi liên tục đổi mới", desc: "Trend TikTok và thuật toán thay đổi chóng mặt; nếu không liên tục làm mới phong cách kể chuyện sẽ rất nhanh bị người xem lãng quên." }
+                { icon: "⚡", title: "Áp lực 'cháy bài', chạy sự kiện bất kể ngày đêm hay lễ tết", desc: "Sự kiện và tin tức diễn ra 24/7; người làm PR thường phải trực và chạy bài bất kể đêm muộn hay ngày lễ." },
+                { icon: "🚨", title: "Khủng hoảng truyền thông ập đến bất ngờ, căng thẳng tinh thần", desc: "Một bài đăng sai sót có thể thổi bùng làn sóng tẩy chay dữ dội từ cộng đồng mạng chỉ sau vài giờ." },
+                { icon: "🔄", title: "Xu hướng mạng xã hội đổi theo tuần, đòi hỏi liên tục đổi mới", desc: "Xu hướng mạng xã hội thay đổi liên tục; nếu ngừng sáng tạo sẽ rất nhanh chóng bị khán giả lãng quên." }
             ],
             salary: {
                 entry: "8 – 13 Triệu / tháng",
                 experienced: "25 – 48 Triệu / tháng",
                 multiplier: "×3.2",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Giám đốc truyền thông (PR Director) tại các tập đoàn lớn có mức đãi ngộ trên 50 triệu/tháng.",
+                note: "Tham khảo: Giám đốc truyền thông (PR Director) tại các tập đoàn lớn có mức đãi ngộ trên 50 triệu/tháng.",
                 entryBarPercent: 30,
                 expBarPercent: 88
             },
-            closingQuestion: "Bạn có chịu được áp lực phải sáng tạo liên tục và sẵn sàng thức dậy lúc 2 giờ sáng để xử lý một sự cố truyền thông nóng không?"
+            closingQuestion: "Điểm môn Ngữ văn hoặc Tiếng Anh của bạn có đạt từ 7.5 trở lên để tự tin sáng tạo nội dung truyền thông không?"
         },
 
         "Thiết kế đồ họa / Mỹ thuật số & Đa phương tiện": {
@@ -975,14 +975,14 @@
                 { combo: "H00", subjects: "Ngữ văn · Hình họa · Bố cục màu", tag: "Khối năng khiếu", isPopular: true },
                 { combo: "V00", subjects: "Toán · Vật lí · Vẽ mỹ thuật", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Tư duy thị giác & Thẩm mỹ màu sắc — Khả năng cảm thụ cái đẹp, nguyên lý thị giác cân bằng, phối màu và nghệ thuật chữ (Typography).",
+            coreSubjectWarning: "Tư duy thị giác & Thẩm mỹ — Cảm thụ cái đẹp, nguyên lý cân bằng bố cục, phối màu và nghệ thuật chữ Typography.",
             coreSubjectAlert: {
                 subject: "Tư duy thẩm mỹ & Bộ công cụ thiết kế số",
-                reason: "Không chỉ vẽ đẹp bằng tay mà quan trọng là tư duy biến yêu cầu mơ hồ của khách hàng thành sản phẩm hình ảnh có tính thẩm mỹ và ứng dụng cao."
+                reason: "Biến yêu cầu trừu tượng của khách hàng thành sản phẩm hình ảnh có giá trị thẩm mỹ và tính ứng dụng cao."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Mỹ thuật Công nghiệp, ĐH Kiến trúc, ĐH RMIT, ĐH FPT, ĐH Hoa Sen đều có thế mạnh rất lớn về đào tạo Thiết kế đồ họa.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhiều trường công nghệ xét tuyển kết hợp điểm thi tốt nghiệp khối D01/A01 với Portfolio tác phẩm tự vẽ."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Mỹ thuật Công nghiệp, Kiến trúc, RMIT, FPT, Hoa Sen đều là cái nôi đào tạo uy tín.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Nhiều trường xét tuyển kết hợp điểm thi D01/A01 với Portfolio tự vẽ."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -992,7 +992,7 @@
                     { year: "Năm 3", stage: "Giao diện số UI/UX & Đa phương tiện", desc: "Thiết kế ứng dụng di động trên Figma, Kỹ xảo chuyển động After Effects, Dựng video." },
                     { year: "Năm 4", stage: "Xây dựng Portfolio & Tốt nghiệp", desc: "Xây dựng đồ án thương hiệu hoàn chỉnh, Thực tập tại Design Agency, Bảo vệ Portfolio." }
                 ],
-                plainExplanation: "Kiến trúc sư của mắt nhìn: truyền tải thông điệp bằng hình ảnh, màu sắc và kiểu chữ — từ logo thương hiệu, banner quảng cáo, giao diện ứng dụng app điện thoại đến hoạt hình 2D/3D.",
+                plainExplanation: "Truyền tải thông điệp bằng hình ảnh: thiết kế logo nhận diện, bao bì, giao diện ứng dụng app và đồ họa 3D.",
                 tools: ["Adobe Photoshop", "Adobe Illustrator", "Figma", "After Effects", "Premiere Pro", "Blender 3D", "Wacom"],
                 skills: [
                     { icon: "🎨", name: "Cảm thụ màu sắc & Typography", desc: "Phối hợp màu sắc hài hòa và phân cấp thị giác kiểu chữ dẫn dắt ánh nhìn" },
@@ -1002,19 +1002,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🔄", title: "Vòng lặp sửa file 'lần cuối n' đến kiệt sức", desc: "Phải rèn luyện sự bình thản khi ý tưởng tâm huyết bị sếp hoặc khách hàng yêu cầu chỉnh sửa nhiều lần vì cảm tính cá nhân." },
-                { icon: "🔥", title: "Khủng hoảng cạn kiệt ý tưởng (Creative Burnout)", desc: "Sáng tạo liên tục theo hạn chót (deadline) khiến đầu óc dễ bị căng thẳng, mất nguồn cảm hứng và chán ghét việc cầm bút." },
-                { icon: "🤖", title: "Áp lực cạnh tranh từ các công cụ AI tạo ảnh", desc: "Midjourney và Stable Diffusion vẽ ảnh rất nhanh; người thiết kế đồ họa buộc phải nâng tầm tư duy chiến lược thương hiệu chứ không chỉ cắt ghép ảnh đơn thuần." }
+                { icon: "🔄", title: "Vòng lặp sửa file 'lần cuối n' đến kiệt sức", desc: "Rèn luyện sự kiên nhẫn khi ý tưởng tâm huyết bị khách hàng yêu cầu chỉnh sửa nhiều lần vì cảm tính." },
+                { icon: "🔥", title: "Khủng hoảng cạn kiệt ý tưởng (Creative Burnout)", desc: "Sáng tạo liên tục theo hạn chót (deadline) khiến đầu óc dễ bị căng thẳng và cạn kiệt ý tưởng." },
+                { icon: "🤖", title: "Áp lực cạnh tranh từ các công cụ AI tạo ảnh", desc: "Công cụ AI vẽ ảnh rất nhanh; nhà thiết kế phải nâng tầm tư duy chiến lược thương hiệu khác biệt." }
             ],
             salary: {
                 entry: "8 – 14 Triệu / tháng",
                 experienced: "25 – 45 Triệu / tháng",
                 multiplier: "×3.0",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Designer làm Freelance cho thị trường quốc tế hoặc Senior UI/UX Designer có mức thu nhập 35–60 triệu/tháng.",
+                note: "Tham khảo: Designer làm Freelance quốc tế hoặc Senior UI/UX Designer có thu nhập từ 35–55 triệu/tháng.",
                 entryBarPercent: 32,
                 expBarPercent: 86
             },
-            closingQuestion: "Bạn có đủ kiên nhẫn để mỉm cười lưu lại file thiết kế mang tên 'ban-chinh-sua-lan-cuoi-cung-that-su.ai' không?"
+            closingQuestion: "Năng khiếu thẩm mỹ thị giác và điểm môn Văn/Anh của bạn có đạt từ 7.0 trở lên để theo ngành Thiết kế không?"
         },
 
         "Âm nhạc, Biểu diễn & Nghệ thuật sân khấu": {
@@ -1029,14 +1029,14 @@
                 { combo: "N00", subjects: "Ngữ văn · Năng khiếu Âm nhạc 1 · Năng khiếu Âm nhạc 2", tag: "Khối Nhạc viện", isPopular: true },
                 { combo: "S00", subjects: "Ngữ văn · Năng khiếu Sân khấu 1 · Năng khiếu Sân khấu 2", tag: "Khối Sân khấu Điện ảnh", isPopular: true }
             ],
-            coreSubjectWarning: "Năng khiếu chuyên biệt & Cảm thụ nghệ thuật — Đòi hỏi năng khiếu bẩm sinh kết hợp khổ luyện kỹ thuật thanh nhạc, nhạc cụ hoặc diễn xuất từ nhỏ.",
+            coreSubjectWarning: "Năng khiếu chuyên biệt & Cảm thụ — Đòi hỏi năng khiếu bẩm sinh kết hợp khổ luyện thanh nhạc hoặc diễn xuất.",
             coreSubjectAlert: {
                 subject: "Năng khiếu thẩm âm & Biểu cảm sân khấu",
-                reason: "Các môn thi năng khiếu chuyên môn có barem chấm điểm rất khắt khe, đòi hỏi kỹ thuật vững vàng và bản lĩnh làm chủ sân khấu."
+                reason: "Môn thi năng khiếu có barem chấm điểm rất khắt khe, đòi hỏi kỹ thuật vững vàng và bản lĩnh sân khấu tốt."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Âm nhạc Quốc gia VN, ĐH Sân khấu - Điện ảnh Hà Nội/TP.HCM, Nhạc viện TP.HCM là cái nôi nghệ thuật hàng đầu.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Thí sinh phải nộp hồ sơ đăng ký thi tuyển các vòng năng khiếu trực tiếp sớm hơn các trường đại học thông thường."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Âm nhạc Quốc gia, ĐH Sân khấu Điện ảnh là cái nôi nghệ thuật hàng đầu.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Cần nộp hồ sơ đăng ký thi tuyển các vòng năng khiếu trực tiếp sớm từ tháng 4–5."
             },
             curriculum: {
                 duration: "4 – 5 NĂM",
@@ -1046,7 +1046,7 @@
                     { year: "Năm 3", stage: "Phong cách chuyên sâu & Sáng tác", desc: "Xử lý tác phẩm kinh điển, Sản xuất âm nhạc số (DAW), Diễn xuất trước ống kính." },
                     { year: "Năm 4-5", stage: "Chương trình báo cáo & Tốt nghiệp", desc: "Dựng vở diễn tốt nghiệp hoặc tổ chức Recital hòa nhạc độc tấu trước hội đồng giám khảo." }
                 ],
-                plainExplanation: "Thắp sáng cảm xúc con người qua âm thanh và hình thể: làm chủ kỹ thuật biểu diễn chuyên nghiệp, sáng tác các tác phẩm âm nhạc lay động lòng người và tỏa sáng trên sân khấu.",
+                plainExplanation: "Thắp sáng cảm xúc con người: làm chủ kỹ thuật biểu diễn, sáng tác tác phẩm lay động và tỏa sáng trên sân khấu.",
                 tools: ["FL Studio / Logic Pro", "Micro thu âm condenser", "Đàn Piano / Nhạc cụ chuyên ngành", "Bàn mixer âm thanh", "Ableton Live"],
                 skills: [
                     { icon: "🎵", name: "Cảm âm tuyệt đối & Xử lý giai điệu", desc: "Thẩm âm chuẩn xác cao độ, nhịp phách và hòa thanh phức tạp" },
@@ -1056,19 +1056,19 @@
                 ]
             },
             harshRealities: [
-                { icon: "🎲", title: "Xác suất đào thải khốc liệt, chỉ tỷ lệ nhỏ đạt đỉnh vinh quang", desc: "Hàng nghìn người tốt nghiệp mỗi năm nhưng chỉ số ít nghệ sĩ có tên tuổi; độ cạnh tranh cực kỳ khắc nghiệt và phụ thuộc vào chữ duyên." },
-                { icon: "📉", title: "Thu nhập bấp bênh theo mùa show và hợp đồng", desc: "Không có mức lương cố định hàng tháng; thu nhập phụ thuộc vào hợp đồng biểu diễn ngắn hạn, mùa lễ hội nhiều show và mùa vắng show." },
-                { icon: "🤕", title: "Tập luyện thể chất/thanh nhạc khắc nghiệt, nguy cơ chấn thương nghề", desc: "Luyện giọng liên tục dễ gây hạt xơ dây thanh; diễn viên kịch/vũ công đối diện chấn thương khớp và dây chằng suốt đời." }
+                { icon: "🎲", title: "Xác suất đào thải khốc liệt, chỉ tỷ lệ nhỏ đạt đỉnh vinh quang", desc: "Độ cạnh tranh khốc liệt; hàng nghìn sinh viên tốt nghiệp nhưng chỉ số ít nghệ sĩ tạo dựng được tên tuổi." },
+                { icon: "📉", title: "Thu nhập bấp bênh theo mùa show và hợp đồng", desc: "Thu nhập phụ thuộc vào hợp đồng biểu diễn ngắn hạn, mùa lễ hội nhiều show và mùa vắng show bấp bênh." },
+                { icon: "🤕", title: "Tập luyện thể chất/thanh nhạc khắc nghiệt, nguy cơ chấn thương nghề", desc: "Luyện giọng dễ gây hạt xơ dây thanh; diễn viên và vũ công đối diện chấn thương khớp và dây chằng." }
             ],
             salary: {
                 entry: "5 – 10 Triệu / tháng (Không cố định)",
                 experienced: "20 – 60+ Triệu / tháng",
                 multiplier: "×3.5",
-                note: "Chỉ để tham khảo: Thu nhập của nghệ sĩ dao động rất lớn, từ vài triệu khi mới ra trường diễn phụ cát-xê đến hàng trăm triệu mỗi show đối với nghệ sĩ có tên tuổi.",
+                note: "Tham khảo: Thu nhập dao động lớn, từ vài triệu khi mới vào nghề đến hàng chục triệu mỗi show diễn.",
                 entryBarPercent: 25,
                 expBarPercent: 85
             },
-            closingQuestion: "Bạn có đủ đam mê cháy bỏng để kiên trì luyện tập hàng nghìn giờ trong phòng tập dù chưa biết ngày nào mình sẽ tỏa sáng không?"
+            closingQuestion: "Năng khiếu thẩm âm và điểm môn Ngữ văn của bạn có tự tin để thi đỗ vào các trường Nghệ thuật không?"
         },
 
         "Thể thao & Khoa học vận động": {
@@ -1083,14 +1083,14 @@
                 { combo: "T00", subjects: "Toán · Ngữ văn · Năng khiếu TDTT", tag: "Khối tuyển sinh chính", isPopular: true },
                 { combo: "B00", subjects: "Toán · Hóa học · Sinh học", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Sinh học & Thể chất bền bỉ — Đòi hỏi tố chất thể lực tốt, sức bền tim mạch và khả năng tiếp thu các kỹ thuật vận động nhanh nhẹn.",
+            coreSubjectWarning: "Sinh học & Thể chất bền bỉ — Đòi hỏi tố chất thể lực tốt, sức bền tim mạch và tiếp thu kỹ thuật nhanh nhẹn.",
             coreSubjectAlert: {
                 subject: "Thể lực đỉnh cao & Sinh lý vận động",
-                reason: "Kiểm tra năng khiếu thể thao bao gồm chạy cự ly, bật cao, dẻo dai và các bài test phản xạ vận động chuyên biệt."
+                reason: "Kiểm tra năng khiếu thể thao gồm chạy cự ly, bật cao và các bài test phản xạ vận động chuyên biệt."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Thể dục Thể thao Bắc Ninh, ĐH Sư phạm TDTT Hà Nội/TP.HCM là trung tâm đào tạo VĐV và HLV hàng đầu.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Thí sinh đoạt huy chương tại các giải vô địch quốc gia hoặc Hội khỏe Phù Đổng được ưu tiên tuyển thẳng."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH TDTT Bắc Ninh, ĐH Sư phạm TDTT Hà Nội/TPHCM là trung tâm đào tạo hàng đầu.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Thí sinh đoạt huy chương giải quốc gia hoặc Hội khỏe Phù Đổng được ưu tiên tuyển thẳng."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -1100,7 +1100,7 @@
                     { year: "Năm 3", stage: "Chuyên sâu môn thể thao & Y học phục hồi", desc: "Huấn luyện chuyên sâu (Bóng đá/Bóng rổ/Cầu lông/Fitness), Phục hồi chức năng vận động." },
                     { year: "Năm 4", stage: "Thực tập huấn luyện & Tốt nghiệp", desc: "Thực tập huấn luyện tại các CLB thể thao hoặc trường học, Bảo vệ khóa luận tốt nghiệp." }
                 ],
-                plainExplanation: "Tối ưu hóa tiềm năng cơ thể con người: đào tạo vận động viên thi đấu đỉnh cao, hướng dẫn tập luyện phục hồi thể lực và quản lý các trung tâm thể hình, thể thao chuyên nghiệp.",
+                plainExplanation: "Tối ưu hóa cơ thể: huấn luyện thể lực đỉnh cao, phục hồi chức năng và quản lý trung tâm thể thao.",
                 tools: ["Đồng hồ bấm giờ thể thao", "Máy đo nhịp tim Polar", "Thiết bị phân tích cơ thể InBody", "Dây kháng lực & Tạ chuẩn Olympic", "Dụng cụ vật lý trị liệu"],
                 skills: [
                     { icon: "🏋️", name: "Thiết kế giáo án huấn luyện thể lực", desc: "Xây dựng chu kỳ tập luyện khoa học (Periodization) giúp học viên tăng cơ, giảm mỡ" },
@@ -1118,11 +1118,11 @@
                 entry: "7 – 10 Triệu / tháng",
                 experienced: "20 – 40 Triệu / tháng",
                 multiplier: "×2.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Huấn luyện viên cá nhân (PT) uy tín tại các trung tâm thể hình cao cấp có thể đạt thu nhập 30–50 triệu/tháng nhờ hoa hồng dạy kèm.",
+                note: "Chỉ để tham khảo: tùy phòng tập. PT thể hình kèm 1:1 uy tín có thể đạt 30–50 triệu/tháng.",
                 entryBarPercent: 26,
                 expBarPercent: 78
             },
-            closingQuestion: "Bạn có sẵn sàng chấp nhận những giọt mồ hôi đau đớn và vết chấn thương mỗi ngày để theo đuổi lối sống thể thao đỉnh cao không?"
+            closingQuestion: "Tố chất thể lực đỉnh cao và điểm các môn văn hóa của bạn có đủ điều kiện trúng tuyển ngành Thể thao không?"
         },
 
         "Du lịch / Quản trị khách sạn & Dịch vụ F&B": {
@@ -1139,14 +1139,14 @@
                 { combo: "D14", subjects: "Ngữ văn · Lịch sử · Tiếng Anh", tag: "Một số trường", isPopular: false },
                 { combo: "C00", subjects: "Ngữ văn · Lịch sử · Địa lí", tag: "Khối truyền thống", isPopular: false }
             ],
-            coreSubjectWarning: "Tiếng Anh giao tiếp & Ngoại hình — Ngoại ngữ là chìa khóa then chốt để phục vụ khách quốc tế và giao tiếp đa văn hóa linh hoạt.",
+            coreSubjectWarning: "Tiếng Anh giao tiếp & Ngoại hình — Giao tiếp trôi chảy và phong thái mến khách là chìa khóa cốt lõi.",
             coreSubjectAlert: {
                 subject: "Tiếng Anh giao tiếp & Sự mến khách (Hospitality)",
-                reason: "Ngành dịch vụ khách hàng đòi hỏi sự thân thiện, kỹ năng ứng biến tình huống khéo léo và phản xạ tiếng Anh tự nhiên trôi chảy."
+                reason: "Đòi hỏi phản xạ tiếng Anh tự nhiên và kỹ năng ứng biến khéo léo trước mọi tình huống của khách."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Kinh tế Quốc dân, ĐH Hà Nội, ĐH Mở, ĐH Văn hóa, ĐH Kinh tế TP.HCM đều có dải điểm từ 20 – 26 điểm phù hợp nhiều năng lực.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Ưu tiên các trường có hệ thống phòng thực hành khách sạn chuẩn 5 sao và ký kết thực tập hưởng lương tại nước ngoài."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: NEU, HANU (25–26đ); ĐH Mở, ĐH Văn hóa (20–23đ) phù hợp nhiều mức điểm.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Ưu tiên trường có khách sạn thực hành 5 sao và thực tập hưởng lương quốc tế."
             },
             curriculum: {
                 duration: "4 NĂM",
@@ -1156,7 +1156,7 @@
                     { year: "Năm 3", stage: "Quản trị lữ hành & Sự kiện", desc: "Thiết kế tour du lịch, Điều hành tour lữ hành, Tổ chức sự kiện MICE, Quản trị doanh thu khách sạn." },
                     { year: "Năm 4", stage: "Thực tập quản trị khách sạn", desc: "Thực tập quản lý tại các resort/khách sạn 4-5 sao quốc tế, Hoàn thành báo cáo tốt nghiệp." }
                 ],
-                plainExplanation: "Đại sứ của niềm vui và sự mến khách: mang đến trải nghiệm nghỉ dưỡng hoàn hảo cho du khách, điều hành chuỗi nhà hàng khách sạn 5 sao và dẫn dắt các chuyến du ngoạn khám phá thế giới.",
+                plainExplanation: "Tạo trải nghiệm nghỉ dưỡng hoàn hảo, quản trị khách sạn 5 sao và điều hành tour du lịch lữ hành.",
                 tools: ["Hệ thống đặt phòng Opera PMS / Fidelio", "Amadeus / Sabre (Hệ thống vé máy bay)", "POS nhà hàng", "MS Excel doanh thu", "TripAdvisor / OTA Platforms"],
                 skills: [
                     { icon: "🛎️", name: "Nghiệp vụ lễ tân & Quản trị tiền sảnh", desc: "Thực hiện thủ tục check-in/out chuyên nghiệp và giải quyết khiếu nại khách hàng khéo léo" },
@@ -1174,11 +1174,11 @@
                 entry: "7 – 11 Triệu / tháng",
                 experienced: "22 – 40 Triệu / tháng",
                 multiplier: "×3.0",
-                note: "Chỉ để tham khảo: Chưa bao gồm tiền Tip (boa) của du khách và tiền thưởng dịch vụ (Service Charge). Tổng quản lý khách sạn 5 sao có mức lương từ 60–100 triệu/tháng.",
+                note: "Chỉ để tham khảo: Chưa tính tiền Tip/phí dịch vụ. Tổng quản lý 5 sao đạt 60–100 triệu/tháng.",
                 entryBarPercent: 28,
                 expBarPercent: 82
             },
-            closingQuestion: "Bạn có sẵn sàng đi làm vui vẻ vào đêm Giao thừa hay dịp lễ Tết để mang lại kỳ nghỉ trọn vẹn cho những du khách xa lạ không?"
+            closingQuestion: "Khả năng giao tiếp Tiếng Anh của bạn hiện có đạt từ 7.0 hoặc tương đương IELTS 5.5+ để phục vụ du khách không?"
         },
 
         "Ngôn ngữ học & Biên phiên dịch quốc tế": {
@@ -1195,13 +1195,13 @@
                 { combo: "D14", subjects: "Ngữ văn · Lịch sử · Tiếng Anh", tag: "Một số trường", isPopular: false },
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Tiếng Anh / Ngoại ngữ chuyên ngành — Điểm thi môn Ngoại ngữ thường nhân hệ số 2 và đòi hỏi trình độ đầu vào tương đương IELTS 6.0+ để học tốt.",
+            coreSubjectWarning: "Ngoại ngữ chuyên ngành — Môn Anh thường nhân hệ số 2, cần đầu vào tương đương IELTS 6.0+.",
             coreSubjectAlert: {
                 subject: "Ngoại ngữ chuyên sâu & Vốn tiếng Việt giàu có",
-                reason: "Để dịch hay, không chỉ giỏi tiếng nước ngoài mà tiếng mẹ đẻ (Tiếng Việt) phải cực kỳ phong phú, am hiểu thành ngữ và văn cảnh văn hóa."
+                reason: "Phải giỏi cả ngoại ngữ lẫn tiếng mẹ đẻ, am hiểu sâu thành ngữ và văn cảnh văn hóa bản địa."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Ngoại ngữ - ĐHQGHN, ĐH Hà Nội, ĐH Ngoại ngữ Đà Nẵng, ĐH Sư phạm TP.HCM là những cái nôi đào tạo dịch thuật hàng đầu.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: ULIS, HANU điểm rất cao (26–28đ); ĐH Mở, Ngoại ngữ Đà Nẵng (22–24đ).",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Hầu hết các trường ưu tiên xét tuyển thẳng thí sinh có chứng chỉ IELTS từ 6.5 – 7.5 trở lên."
             },
             curriculum: {
@@ -1212,7 +1212,7 @@
                     { year: "Năm 3", stage: "Lý thuyết & Kỹ hành dịch thuật", desc: "Lý thuyết dịch thuật, Dịch văn bản kinh tế - thương mại, Dịch đuổi (Consecutive Interpreting)." },
                     { year: "Năm 4", stage: "Dịch cabin & Thực tập dịch thuật", desc: "Dịch song song (Simultaneous/Cabin), Dịch hội nghị quốc tế, Thực tập tại cơ quan ngoại giao/doanh nghiệp." }
                 ],
-                plainExplanation: "Cầu nối ngôn ngữ và văn hóa toàn cầu: chuyển tải chính xác tư tưởng, cảm xúc và thông điệp giữa các quốc gia — từ dịch sách báo, tài liệu pháp lý chuyên sâu đến dịch cabin tại các hội nghị thượng đỉnh quốc tế.",
+                plainExplanation: "Cầu nối văn hóa toàn cầu: chuyển tải tư tưởng, dịch tài liệu chuyên sâu và dịch cabin hội nghị.",
                 tools: ["Trados Studio (CAT Tool)", "MemoQ", "Grammarly Business", "DeepL Pro", "Tai nghe chống ồn chuyên dụng dịch Cabin"],
                 skills: [
                     { icon: "🗣️", name: "Dịch cabin (Dịch song song) thần tốc", desc: "Dịch trực tiếp lời diễn giả nói trong cabin với độ trễ chỉ 2–3 giây" },
@@ -1230,11 +1230,11 @@
                 entry: "8 – 13 Triệu / tháng",
                 experienced: "25 – 45 Triệu / tháng",
                 multiplier: "×3.0",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Phiên dịch viên cabin tại các hội nghị quốc tế nhận mức thù lao từ $200 – $500 / ngày làm việc.",
+                note: "Chỉ để tham khảo: tùy hội nghị. Phiên dịch viên cabin nhận thù lao từ $200 – $500 / ngày.",
                 entryBarPercent: 30,
                 expBarPercent: 86
             },
-            closingQuestion: "Bạn có tự tin vừa lắng nghe một diễn giả nói tiếng nước ngoài vừa dịch lại lưu loát bằng tiếng Việt với độ trễ chỉ 2 giây không?"
+            closingQuestion: "Điểm môn Ngoại ngữ của bạn có thường đạt từ 8.5 trở lên để tự tin theo đuổi nghề dịch thuật chuyên nghiệp không?"
         },
 
         "Logistics & Quản trị chuỗi cung ứng": {
@@ -1251,13 +1251,13 @@
                 { combo: "D01", subjects: "Toán · Ngữ văn · Tiếng Anh", tag: "Ưu tiên khối Kinh tế", isPopular: true },
                 { combo: "A00", subjects: "Toán · Vật lí · Hóa học", tag: "Một số trường", isPopular: false }
             ],
-            coreSubjectWarning: "Tiếng Anh & Toán tư duy tối ưu — Bắt buộc phải thông thạo thuật ngữ Incoterms, chứng từ vận tải quốc tế và thuật toán tối ưu hóa tuyến đường giao hàng.",
+            coreSubjectWarning: "Tiếng Anh & Toán tư duy — Bắt buộc nắm thuật ngữ Incoterms, chứng từ vận tải và thuật toán tuyến đường.",
             coreSubjectAlert: {
                 subject: "Tiếng Anh thương mại & Toán tối ưu hóa",
-                reason: "Giao dịch hàng ngày với các hãng tàu, đại lý cảng biển toàn cầu bằng 100% tiếng Anh; tư duy số học giúp cắt giảm chi phí kho vận."
+                reason: "Giao dịch hãng tàu quốc tế bằng tiếng Anh; tư duy số học giúp tối ưu chi phí kho vận toàn cầu."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: ĐH Ngoại thương, ĐH Kinh tế Quốc dân, ĐH Giao thông Vận tải TP.HCM, ĐH Hàng hải điểm chuẩn dao động từ 22 – 27.5 điểm.",
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: FTU, NEU (26–27.5đ); ĐH Giao thông Vận tải, ĐH Hàng hải (22–25đ).",
                 admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Ưu tiên chứng chỉ ngoại ngữ IELTS và điểm thi ĐGNL ĐHQG để xét tuyển sớm."
             },
             curriculum: {
@@ -1268,7 +1268,7 @@
                     { year: "Năm 3", stage: "Chuỗi cung ứng & Hải quan", desc: "Thủ tục khai báo Hải quan điện tử, Thu mua (Procurement), Quản trị chuỗi cung ứng toàn cầu, Phần mềm ERP." },
                     { year: "Năm 4", stage: "Thực tập hãng tàu & Cảng biển", desc: "Thực tập tại công ty Forwarder / Hãng tàu / Cảng biển ICD, Đồ án giải pháp chuỗi cung ứng." }
                 ],
-                plainExplanation: "Tổng công trình sư điều phối dòng chảy hàng hóa toàn cầu: làm sao để một chiếc điện thoại sản xuất tại Bắc Ninh có mặt tại cửa hàng New York đúng giờ với chi phí vận chuyển rẻ nhất.",
+                plainExplanation: "Điều phối chuỗi cung ứng toàn cầu: quản trị kho bãi, thông quan và vận chuyển hàng hóa tối ưu.",
                 tools: ["Phần mềm Khai hải quan ECUS5-VNACCS", "Hệ thống quản lý kho WMS", "Hệ thống quản lý vận tải TMS", "SAP ERP", "Excel Solver"],
                 skills: [
                     { icon: "🚢", name: "Nghiệp vụ xuất nhập khẩu & Chứng từ", desc: "Soạn thảo và kiểm tra Vận đơn (Bill of Lading), Hóa đơn thương mại, C/O xuất xứ" },
@@ -1286,11 +1286,11 @@
                 entry: "8 – 14 Triệu / tháng",
                 experienced: "28 – 50 Triệu / tháng",
                 multiplier: "×3.2",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Quản lý chuỗi cung ứng (Supply Chain Manager) tại các tập đoàn sản xuất lớn có mức lương từ 60–100 triệu/tháng.",
+                note: "Chỉ để tham khảo: tùy tập đoàn. Quản lý chuỗi cung ứng (Supply Chain Manager) đạt 60–100 triệu/tháng.",
                 entryBarPercent: 32,
                 expBarPercent: 88
             },
-            closingQuestion: "Bạn có đủ nhạy bén và bình tĩnh để điều phối hàng trăm chuyến container hàng hóa vượt đại dương đến đúng đích không chậm một phút không?"
+            closingQuestion: "Điểm môn Tiếng Anh và Toán của bạn có đạt từ 7.5 trở lên để đàm phán hợp đồng chuỗi cung ứng quốc tế không?"
         },
 
         "Hàng không & Hàng hải": {
@@ -1306,14 +1306,14 @@
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Ưu tiên Hàng không", isPopular: true },
                 { combo: "D01", subjects: "Toán · Ngữ văn · Tiếng Anh", tag: "Một số ngành", isPopular: false }
             ],
-            coreSubjectWarning: "Sức khỏe loại 1 & Tiếng Anh chuẩn ICAO — Bắt buộc phải có thị lực hoàn hảo, sức khỏe tim mạch đỉnh cao và phản xạ ngôn ngữ hàng không quốc tế nhanh nhạy.",
+            coreSubjectWarning: "Sức khỏe loại 1 & Tiếng Anh ICAO — Đòi hỏi thị lực hoàn hảo, thể lực tim mạch và phản xạ tiếng Anh nhanh.",
             coreSubjectAlert: {
                 subject: "Sức khỏe loại 1 & Tiếng Anh chuẩn ICAO",
-                reason: "Tiêu chuẩn kiểm tra sức khỏe phi công và thuyền trưởng cực kỳ khắt khe; tiếng Anh chuyên ngành hàng không/hàng hải là bắt buộc để liên lạc vô tuyến."
+                reason: "Tiêu chuẩn sức khỏe phi công/thuyền trưởng rất khắt khe; tiếng Anh bắt buộc để đàm thoại vô tuyến."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Hàng không Việt Nam, ĐH Hàng hải Việt Nam, ĐH Bách Khoa (Kỹ thuật Hàng không) là các địa chỉ đào tạo chuyên sâu.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Thí sinh thi phi công cần chuẩn bị chi phí đào tạo thực hành bay khá lớn hoặc tham gia chương trình tài trợ của các hãng hàng không."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Học viện Hàng không, ĐH Hàng hải, ĐH Bách Khoa là các trường trọng điểm.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Đào tạo bay phi công cần chuẩn bị tài chính lớn hoặc ứng tuyển gói cadet hãng."
             },
             curriculum: {
                 duration: "4 – 5 NĂM",
@@ -1323,7 +1323,7 @@
                     { year: "Năm 3", stage: "Quản lý bay & Buồng lái giả lập", desc: "Huấn luyện buồng lái mô phỏng (Simulator), Quy trình kiểm soát không lưu (ATC), Xử lý khẩn nguy." },
                     { year: "Năm 4-5", stage: "Thực hành bay/Đi biển & Bằng lái", desc: "Huấn luyện thực hành bay lấy chứng chỉ CPL/ATPL hoặc đi thực tập thực tế trên các tàu viễn dương." }
                 ],
-                plainExplanation: "Làm chủ bầu trời và đại dương bao la: điều khiển những cỗ máy bay khổng lồ kết nối các châu lục hoặc chỉ huy những con tàu viễn dương vượt sóng gió đại dương.",
+                plainExplanation: "Điều khiển tàu bay thương mại và tàu biển viễn dương kết nối giao thương các châu lục an toàn.",
                 tools: ["Buồng lái mô phỏng bay (Full Flight Simulator)", "Hệ thống radar kiểm soát không lưu ATC", "Bản đồ hàng hải điện tử ECDIS", "Hệ thống định vị GPS/GLONASS"],
                 skills: [
                     { icon: "✈️", name: "Làm chủ kỹ thuật bay & Điều hướng", desc: "Thao tác chính xác các hệ thống điện tử buồng lái và điều khiển máy bay trong mọi thời tiết" },
@@ -1341,11 +1341,11 @@
                 entry: "15 – 30 Triệu / tháng",
                 experienced: "60 – 120+ Triệu / tháng",
                 multiplier: "×3.5",
-                note: "Chỉ để tham khảo: tùy công ty và kỹ năng. Cơ trưởng (Captain) máy bay thương mại thân rộng (A350, Boeing 787) có mức thu nhập từ 150 – 250+ triệu/tháng.",
+                note: "Chỉ để tham khảo: tùy hãng bay. Cơ trưởng bay thân rộng (A350/B787) có mức thu nhập 150–250+ triệu/tháng.",
                 entryBarPercent: 45,
                 expBarPercent: 98
             },
-            closingQuestion: "Bạn có dám gánh vác trách nhiệm sinh mạng của hàng trăm hành khách trên chuyến bay ở độ cao 10,000 mét giữa giông bão không?"
+            closingQuestion: "Trình độ Tiếng Anh (chuẩn ICAO) và thể lực loại 1 của bạn có tự tin để vượt qua kỳ tuyển phi công không?"
         }
     };
 
@@ -1470,14 +1470,14 @@
                 { combo: "A01", subjects: "Toán · Vật lí · Tiếng Anh", tag: "Ưu tiên xét tuyển", isPopular: true },
                 { combo: "D01", subjects: "Toán · Ngữ văn · Tiếng Anh", tag: "Tổ hợp mở rộng", isPopular: false }
             ],
-            coreSubjectWarning: "Toán học & Ngoại ngữ — Nền tảng tư duy logic và công cụ hội nhập quốc tế then chốt trong mọi lĩnh vực nghề nghiệp hiện đại.",
+            coreSubjectWarning: "Toán học & Ngoại ngữ — Nền tảng tư duy logic và công cụ hội nhập then chốt trong mọi ngành nghề.",
             coreSubjectAlert: {
                 subject: "Toán học & Tiếng Anh",
                 reason: "Cần nắm vững kiến thức căn bản của các môn thế mạnh để đáp ứng yêu cầu đào tạo chuyên môn tại giảng đường đại học."
             },
             schoolAdvice: {
-                abilityFit: "Chọn trường VỪA SỨC MÌNH: Ưu tiên các trường có điểm chuẩn các năm trước thấp hơn điểm thi thử của bạn từ 1.0 – 1.5 điểm để an toàn nguyện vọng.",
-                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Mỗi trường mỗi khác về chứng chỉ ngoại ngữ quy đổi, tiêu chí phụ xét môn chính và phân bổ chỉ tiêu từng phương thức."
+                abilityFit: "Chọn trường VỪA SỨC MÌNH: Ưu tiên chọn trường có điểm chuẩn năm trước thấp hơn điểm thi thử 1.0–1.5đ.",
+                admissionNotice: "Tra ĐỀ ÁN TUYỂN SINH: Mỗi trường mỗi khác về quy đổi ngoại ngữ, tiêu chí phụ và phân bổ phương thức xét."
             },
             curriculum: {
                 duration: "4 – 5 NĂM",
@@ -1487,7 +1487,7 @@
                     { year: "Năm 3", stage: "Chuyên sâu & Đồ án thực chiến", desc: "Nghiên cứu ứng dụng bài toán thực tế, Thực hành đồ án môn học theo nhóm." },
                     { year: "Năm 4-5", stage: "Thực tập & Tốt nghiệp", desc: "Thực tập tại doanh nghiệp đối tác, Khóa luận tốt nghiệp và đi làm." }
                 ],
-                plainExplanation: "Được đào tạo toàn diện kiến thức nền tảng khoa học, nguyên lý vận hành chuyên môn và tham gia các kỳ thực tập thực chiến tại doanh nghiệp.",
+                plainExplanation: "Trang bị kiến thức khoa học nền tảng, kỹ năng chuyên môn thực chiến và tham gia kỳ thực tập tại doanh nghiệp.",
                 tools: ["Bộ công cụ số chuyên ngành", "Phần mềm mô phỏng", "Nền tảng quản lý dự án số"],
                 skills: [
                     { icon: "🧩", name: "Tư duy phản biện & Giải quyết vấn đề", desc: "Phân tích và tìm kiếm giải pháp tối ưu cho các thách thức thực tế" },
@@ -1509,7 +1509,7 @@
                 entryBarPercent: 30,
                 expBarPercent: 85
             },
-            closingQuestion: "Bạn có thực sự tìm thấy niềm đam mê và sự hào hứng khi tìm hiểu về lĩnh vực ngành nghề này không?"
+            closingQuestion: "Điểm các môn trong tổ hợp thế mạnh của bạn hiện tại có đạt từ 7.5 trở lên để an toàn xét tuyển không?"
         };
     }
 
@@ -1527,3 +1527,4 @@
         };
     }
 })();
+

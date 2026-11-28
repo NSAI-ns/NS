@@ -1454,13 +1454,13 @@ details.scientific-accordion[open] > summary {
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0 8px;
+    justify-content: flex-start;
+    padding: 4px;
     margin-bottom: 8px;
     box-sizing: border-box;
+    overflow: hidden;
 }
 .salary-bar-fill {
-    width: 100%;
     height: 100%;
     border-radius: 8px;
     display: flex;
@@ -1470,6 +1470,10 @@ details.scientific-accordion[open] > summary {
     font-size: 13.5px;
     color: #ffffff;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    padding: 0 12px;
+    transition: width 0.6s ease;
+    box-sizing: border-box;
 }
 .bar-fresh {
     background: linear-gradient(135deg, #0284c7, #38bdf8);
@@ -1617,6 +1621,89 @@ button, .btn, a.btn, .scale-pill-btn, .bifurcated-tab-btn, .tier-filter-btn, .pi
         contain-intrinsic-size: auto 240px;
     }
 }
+
+/* ==========================================================================
+   QUY CHUẨN RESPONSIVE 3 THIẾT BỊ (TABLET 768-1024PX, MOBILE < 768PX)
+   ========================================================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .combo-cards-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+    .school-notes-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+    .curriculum-timeline-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+    .salary-visual-comparison {
+        grid-template-columns: 1fr 120px 1fr !important;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .career-v2-card {
+        padding: 14px !important;
+        border-radius: 16px !important;
+        margin-bottom: 20px !important;
+    }
+    .career-v2-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .career-v2-score-box {
+        align-self: flex-start;
+        padding: 6px 14px;
+        min-width: 80px;
+    }
+    .career-v2-title {
+        font-size: 19px !important;
+    }
+    .combo-cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px;
+    }
+    .combo-card-horizontal {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+    .school-cutoff-row {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+    .skill-card {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+    .tradeoff-card {
+        padding: 10px 12px;
+    }
+    .block-tradeoffs-wrapper {
+        padding: 14px !important;
+    }
+    .curriculum-essence-box {
+        padding: 12px 14px;
+    }
+    .salary-col {
+        padding: 12px 14px;
+    }
+    .result-toolbar .btn,
+    .result-toolbar a.btn,
+    .actions .btn,
+    .actions a.btn {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
 </style>
 </head>
 
@@ -1691,36 +1778,32 @@ button, .btn, a.btn, .scale-pill-btn, .bifurcated-tab-btn, .tier-filter-btn, .pi
             <h1>Bạn phù hợp với ngành gì?</h1>
 
             <p class="muted">
-                Dựa trên sự kết hợp toàn diện giữa điểm số, sở thích, xu hướng tính cách và mục tiêu cá nhân, NS AI tổng hợp bức tranh định hướng nghề nghiệp dành riêng cho bạn:
+                Tổng hợp điểm số, sở thích và tính cách để tìm ngành học tối ưu nhất cho bạn:
             </p>
 
-            <!-- Huy hiệu cập nhật & Disclaimer minh bạch độ trễ dữ liệu tuyển sinh tĩnh -->
-            <div style="margin: 12px 0 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(129, 140, 248, 0.45); border-radius: 999px; font-size: 12.5px; font-weight: 600; color: #c7d2fe;">
-                    📅 Cập nhật dữ liệu kỳ tuyển sinh gần nhất
+            <!-- Huy hiệu cập nhật & Ghi chú tinh gọn -->
+            <div style="margin: 12px 0 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(129, 140, 248, 0.45); border-radius: 999px; font-size: 12px; font-weight: 600; color: #c7d2fe;">
+                    📅 Dữ liệu tuyển sinh mới nhất
                 </span>
             </div>
 
-            <div class="disclaimer-transparency-box" style="margin: 0 0 18px; padding: 13px 18px; background: rgba(245, 158, 11, 0.12); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 14px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.6;">
-                <span style="font-size: 22px; line-height: 1.2;">⚠️</span>
-                <div style="font-size: 13px; color: #cbd5e1;">
-                    <strong style="color: #fde047; font-size: 13.5px;">Lưu ý về tính cập nhật dữ liệu:</strong> Dữ liệu điểm chuẩn, chỉ tiêu và phương thức xét tuyển hiện vận hành trên kho dữ liệu tĩnh được tổng hợp định kỳ; hệ thống chưa kết nối API thời gian thực từ Bộ GD&ĐT hay các trường đại học nên thí sinh cần đối chiếu thêm với đề án tuyển sinh chính thức của từng trường tại thời điểm nộp hồ sơ.
-                </div>
+            <div class="disclaimer-mini-note" style="margin: 0 0 16px; padding: 9px 14px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 10px; display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #cbd5e1; line-height: 1.5;">
+                <span style="font-size: 16px; flex-shrink: 0; line-height: 1;">⚠️</span>
+                <div><strong style="color: #fde047;">Lưu ý:</strong> Điểm chuẩn và chỉ tiêu mang tính tham khảo định kỳ; thí sinh cần đối chiếu thêm đề án tuyển sinh chính thức của từng trường.</div>
             </div>
 
-            <!-- Thanh công cụ & Nút Xuất PDF / In hồ sơ -->
-            <div class="result-toolbar" style="display: flex; gap: 10px; margin: 16px 0 20px; flex-wrap: wrap; align-items: center;">
-                <button type="button" class="btn secondary" id="btnShareProfileTop" onclick="openShareProfileModal()" style="cursor: pointer; background: rgba(14, 165, 233, 0.22); border: 1.5px solid rgba(56, 189, 248, 0.55); color: #7dd3fc; font-weight: 700; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25);">
-                    🔗 Tạo link chia sẻ nhanh kết quả
-                </button>
+            <!-- Thanh công cụ tinh gọn 1 hàng -->
+            <div class="result-toolbar" style="display: flex; gap: 10px; margin: 14px 0 18px; flex-wrap: wrap; align-items: center;">
                 <button type="button" class="btn primary print-btn" id="exportPdfBtnTop" onclick="printCareerReport()" style="cursor: pointer; background: linear-gradient(135deg, #2563eb, #7c3aed); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35); font-weight: 600;">
-                    🖨️ Xuất phiếu định hướng (PDF / In)
+                    🖨️ Xuất phiếu (PDF)
                 </button>
-                <button type="button" class="btn secondary" onclick="exportResultJson()">⬇️ Tải kết quả (.json)</button>
-                <button type="button" class="btn secondary" onclick="exportResultHtml()">📄 Tải phiếu (.html)</button>
-                <a class="btn secondary" href="thongtin.html">✏️ Cập nhật hồ sơ (5 bước)</a>
-                <a class="btn secondary" href="truonghoc.html">🏫 Tra cứu trường học</a>
-                <a class="btn secondary" href="chatbot.html">🤖 Tư vấn cùng NS AI</a>
+                <button type="button" class="btn secondary" id="btnShareProfileTop" onclick="openShareProfileModal()" style="cursor: pointer; background: rgba(14, 165, 233, 0.22); border: 1.5px solid rgba(56, 189, 248, 0.55); color: #7dd3fc; font-weight: 700; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25);">
+                    🔗 Chia sẻ nhanh
+                </button>
+                <button type="button" class="btn secondary" onclick="exportResultJson()">⬇️ Tải file (.json)</button>
+                <a class="btn secondary" href="thongtin.html">✏️ Cập nhật hồ sơ</a>
+                <a class="btn secondary" href="chatbot.html">🤖 Hỏi NS AI</a>
             </div>
 
 
@@ -1808,7 +1891,7 @@ button, .btn, a.btn, .scale-pill-btn, .bifurcated-tab-btn, .tier-filter-btn, .pi
                     <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                         <button type="button" class="btn secondary" onclick="exportResultJson()" style="cursor: pointer;">⬇️ Tải kết quả (.json)</button>
                         <button type="button" class="btn secondary" onclick="exportResultHtml()" style="cursor: pointer;">📄 Tải phiếu kết quả (.html)</button>
-                        <button type="button" class="btn primary print-btn" onclick="printCareerReport()" style="cursor: pointer; background: linear-gradient(135deg, #2563eb, #7c3aed);">🖨️ Xuất phiếu định hướng (PDF / In)</button>
+                        <button type="button" class="btn primary print-btn" onclick="printCareerReport()" style="cursor: pointer; background: linear-gradient(135deg, #2563eb, #7c3aed);">🖨️ Xuất PDF / In</button>
                         <button type="button" class="btn secondary" onclick="openShareProfileModal()" style="cursor: pointer; background: rgba(14, 165, 233, 0.2); border: 1px solid rgba(56, 189, 248, 0.5); color: #7dd3fc;">🔗 Tạo link di động (?share=)</button>
                     </div>
                 </div>
@@ -1817,26 +1900,13 @@ button, .btn, a.btn, .scale-pill-btn, .bifurcated-tab-btn, .tier-filter-btn, .pi
             <!-- KHẢO SÁT ĐÁNH GIÁ THỰC NGHIỆM HỆ THỐNG NS AI (HIỂN THỊ TRỰC TIẾP, KHÔNG ẨN) -->
             <div id="empiricalSurveyContainer"></div>
 
-            <div class="actions">
-
-                <button type="button" class="btn secondary" onclick="openShareProfileModal()" style="background: rgba(14, 165, 233, 0.2); border: 1.5px solid rgba(56, 189, 248, 0.5); color: #7dd3fc; font-weight: 600;">🔗 Chia sẻ kết quả</button>
-
-                <button type="button" class="btn primary print-btn" id="exportPdfBtnBottom" onclick="printCareerReport()" style="cursor: pointer; background: linear-gradient(135deg, #2563eb, #7c3aed); font-weight: 600;">
-                    🖨️ Xuất phiếu định hướng (PDF / In)
+            <div class="actions" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px;">
+                <button type="button" class="btn primary print-btn" id="exportPdfBtnBottom" onclick="printCareerReport()" style="cursor: pointer; background: linear-gradient(135deg, #2563eb, #7c3aed); font-weight: 600; padding: 12px 24px; font-size: 14.5px;">
+                    🖨️ Xuất PDF / In
                 </button>
-
-                <a class="btn secondary" href="truonghoc.html">
-                    🏫 Xem các trường đào tạo phù hợp
+                <a class="btn primary" href="chatbot.html" style="background: linear-gradient(135deg, #0284c7, #2563eb); font-weight: 600; padding: 12px 24px; font-size: 14.5px; display: inline-flex; align-items: center; gap: 8px;">
+                    🤖 Tư vấn chuyên sâu cùng NS AI
                 </a>
-
-                <a class="btn primary" href="chatbot.html">
-                    🤖 Hỏi NS AI về phương thức tuyển sinh
-                </a>
-
-                <a class="btn secondary" href="thongtin.html">
-                    🔄 Cập nhật lại thông tin
-                </a>
-
             </div>
 
         </div>
@@ -3376,9 +3446,9 @@ const mbtiBadgeHtml = p.mbti ? (
 // Cập nhật bằng chứng tính cách chuyên sâu cho ngành dẫn đầu
 if (topCareer && topCareer.evidence && p.mbti) {
     if (isHollandCode) {
-        topCareer.evidence.mbti = `Mô hình Holland <strong>[${p.mbti.type}] ${p.mbti.title}</strong> (${p.mbti.vietnameseTrait}). Cấu trúc thiên hướng này hoàn toàn tương thích với văn hóa làm việc và đặc thù đào tạo của ngành <strong>${topCareer.name}</strong>.`;
+        topCareer.evidence.mbti = `Mô hình [${p.mbti.type}] ${p.mbti.title} (${p.mbti.vietnameseTrait}) phù hợp đặc thù ngành ${topCareer.name}.`;
     } else if (p.mbti.title) {
-        topCareer.evidence.mbti = `Nhóm tính cách <strong>[${p.mbti.type}] ${p.mbti.title}</strong> (${p.mbti.vietnameseTrait || ''}). ${p.mbti.desc || ''} Phong cách tư duy và hành động này là ưu thế lớn trong môi trường ${topCareer.name}.`;
+        topCareer.evidence.mbti = `Nhóm [${p.mbti.type}] ${p.mbti.title}: ${p.mbti.vietnameseTrait || 'Tư duy logic phù hợp ngành.'}`;
     }
 }
 
@@ -3429,14 +3499,14 @@ if (r.isDefaultOverview) {
 
             <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; position: relative; z-index: 2;">
                 <div style="flex: 1 1 320px;">
-                    <div style="font-size: 13px; color: #94a3b8; margin-bottom: 4px;">Ngành nghề có độ tương thích cao nhất dành cho bạn:</div>
+                    <div style="font-size: 13px; color: #94a3b8; margin-bottom: 4px;">Ngành có độ tương thích cao nhất dành cho bạn:</div>
                     <h2 style="margin: 0 0 10px; font-size: 26px; font-weight: 900; line-height: 1.3;">
                         <span style="background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                             ${topCareer.name}
                         </span>
                     </h2>
-                    <p style="font-size: 14px; color: #cbd5e1; margin: 0; line-height: 1.6;">
-                        💡 <strong>Tổng hợp lập luận:</strong> Sự hội tụ xuất sắc giữa năng lực học tập GDPT 2018 (tổ hợp <strong>${topCareer.bestCombo}</strong>), đặc trưng tính cách [<strong>${p.mbti ? p.mbti.type : 'thiên hướng'}</strong>] và sở thích tự nhiên chứng minh đây là hướng đi tối ưu giúp bạn phát huy tối đa tiềm năng.
+                    <p style="font-size: 14px; color: #cbd5e1; margin: 0; line-height: 1.5;">
+                        💡 <strong>Căn cứ cốt lõi:</strong> Hội tụ năng lực GDPT 2018 (tổ hợp <strong>${topCareer.bestCombo}</strong>), đặc trưng tính cách [<strong>${p.mbti ? p.mbti.type : 'thiên hướng'}</strong>] và sở thích tự nhiên.
                     </p>
                 </div>
 
@@ -3539,9 +3609,9 @@ if (reasoningContainer && topCareer && !r.isDefaultOverview) {
         <div class="reasoning-container">
             <div class="reasoning-head">
                 <span class="reasoning-badge">🔬 MINH BẠCH CƠ SỞ ĐÁNH GIÁ</span>
-                <div class="reasoning-title">Dựa vào cơ sở nào mà NS AI nhận định bạn phù hợp với ngành ${topCareer.name}?</div>
+                <div class="reasoning-title">Căn cứ nhận định ngành ${topCareer.name} phù hợp với bạn:</div>
                 <p class="reasoning-subtitle">
-                    Hệ thống không phỏng đoán ngẫu nhiên mà đối chiếu 4 trụ cột dữ liệu thực tế của bạn trước khi đưa ra gợi ý trường học:
+                    Đối chiếu 4 trụ cột thực tế của bạn trước khi đưa ra gợi ý trường học:
                 </p>
             </div>
 
@@ -3553,7 +3623,7 @@ if (reasoningContainer && topCareer && !r.isDefaultOverview) {
                         <div class="reasoning-card-title">1. Năng lực học tập &amp; Điểm số</div>
                     </div>
                     <div class="reasoning-card-detail">
-                        ${topCareer.evidence ? topCareer.evidence.academic : `Điểm phù hợp dựa trên năng lực các môn học và tổ hợp ${topCareer.bestCombo}.`}
+                        ${topCareer.evidence ? topCareer.evidence.academic : `Điểm phù hợp dựa trên năng lực các môn và tổ hợp ${topCareer.bestCombo}.`}
                     </div>
                 </div>
 
@@ -3564,7 +3634,7 @@ if (reasoningContainer && topCareer && !r.isDefaultOverview) {
                         <div class="reasoning-card-title">2. Xu hướng tính cách (tham khảo)</div>
                     </div>
                     <div class="reasoning-card-detail">
-                        ${topCareer.evidence ? topCareer.evidence.mbti : `Phong cách tư duy phù hợp với đặc thù ngành ${topCareer.name}.`}
+                        ${topCareer.evidence ? topCareer.evidence.mbti : `Phong cách tư duy tương thích đặc thù ngành ${topCareer.name}.`}
                     </div>
                 </div>
 
@@ -3586,7 +3656,7 @@ if (reasoningContainer && topCareer && !r.isDefaultOverview) {
                         <div class="reasoning-card-title">4. Tiếng nói tự thân (Câu tự trả lời)</div>
                     </div>
                     <div class="reasoning-card-detail">
-                        ${topCareer.evidence ? topCareer.evidence.selfReflect : `Bạn có thể bổ sung câu trả lời tự luận tại bước Khám phá tính cách để AI phân tích sâu hơn.`}
+                        ${topCareer.evidence ? topCareer.evidence.selfReflect : `Bổ sung câu trả lời tự luận tại bước Khám phá tính cách để AI phân tích sâu hơn.`}
                     </div>
                 </div>
             </div>
@@ -3595,14 +3665,14 @@ if (reasoningContainer && topCareer && !r.isDefaultOverview) {
             <div class="reasoning-conclusion-box">
                 <div class="reasoning-conclusion-icon">✅</div>
                 <p class="reasoning-conclusion-text">
-                    <strong>Tổng kết lập luận:</strong> Sự hội tụ giữa năng lực học tập, đặc trưng tư duy [${p.mbti ? p.mbti.type : 'xu hướng'}], sở thích tự nhiên và mục tiêu cá nhân cho thấy đây là ngành nghề có khả năng phù hợp cao với bạn. Hãy dùng kết quả này như một gợi ý để tự kiểm chứng, không phải một kết luận cố định.
+                    <strong>Tổng kết:</strong> Sự hội tụ giữa điểm số, tư duy [${p.mbti ? p.mbti.type : 'xu hướng'}] và sở thích cho thấy đây là ngành phù hợp cao nhất để bạn tự tin theo đuổi.
                 </p>
             </div>
 
             <!-- CẦU NỐI CHUYỂN TIẾP: RỒI MỚI ĐƯA RA CÁC TRƯỜNG -->
             <div class="reasoning-transition-to-schools">
                 <div class="reasoning-transition-text">
-                    🏫 Dựa trên toàn bộ cơ sở phân tích vững chắc ở trên, dưới đây là các trường đại học đào tạo thế mạnh dành cho bạn:
+                    🏫 Các trường đại học đào tạo thế mạnh dành cho bạn:
                 </div>
                 <div class="banner-schools" style="margin-top: 10px; width: 100%;">
                     ${bannerTopSchools.map(s => `
@@ -3615,18 +3685,15 @@ if (reasoningContainer && topCareer && !r.isDefaultOverview) {
         </div>
 
         ${(customImprintList.length > 0 ? `
-            <div class="personal-imprint-card" style="margin: 20px 0 24px; padding: 20px 22px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(168, 85, 247, 0.12)); border: 1.5px solid rgba(236, 72, 153, 0.35); border-radius: 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-                    <div style="font-size: 16px; font-weight: 700; color: #f472b6; display: flex; align-items: center; gap: 8px;">
-                        <span>✨</span> Dấu ấn cá nhân của riêng bạn (Phản xạ tình huống tự luận)
+            <div class="personal-imprint-card" style="margin: 20px 0 24px; padding: 18px 20px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(168, 85, 247, 0.12)); border: 1.5px solid rgba(236, 72, 153, 0.35); border-radius: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <div style="font-size: 15px; font-weight: 700; color: #f472b6; display: flex; align-items: center; gap: 8px;">
+                        <span>✨</span> Dấu ấn cá nhân (Phản xạ tình huống tự luận qua mô hình NLP)
                     </div>
-                    <span style="font-size: 12px; padding: 3px 10px; background: rgba(236, 72, 153, 0.2); border: 1px solid rgba(236, 72, 153, 0.4); border-radius: 999px; color: #fbcfe8; font-weight: 600;">
+                    <span style="font-size: 11.5px; padding: 2px 10px; background: rgba(236, 72, 153, 0.2); border: 1px solid rgba(236, 72, 153, 0.4); border-radius: 999px; color: #fbcfe8; font-weight: 600;">
                         ${customImprintList.length} phản xạ độc lập
                     </span>
                 </div>
-                <p style="font-size: 13.5px; color: #cbd5e1; margin-top: 0; margin-bottom: 14px; line-height: 1.6;">
-                    Hệ thống NS AI đã áp dụng thuật toán NLP phân tích các câu trả lời tự nhập của bạn ở bài trắc nghiệm lai (Hybrid Assessment). Những chia sẻ chân thực này chứng minh tính cá nhân hóa độc bản của hồ sơ định hướng:
-                </p>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     ${customImprintList.map(ca => `
                         <div style="padding: 12px 16px; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.1); border-left: 4px solid #f472b6; border-radius: 10px;">
@@ -3795,6 +3862,8 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
     let salaryExperienced = (insight && insight.salary && insight.salary.experienced) || '28 – 45+ Triệu / tháng';
     let growthMultiplier = (insight && insight.salary && insight.salary.multiplier) || '×3';
     let salaryNote = (insight && insight.salary && insight.salary.note) || 'Chỉ để tham khảo: tùy công ty và kỹ năng. Phụ thuộc vào năng lực thực chiến, ngoại ngữ và quy mô doanh nghiệp.';
+    let entryBarPercent = (insight && insight.salary && insight.salary.entryBarPercent) || 35;
+    let expBarPercent = (insight && insight.salary && insight.salary.expBarPercent) || 90;
 
     let closingQuestion = (insight && insight.closingQuestion) || '';
 
@@ -3818,6 +3887,8 @@ function getCareer5BlocksData(careerName, bestCombo, scores, userProvince, allSc
         salaryExperienced,
         growthMultiplier,
         salaryNote,
+        entryBarPercent,
+        expBarPercent,
         closingQuestion
     };
 }
@@ -4057,7 +4128,7 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                     <div class="salary-col col-fresh">
                         <div class="salary-col-lbl">MỚI RA TRƯỜNG</div>
                         <div class="salary-bar-track">
-                            <div class="salary-bar-fill bar-fresh">
+                            <div class="salary-bar-fill bar-fresh" style="width: ${data.entryBarPercent || 35}%; min-width: fit-content; max-width: 100%;">
                                 <span class="salary-bar-val">${data.salaryFresh}</span>
                             </div>
                         </div>
@@ -4075,7 +4146,7 @@ function render5BlockCareerCard(x, i, p, userProvince, allSchools) {
                     <div class="salary-col col-exp">
                         <div class="salary-col-lbl">SAU 5 – 8 NĂM</div>
                         <div class="salary-bar-track">
-                            <div class="salary-bar-fill bar-exp">
+                            <div class="salary-bar-fill bar-exp" style="width: ${data.expBarPercent || 90}%; max-width: 100%;">
                                 <span class="salary-bar-val">${data.salaryExperienced}</span>
                             </div>
                         </div>
@@ -4420,12 +4491,10 @@ function renderTieredSchoolRecommendations(p, topCareer, userProvince, reqMode) 
                 </span>
             </div>
 
-            <!-- Disclaimer box -->
-            <div class="disclaimer-transparency-box" style="margin: 10px 0 16px; padding: 12px 16px; background: rgba(245, 158, 11, 0.12); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 12px; color: #cbd5e1; font-size: 13px; line-height: 1.55; display: flex; align-items: flex-start; gap: 10px;">
-                <span style="font-size: 18px; line-height: 1.2;">⚠️</span>
-                <div>
-                    <strong style="color: #fde047;">Lưu ý về tính cập nhật dữ liệu:</strong> Điểm chuẩn và chỉ tiêu vận hành trên kho dữ liệu tĩnh được tổng hợp định kỳ. Thí sinh cần đối chiếu thêm với Đề án tuyển sinh chính thức của từng trường tại thời điểm nộp hồ sơ xét tuyển.
-                </div>
+            <!-- Disclaimer mini note -->
+            <div class="disclaimer-mini-note" style="margin: 8px 0 14px; padding: 8px 14px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 10px; color: #cbd5e1; font-size: 12.5px; line-height: 1.5; display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 16px; flex-shrink: 0; line-height: 1;">⚠️</span>
+                <div><strong style="color: #fde047;">Lưu ý:</strong> Điểm chuẩn và chỉ tiêu mang tính tham khảo định kỳ; thí sinh cần đối chiếu thêm đề án tuyển sinh chính thức của từng trường.</div>
             </div>
 
             <!-- TAB SWITCHER: ĐẠI HỌC VIỆT NAM vs DU HỌC THẾ GIỚI -->

@@ -49,14 +49,10 @@
 
 <section class="glass form-card wide">
 
-  <p class="eyebrow">BƯỚC 3 · KHÁM PHÁ BẢN SẮC CÁ NHÂN</p>
-  <h1>Khám phá sở thích, đam mê &amp; Phong cách làm việc</h1>
+  <p class="eyebrow">BƯỚC 3</p>
+  <h1>Sở thích &amp; Đam mê</h1>
   
-  <p class="muted">
-    Hãy chọn từ <strong>3 đến 10 sở thích</strong> bạn cảm thấy hứng thú nhất. Hệ thống sẽ tự động tổng hợp 
-    <strong>Top 3 đam mê cốt lõi</strong> và vẽ <strong>Bản đồ Đam mê (Passion Map)</strong> để đối chiếu chéo với 
-    điểm số GDPT 2018 và trắc nghiệm Holland RIASEC.
-  </p>
+  <p class="muted">Chọn 3–10 sở thích nổi bật nhất để AI định vị đam mê.</p>
 
   <!-- THANH TÌM KIẾM NHANH (DEBOUNCE 250MS) & ĐẾM SỐ LƯỢNG -->
   <div class="hobby-search-box">
@@ -64,12 +60,12 @@
       <input
         type="text"
         id="hobbySearch"
-        placeholder="🔎 Tìm nhanh sở thích (ví dụ: AI, lập trình, vẽ, kinh doanh, y tế, video, robot, ngoại ngữ...)"
+        placeholder="🔎 Tìm nhanh sở thích (AI, vẽ, kinh doanh, y tế...)"
         autocomplete="off"
       >
       <button type="button" id="clearSearchBtn" onclick="clearSearch()" style="display: none; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; font-size: 16px; cursor: pointer;">✕</button>
     </div>
-    <span id="selectedCount" class="selected-badge">Đã chọn: 0/10 sở thích (Khuyên chọn từ 3)</span>
+    <span id="selectedCount" class="selected-badge">Đã chọn: 0/10 (khuyên 3+)</span>
   </div>
 
   <!-- CÁC TAB DANH MỤC LỌC 8 NHÓM LĨNH VỰC -->
@@ -89,24 +85,22 @@
   <div class="top3-passions-panel">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
       <span style="font-size: 14px; font-weight: 700; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
-        <span>🔥</span> Top 3 Đam Mê Cốt Lõi Của Bạn:
+        <span>🔥</span> Top 3 Đam mê cốt lõi
       </span>
-      <span style="font-size: 12px; color: #94a3b8;">
-        (3 sở thích đầu tiên bạn chọn sẽ được ưu tiên làm trọng số phân tích nghề)
-      </span>
+      <span style="font-size: 12px; color: #94a3b8;">3 lựa chọn đầu tiên được ưu tiên cao nhất.</span>
     </div>
     <div class="top3-passions-slots" id="top3Slots">
       <div class="top3-slot" id="slot1">
         <span class="chip-rank-badge rank-1">🥇 Top 1</span>
-        <span style="color: #64748b; font-size: 13px;">Chưa chọn đam mê số 1</span>
+        <span style="color: #64748b; font-size: 13px;">Chưa chọn</span>
       </div>
       <div class="top3-slot" id="slot2">
         <span class="chip-rank-badge rank-2">🥈 Top 2</span>
-        <span style="color: #64748b; font-size: 13px;">Chưa chọn đam mê số 2</span>
+        <span style="color: #64748b; font-size: 13px;">Chưa chọn</span>
       </div>
       <div class="top3-slot" id="slot3">
         <span class="chip-rank-badge rank-3">🥉 Top 3</span>
-        <span style="color: #64748b; font-size: 13px;">Chưa chọn đam mê số 3</span>
+        <span style="color: #64748b; font-size: 13px;">Chưa chọn</span>
       </div>
     </div>
   </div>
@@ -117,16 +111,14 @@
   <!-- Ô NHẬP SỞ THÍCH ĐẶC THÙ RIÊNG DẠNG CHIPS TAGS -->
   <div class="custom-hobbies-section">
     <label style="font-size: 14px; font-weight: 700; color: #e2e8f0; display: block; margin-bottom: 4px;">
-      ✍️ Thêm sở thích hoặc đam mê đặc thù riêng của bạn (nếu chưa có trong danh sách trên):
+      ✍️ Thêm sở thích riêng (nếu chưa có ở trên)
     </label>
-    <p style="font-size: 12.5px; color: #94a3b8; margin: 0 0 10px;">
-      Ví dụ: Chụp ảnh máy film vintage, Sưu tầm mô hình Gundam, Nghiên cứu văn hóa cổ đại, Chế tác thủ công da bò...
-    </p>
+    <p style="font-size: 12.5px; color: #94a3b8; margin: 0 0 10px;">Nhập thêm sở thích cá nhân và nhấn Enter để gắn thẻ.</p>
     <div class="custom-hobby-input-wrap">
       <input
         type="text"
         id="customHobbyInput"
-        placeholder="Nhập sở thích riêng rồi nhấn Enter hoặc bấm '+ Thêm'..."
+        placeholder="Ví dụ: Chụp ảnh film, mô hình Gundam..."
         autocomplete="off"
         onkeydown="handleCustomInputKey(event)"
       >
@@ -141,9 +133,9 @@
   <div class="passion-map-container" id="passionMapContainer" style="display: none;">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
       <span style="font-size: 14.5px; font-weight: 700; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
-        <span>🗺️</span> Bản đồ Đam mê của bạn (Passion Map):
+        <span>🗺️</span> Bản đồ Đam mê (Passion Map)
       </span>
-      <span style="font-size: 12px; color: #a5b4fc;" id="passionSummaryText">Tự động phân bổ theo các nhóm lĩnh vực đã chọn</span>
+      <span style="font-size: 12px; color: #a5b4fc;" id="passionSummaryText">Phân bổ theo nhóm đã chọn</span>
     </div>
     <div class="passion-bar-wrap" id="passionBarWrap"></div>
     <div class="passion-legend-grid" id="passionLegendGrid"></div>
@@ -153,38 +145,36 @@
   <div class="workstyle-section">
     <div style="margin-bottom: 12px;">
       <span style="font-size: 16px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
-        <span>🎯</span> Phong cách &amp; Môi trường làm việc mong muốn
+        <span>🎯</span> Phong cách làm việc mong muốn
       </span>
-      <p style="font-size: 13px; color: #94a3b8; margin: 4px 0 0;">
-        Giúp AI định vị chính xác môi trường làm việc phù hợp nhất sau khi tốt nghiệp đại học:
-      </p>
+      <p style="font-size: 13px; color: #94a3b8; margin: 4px 0 0;">Chọn hình thức, nhịp độ và trọng tâm bạn thích nhất.</p>
     </div>
 
     <!-- CÂU 1: LÀM VIỆC NHÓM -->
     <div class="workstyle-group">
       <div class="workstyle-group-label">
-        <span>👥 1. Bạn làm việc hiệu quả nhất trong hình thức nào?</span>
+        <span>👥 1. Hình thức làm việc?</span>
       </div>
       <div class="workstyle-options-grid">
         <div class="workstyle-pill-card" id="ws_team_independent" onclick="selectWorkStyle('team', 'independent')">
           <span style="font-size: 20px;">👤</span>
           <div>
-            <strong>Làm việc độc lập</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Tự chủ tiến độ, tập trung sâu</div>
+            <strong>Độc lập</strong>
+            <div style="font-size: 11.5px; color: #94a3b8;">Tự chủ tiến độ</div>
           </div>
         </div>
         <div class="workstyle-pill-card" id="ws_team_team" onclick="selectWorkStyle('team', 'team')">
           <span style="font-size: 20px;">👥</span>
           <div>
-            <strong>Làm việc theo nhóm</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Thảo luận, phối hợp tập thể</div>
+            <strong>Theo nhóm</strong>
+            <div style="font-size: 11.5px; color: #94a3b8;">Phối hợp tập thể</div>
           </div>
         </div>
         <div class="workstyle-pill-card" id="ws_team_flexible" onclick="selectWorkStyle('team', 'flexible')">
           <span style="font-size: 20px;">🔄</span>
           <div>
-            <strong>Kết hợp linh hoạt</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Vừa độc lập vừa nhóm</div>
+            <strong>Linh hoạt</strong>
+            <div style="font-size: 11.5px; color: #94a3b8;">Độc lập &amp; nhóm</div>
           </div>
         </div>
       </div>
@@ -193,21 +183,21 @@
     <!-- CÂU 2: NHỊP ĐỘ MÔI TRƯỜNG -->
     <div class="workstyle-group">
       <div class="workstyle-group-label">
-        <span>🏢 2. Bạn thích nhịp độ làm việc như thế nào?</span>
+        <span>🏢 2. Nhịp độ môi trường?</span>
       </div>
       <div class="workstyle-options-grid">
         <div class="workstyle-pill-card" id="ws_pace_stable" onclick="selectWorkStyle('pace', 'stable')">
           <span style="font-size: 20px;">📋</span>
           <div>
             <strong>Ổn định, quy củ</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Môi trường an toàn, chuẩn mực</div>
+            <div style="font-size: 11.5px; color: #94a3b8;">An toàn, chuẩn mực</div>
           </div>
         </div>
         <div class="workstyle-pill-card" id="ws_pace_dynamic" onclick="selectWorkStyle('pace', 'dynamic')">
           <span style="font-size: 20px;">🚀</span>
           <div>
-            <strong>Năng động, linh hoạt</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Thách thức mới, di chuyển nhiều</div>
+            <strong>Năng động</strong>
+            <div style="font-size: 11.5px; color: #94a3b8;">Nhiều thách thức mới</div>
           </div>
         </div>
       </div>
@@ -216,28 +206,28 @@
     <!-- CÂU 3: ĐỐI TƯỢNG TƯƠNG TÁC -->
     <div class="workstyle-group">
       <div class="workstyle-group-label">
-        <span>💡 3. Trọng tâm tương tác hàng ngày bạn yêu thích nhất?</span>
+        <span>💡 3. Trọng tâm tương tác?</span>
       </div>
       <div class="workstyle-options-grid">
         <div class="workstyle-pill-card" id="ws_focus_people" onclick="selectWorkStyle('focus', 'people')">
           <span style="font-size: 20px;">🤝</span>
           <div>
-            <strong>Con người &amp; Xã hội</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Giao tiếp, chăm sóc, truyền cảm hứng</div>
+            <strong>Con người</strong>
+            <div style="font-size: 11.5px; color: #94a3b8;">Giao tiếp, hỗ trợ</div>
           </div>
         </div>
         <div class="workstyle-pill-card" id="ws_focus_data_ideas" onclick="selectWorkStyle('focus', 'data_ideas')">
           <span style="font-size: 20px;">💡</span>
           <div>
             <strong>Dữ liệu &amp; Ý tưởng</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Số liệu, nghiên cứu, chiến lược</div>
+            <div style="font-size: 11.5px; color: #94a3b8;">Phân tích, chiến lược</div>
           </div>
         </div>
         <div class="workstyle-pill-card" id="ws_focus_tools_machines" onclick="selectWorkStyle('focus', 'tools_machines')">
           <span style="font-size: 20px;">⚙️</span>
           <div>
             <strong>Máy móc &amp; Công cụ</strong>
-            <div style="font-size: 11.5px; color: #94a3b8;">Kỹ thuật, công nghệ, chế tác thực tế</div>
+            <div style="font-size: 11.5px; color: #94a3b8;">Kỹ thuật, thực hành</div>
           </div>
         </div>
       </div>
@@ -246,13 +236,9 @@
 
   <!-- NÚT HÀNH ĐỘNG -->
   <div class="actions">
-    <a href="diemso.html" class="btn secondary">
-      ← Quay lại Bước 2 (Điểm số)
-    </a>
+    <a href="diemso.html" class="btn secondary">← Bước 2</a>
 
-    <button type="button" class="btn primary" onclick="saveHobbies()">
-      Lưu &amp; tiếp tục sang Bước 4 (Tính cách) ➡️
-    </button>
+    <button type="button" class="btn primary" onclick="saveHobbies()">Lưu &amp; tiếp tục →</button>
   </div>
 
 </section>
@@ -409,7 +395,7 @@ function updateSelectionUI() {
   const count = selectedHobbies.length;
 
   if (countBadge) {
-    countBadge.textContent = `Đã chọn: ${count}/10 sở thích (Khuyên chọn từ 3)`;
+    countBadge.textContent = `Đã chọn: ${count}/10 (khuyên 3+)`;
     if (count >= 3 && count <= 10) {
       countBadge.style.color = '#34d399';
       countBadge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
@@ -438,7 +424,7 @@ function updateSelectionUI() {
         slotEl.className = 'top3-slot';
         slotEl.innerHTML = `
           <span class="chip-rank-badge ${rankColors[i - 1]}">${ranks[i - 1]}</span>
-          <span style="color: #64748b; font-size: 13px;">Chưa chọn đam mê số ${i}</span>
+          <span style="color: #64748b; font-size: 13px;">Chưa chọn</span>
         `;
       }
     }

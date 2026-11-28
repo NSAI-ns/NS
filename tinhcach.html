@@ -43,31 +43,26 @@
 
 <section class="glass form-card wide">
 
-  <p class="eyebrow">BƯỚC 4 · CƠ SỞ KHOA HỌC TÂM LÝ</p>
-  <h1>Trắc nghiệm xu hướng tính cách &amp; Định hướng nghề nghiệp Holland (RIASEC)</h1>
+  <p class="eyebrow">BƯỚC 4</p>
+  <h1>Trắc nghiệm tính cách Holland (RIASEC)</h1>
   
-  <p class="muted">
-    Ứng dụng <strong>Mô hình Định hướng Nghề nghiệp Quốc tế Holland (RIASEC)</strong> đo lường 6 nhóm đặc trưng: 
-    <strong>R</strong> (Kỹ thuật - Thực tế), <strong>I</strong> (Nghiên cứu - Logic), <strong>A</strong> (Nghệ thuật - Sáng tạo), 
-    <strong>S</strong> (Xã hội - Giao tiếp), <strong>E</strong> (Quản lý - Kinh doanh), <strong>C</strong> (Nghiệp vụ - Chi tiết). 
-    Kết quả giúp bạn khám phá <strong>Mã Holland 3 chữ cái</strong> nổi trội nhất và môi trường học tập, nghề nghiệp lý tưởng phù hợp với bản thân.
-  </p>
+  <p class="muted">Chọn mức độ phù hợp từng câu để xác định Mã Holland (RIASEC) của bạn.</p>
 
   <!-- DÒNG THÔNG BÁO GHI NHẬN ĐIỂM SỐ TỪ BƯỚC TRƯỚC -->
   <div id="scoreNotifBanner" class="score-context-banner" style="display: none;">
-    <span style="font-size: 22px;">💡</span>
-    <span><strong>Hệ thống đã ghi nhận dữ liệu học lực của bạn.</strong> Bài trắc nghiệm Holland RIASEC sẽ kết nối điểm mạnh tư duy với các nhóm ngành đào tạo đại học thực tế!</span>
+    <span style="font-size: 18px;">💡</span>
+    <span>Đã ghi nhận điểm số — kết quả RIASEC sẽ kết nối với năng lực học tập của bạn.</span>
   </div>
 
   <!-- CHUYỂN ĐỔI CHẾ ĐỘ TEST (MODE SWITCHER) -->
   <div class="riasec-mode-switcher">
     <button type="button" class="riasec-mode-btn active" id="btnModeQuick" onclick="switchTestMode('quick')">
-      <span>⚡ Bài test nhanh (18 câu - 2 phút)</span>
+      <span>⚡ Nhanh (18 câu · 2 phút)</span>
       <span class="mode-badge">Khuyên dùng</span>
     </button>
     <button type="button" class="riasec-mode-btn" id="btnModeFull" onclick="switchTestMode('full')">
-      <span>🔬 Bài test chuyên sâu (36 câu)</span>
-      <span class="mode-badge">Độ chính xác cao</span>
+      <span>🔬 Chuyên sâu (36 câu)</span>
+      <span class="mode-badge">Chi tiết</span>
     </button>
   </div>
 
@@ -82,7 +77,7 @@
           Đã làm: 0/18 câu hỏi (0%)
         </span>
         <button type="button" onclick="resetPersonalityAnswers()" class="btn secondary" style="font-size: 12px; padding: 4px 10px; border-radius: 6px; cursor: pointer;" title="Xóa toàn bộ câu trả lời hiện tại để làm lại từ đầu">
-          ↻ Làm lại từ đầu
+          ↻ Làm lại
         </button>
       </div>
     </div>
@@ -96,25 +91,21 @@
 
   <!-- NÚT HÀNH ĐỘNG XEM KẾT QUẢ -->
   <div class="actions" style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-    <a href="sothich.html" class="btn secondary">
-      ← Quay lại Bước 3 (Sở thích)
-    </a>
-    <button type="button" class="btn primary" id="btnFinishRIASEC" onclick="finishRIASECTest(event)">
-      📊 Xem kết quả phân tích &amp; Mã Holland ➡️
-    </button>
+    <a href="sothich.html" class="btn secondary">← Bước 3</a>
+    <button type="button" class="btn primary" id="btnFinishRIASEC" onclick="finishRIASECTest(event)">📊 Xem Mã Holland →</button>
   </div>
 
   <!-- KHU VỰC HIỂN THỊ KẾT QUẢ PHÂN TÍCH RIASEC TRỰC QUAN -->
   <section id="riasecResultsSection" class="riasec-result-section" style="display: none;">
     <div style="text-align: center; margin-bottom: 24px;">
-      <p class="eyebrow" style="color: #38bdf8;">KẾT QUẢ ĐÁNH GIÁ TÍNH CÁCH NGHỀ NGHIỆP HOLLAND</p>
+      <p class="eyebrow" style="color: #38bdf8;">KẾT QUẢ HOLLAND RIASEC</p>
       <div style="display: inline-flex; align-items: center; gap: 12px; margin: 10px 0 14px; background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.4); padding: 8px 24px; border-radius: 999px;">
-        <span style="font-size: 14px; color: #cbd5e1; font-weight: 600;">MÃ HOLLAND NỔI TRỘI:</span>
+        <span style="font-size: 14px; color: #cbd5e1; font-weight: 600;">MÃ HOLLAND:</span>
         <span id="resHollandCode" style="font-size: 26px; font-weight: 800; color: #6ee7b7; letter-spacing: 0.08em;">RIA</span>
       </div>
       <h2 id="resHollandTitle" style="color: #fff; font-size: 22px; margin: 0 0 8px;">Nhóm Kỹ thuật · Nghiên cứu · Nghệ thuật</h2>
       <p id="resHollandDesc" class="muted" style="max-width: 720px; margin: 0 auto; font-size: 14.5px; line-height: 1.6;">
-        Thế mạnh nổi trội của bạn thể hiện ở sự khéo léo kỹ thuật, tư duy nghiên cứu logic và khả năng sáng tạo thẩm mỹ.
+        Thế mạnh nổi trội theo 3 nhóm tính cách dẫn đầu của bạn.
       </p>
     </div>
 
@@ -122,7 +113,7 @@
     <div class="riasec-radar-container">
       <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 540px; margin-bottom: 12px;">
         <span style="font-size: 14px; font-weight: 700; color: #f8fafc; display: flex; align-items: center; gap: 6px;">
-          <span>🧭</span> Biểu đồ Radar 6 trục năng lực Holland RIASEC:
+          <span>🧭</span> Biểu đồ Radar RIASEC
         </span>
         <span id="radarMaxScoreText" style="font-size: 12px; color: #94a3b8;">Thang điểm tối đa: 15đ</span>
       </div>
@@ -132,19 +123,15 @@
     <!-- THẺ GIẢI MÃ TOP 3 NHÓM TÍNH CÁCH NỔI TRỘI -->
     <div>
       <h3 style="font-size: 18px; color: #fff; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-        <span>🔍</span> Giải mã Top 3 Nhóm Tính cách &amp; Xu hướng Nghề nghiệp phù hợp:
+        <span>🔍</span> Top 3 nhóm tính cách phù hợp
       </h3>
       <div id="top3DecodeCards" class="riasec-top3-grid"></div>
     </div>
 
     <!-- CỤM NÚT HÀNH ĐỘNG NỔI BẬT TIẾP THEO -->
     <div class="actions" style="justify-content: center; margin-top: 32px; gap: 16px; flex-wrap: wrap;">
-      <a href="muctieu.html" class="btn primary" style="font-size: 15px; padding: 12px 24px; box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);">
-        Tiếp tục sang Bước 5: Mục tiêu 🎯 ➡️
-      </a>
-      <button type="button" class="btn secondary" onclick="resetPersonalityAnswers()" style="font-size: 14px; padding: 12px 20px;">
-        🔄 Làm lại trắc nghiệm
-      </button>
+      <a href="muctieu.html" class="btn primary" style="font-size: 15px; padding: 12px 24px; box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);">Tiếp tục Bước 5 →</a>
+      <button type="button" class="btn secondary" onclick="resetPersonalityAnswers()" style="font-size: 14px; padding: 12px 20px;">🔄 Làm lại</button>
     </div>
   </section>
 

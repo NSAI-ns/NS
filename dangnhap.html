@@ -44,13 +44,9 @@
                 <div class="user-avatar-big">👤</div>
                 <div>
                     <h2 id="profileUsername">Tài khoản</h2>
-                    <p>✅ Đã đồng bộ & lưu kết quả phân tích</p>
+                    <p>✅ Đã đồng bộ hồ sơ</p>
                 </div>
             </div>
-
-            <p class="muted" style="font-size: 13.5px; margin-bottom: 14px;">
-                Dưới đây là tóm tắt hồ sơ phân tích đang được liên kết an toàn với tài khoản của bạn:
-            </p>
 
             <div class="profile-stats-grid">
                 <div class="stat-item">
@@ -62,7 +58,7 @@
                     <div class="stat-val" id="statScores">Chưa nhập điểm</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-label">🧠 Tính cách MBTI</div>
+                    <div class="stat-label">🧠 Tính cách</div>
                     <div class="stat-val" id="statPersonality">Chưa trắc nghiệm</div>
                 </div>
                 <div class="stat-item">
@@ -73,11 +69,11 @@
 
             <div class="actions" style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px;">
                 <a class="btn primary" href="ketqua.html" style="width: 100%; text-align: center;">
-                    📊 Xem kết quả phân tích nghề nghiệp
+                    📊 Xem kết quả phân tích
                 </a>
                 <div style="display: flex; gap: 10px; width: 100%;">
                     <a class="btn secondary" href="thongtin.html" style="flex: 1; text-align: center;">
-                        ✏️ Cập nhật thông tin
+                        ✏️ Cập nhật hồ sơ
                     </a>
                     <button class="btn secondary" onclick="logoutUser()" style="flex: 1; text-align: center; color: #ff9d9d; border-color: rgba(255,100,100,0.3);">
                         🚪 Đăng xuất
@@ -86,8 +82,8 @@
             </div>
 
             <div class="export-import-section" style="margin-top:20px;padding:16px;background:rgba(255,255,255,0.05);border-radius:12px;border:1px solid rgba(255,255,255,0.1);">
-              <h3 style="color:#a78bfa;margin-bottom:8px;">💾 Sao lưu &amp; Khôi phục hồ sơ</h3>
-              <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:12px;">⚠️ Lưu ý: Dữ liệu lưu cục bộ có thể bị mất nếu xóa cache trình duyệt. Hãy xuất file hồ sơ định kỳ để tránh mất dữ liệu.</p>
+              <h3 style="color:#a78bfa;margin-bottom:6px;">💾 Sao lưu &amp; Khôi phục</h3>
+              <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:12px;">Dữ liệu lưu cục bộ trên trình duyệt — xuất JSON để sao lưu an toàn.</p>
               <div style="display:flex;gap:10px;flex-wrap:wrap;">
                 <button onclick="exportProfile()" style="padding:10px 20px;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;">📤 Xuất hồ sơ (JSON)</button>
                 <label style="padding:10px 20px;background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.2);border-radius:8px;cursor:pointer;font-weight:600;">📥 Nhập hồ sơ <input type="file" accept=".json" onchange="importProfile(event)" style="display:none;"></label>
@@ -97,11 +93,9 @@
 
         <!-- KHUNG ĐĂNG NHẬP / ĐĂNG KÝ (KHI CHƯA ĐĂNG NHẬP) -->
         <section id="authFormSection" class="glass auth-card">
-            <p class="eyebrow">TÀI KHOẢN NS AI</p>
+            <p class="eyebrow">TÀI KHOẢN</p>
             <h1 id="authTitle">Đăng nhập tài khoản</h1>
-            <p class="muted" style="font-size: 13px;">
-                Lưu cục bộ trên máy này kết quả đánh giá điểm số, tính cách MBTI và gợi ý trường đại học.
-            </p>
+            <p class="muted" style="font-size: 13px;">Lưu hồ sơ điểm số, tính cách và nguyện vọng ngay trên máy này.</p>
 
             <div class="auth-tabs">
                 <button type="button" class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">
@@ -151,7 +145,7 @@
                 </div>
 
                 <div class="auth-hint">
-                    ✨ <strong>Đăng ký siêu nhanh:</strong> Chỉ cần tên đăng nhập & mật khẩu, không yêu cầu email hay số điện thoại. Toàn bộ thông tin bạn đã nhập từ đầu sẽ được lưu ngay vào tài khoản!
+                    ✨ Chỉ cần tên đăng nhập &amp; mật khẩu — dữ liệu đã nhập sẽ được lưu tự động.
                 </div>
 
                 <button type="submit" class="btn primary auth-btn-full">

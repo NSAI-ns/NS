@@ -57,11 +57,9 @@
 
 <p class="eyebrow">BƯỚC 2</p>
 
-<h1>Điểm các môn học (Chương trình GDPT 2018)</h1>
+<h1>Điểm các môn học</h1>
 
-<p class="muted" style="line-height: 1.6; font-size: 14px;">
-Cấu trúc theo định dạng <b>Kỳ thi Tốt nghiệp THPT từ năm 2025 (Chương trình GDPT 2018)</b> của Bộ Giáo dục &amp; Đào tạo: gồm <b>2 môn thi bắt buộc</b> (Toán, Ngữ văn) và các <b>môn tự chọn định hướng nghề nghiệp</b>. Bạn chỉ cần nhập điểm các môn đang theo học hoặc là thế mạnh xét tuyển Đại học - Cao đẳng (thang điểm [0.0 - 10.0], môn không học có thể để trống).
-</p>
+<p class="muted">Nhập điểm các môn bạn học (thang 0–10), môn không học để trống.</p>
 
 <div id="scoresContainer" style="display: flex; flex-direction: column; gap: 24px;"></div>
 
@@ -71,17 +69,11 @@ Cấu trúc theo định dạng <b>Kỳ thi Tốt nghiệp THPT từ năm 2025 (
 
 <div class="actions" style="margin-top: 32px;">
 
-<a href="thongtin.html" class="btn secondary">
-← Quay lại Bước 1 (Thông tin)
-</a>
+<a href="thongtin.html" class="btn secondary">← Bước 1</a>
 
 <button
 class="btn primary"
-onclick="saveScores()">
-
-Lưu &amp; tiếp tục sang Bước 3 (Sở thích) →
-
-</button>
+onclick="saveScores()">Lưu &amp; tiếp tục →</button>
 
 </div>
 
@@ -98,30 +90,28 @@ Lưu &amp; tiếp tục sang Bước 3 (Sở thích) →
 // CẤU TRÚC PHÂN NHÓM MÔN THI THEO CHƯƠNG TRÌNH GDPT 2018 (ÁP DỤNG TỪ KỲ THI 2025)
 const subjectGroups = [
   {
-    title: '🔴 1. Nhóm môn thi Bắt buộc (2 môn cốt lõi)',
-    badge: 'Bắt buộc tốt nghiệp',
+    title: '🔴 1. Môn bắt buộc (2 môn)',
+    badge: 'Bắt buộc',
     badgeColor: '#ef4444',
-    desc: 'Theo phương án thi tốt nghiệp THPT từ năm 2025 (GDPT 2018), Toán và Ngữ văn là 2 môn thi tốt nghiệp bắt buộc đối với tất cả học sinh THPT.',
     items: [
-      { name: 'Toán', icon: '📐', hint: 'Bắt buộc (Khối A, B, D, A01, A10...)' },
-      { name: 'Ngữ văn', icon: '📖', hint: 'Bắt buộc (Khối C, D, D01, C01, C14...)' }
+      { name: 'Toán', icon: '📐', hint: 'Khối A, B, D' },
+      { name: 'Ngữ văn', icon: '📖', hint: 'Khối C, D' }
     ]
   },
   {
-    title: '🔵 2. Nhóm môn thi Tự chọn & Định hướng Nghề nghiệp (9 môn)',
-    badge: 'Tự chọn theo định hướng',
+    title: '🔵 2. Môn tự chọn (9 môn)',
+    badge: 'Tự chọn',
     badgeColor: '#38bdf8',
-    desc: 'Học sinh chọn các môn học sở trường theo định hướng nghề nghiệp và tổ hợp xét tuyển Đại học - Cao đẳng. Chỉ cần nhập các môn có điểm hoặc theo học, môn khác để trống.',
     items: [
-      { name: 'Tiếng Anh', icon: '🌐', hint: 'Ngoại ngữ (Khối A01, D01, D07, D09, D14, D15, T01...)' },
-      { name: 'Vật lý', icon: '⚡', hint: 'KHTN (Khối A00, A01, A02, C01, A10, T02, CN1...)' },
-      { name: 'Hóa học', icon: '🧪', hint: 'KHTN (Khối A00, B00, D07, Y Dược, Hóa sinh...)' },
-      { name: 'Sinh học', icon: '🧬', hint: 'KHTN (Khối B00, A02, Y đa khoa, CNSH, Nông nghiệp...)' },
-      { name: 'Tin học', icon: '💻', hint: 'Môn mới GDPT 2018 (CNTT, AI, Vi mạch, Bán dẫn...)' },
-      { name: 'Công nghệ', icon: '⚙️', hint: 'Môn mới GDPT 2018 (Kỹ thuật, Cơ khí, Tự động hóa...)' },
-      { name: 'Lịch sử', icon: '🏛️', hint: 'KHXH (Khối C00, D09, D14, Sư phạm, Báo chí, Luật...)' },
-      { name: 'Địa lý', icon: '🌍', hint: 'KHXH (Khối C00, D15, A09, Du lịch, Quản lý tài nguyên...)' },
-      { name: 'GDKT&PL', icon: '⚖️', hint: 'Môn mới GDPT 2018 (Khối C14, A10, Kinh tế, Luật...)' }
+      { name: 'Tiếng Anh', icon: '🌐', hint: 'Khối A01, D01, D07' },
+      { name: 'Vật lý', icon: '⚡', hint: 'Khối A00, A01, C01' },
+      { name: 'Hóa học', icon: '🧪', hint: 'Khối A00, B00, D07' },
+      { name: 'Sinh học', icon: '🧬', hint: 'Khối B00, A02' },
+      { name: 'Tin học', icon: '💻', hint: 'Khối T01, T02' },
+      { name: 'Công nghệ', icon: '⚙️', hint: 'Khối CN1, CN2' },
+      { name: 'Lịch sử', icon: '🏛️', hint: 'Khối C00, D09, D14' },
+      { name: 'Địa lý', icon: '🌍', hint: 'Khối C00, D15' },
+      { name: 'GDKT&PL', icon: '⚖️', hint: 'Khối C14, A10' }
     ]
   }
 ];
@@ -149,13 +139,12 @@ subjectGroups.forEach((group, gIdx) => {
   groupCard.style.cssText = 'background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px 20px;';
 
   groupCard.innerHTML = `
-    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
       <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin: 0;">${group.title}</h3>
       <span style="font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: rgba(255,255,255,0.07); color: ${group.badgeColor}; border: 1px solid ${group.badgeColor}40;">
         ${group.badge}
       </span>
     </div>
-    <p style="font-size: 13px; color: #94a3b8; margin: 0 0 16px 0; line-height: 1.5;">${group.desc}</p>
     <div class="score-grid" id="grid_group_${gIdx}"></div>
   `;
 
@@ -386,17 +375,15 @@ function renderScoreConverterUI() {
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
         <div>
           <span style="font-size: 11px; font-weight: 700; color: #a5b4fc; letter-spacing: 0.8px; text-transform: uppercase;">
-            🧮 TIỆN ÍCH QUY ĐỔI ĐIỂM XÉT TUYỂN &amp; CHỨNG CHỈ QUỐC TẾ (GDPT 2018)
+            🧮 QUY ĐỔI ĐIỂM &amp; CHỨNG CHỈ
           </span>
           <h2 style="font-size: 19px; color: #ffffff; margin: 4px 0 2px;">
-            Quy đổi Điểm Tổ hợp Xét tuyển Đại học (Chuẩn Bộ GD&amp;ĐT)
+            Quy đổi điểm tổ hợp xét tuyển Đại học
           </h2>
-          <p style="font-size: 13px; color: #94a3b8; margin: 0; line-height: 1.5;">
-            Tự động tính điểm tổ hợp, tích hợp môn Tin học, Công nghệ, GDKT&amp;PL mới, quy đổi chứng chỉ ngoại ngữ và tự động gợi ý tổ hợp đạt điểm cao nhất.
-          </p>
+          <p style="font-size: 13px; color: #94a3b8; margin: 0; line-height: 1.5;">Tính điểm tổ hợp 3 môn, chứng chỉ ngoại ngữ và điểm ưu tiên.</p>
         </div>
         <span style="font-size: 12px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(129, 140, 248, 0.4); color: #c7d2fe; padding: 4px 12px; border-radius: 999px; font-weight: 600;">
-          Quy chế Tuyển sinh 2025 - 2026
+          Tuyển sinh 2025–2026
         </span>
       </div>
 

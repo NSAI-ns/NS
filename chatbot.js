@@ -101,22 +101,20 @@ function formatMsg(text) {
   // Đổi `code` thành thẻ code có highlight
   html = html.replace(/`([^`]+)`/g, '<code style="background: rgba(255, 255, 255, 0.12); padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; color: #38bdf8;">$1</code>');
 
-  // 5 KHỐI TRỰC QUAN HƯỚNG NGHIỆP CHUẨN MỰC
-  // Khối 1: Khối xét tuyển & Môn cốt lõi (Xanh lam / Blue)
+  // 5 KHỐI TRỰC QUAN HƯỚNG NGHIỆP CHUẨN MỰC (ĐỒNG BỘ 100% VỚI KẾT QUẢ)
+  // Khối 1: [1 · KHỐI XÉT] (Xanh lam / Blue)
   html = html.replace(/\*\*(\[1 · KHỐI XÉT[^\]]*\])\*\*/g,
     '<div class="chat-block-badge badge-blue"><span class="badge-icon">📚</span> $1</div>');
-  // Khối 2: Trường & Điểm chuẩn theo năng lực (Tím / Purple)
+  // Khối 2: [2 · TRƯỜNG & ĐIỂM CHUẨN] (Tím / Purple)
   html = html.replace(/\*\*(\[2 · (?:CHỌN TRƯỜNG|TRƯỜNG)[^\]]*\])\*\*/g,
     '<div class="chat-block-badge badge-purple"><span class="badge-icon">🏫</span> $1</div>');
-  // Khối 3: Vào học thực tế học gì (Cyan / Xanh ngọc)
+  // Khối 3: [3 · VÀO HỌC THÌ HỌC GÌ?] (Cyan / Xanh ngọc)
   html = html.replace(/\*\*(\[3 · VÀO HỌC[^\]]*\])\*\*/g,
     '<div class="chat-block-badge badge-cyan"><span class="badge-icon">🛠️</span> $1</div>');
-  // Khối 4: Cái giá phải trả (Rose / Đỏ hồng)
-  html = html.replace(/\*\*(\[(?:🔒 |🔒)?4 · CÁI GIÁ PHẢI TRẢ[^\]]*\])\*\*/g,
+  // Khối 4: [🔒 CÁI GIÁ PHẢI TRẢ] (Rose / Đỏ hồng)
+  html = html.replace(/\*\*(\[(?:🔒\s*)?(?:4 · )?CÁI GIÁ PHẢI TRẢ[^\]]*\])\*\*/g,
     '<div class="chat-block-badge badge-rose"><span class="badge-icon">🔒</span> $1</div>');
-  html = html.replace(/\*\*(\[🔒 CÁI GIÁ PHẢI TRẢ\])\*\*/g,
-    '<div class="chat-block-badge badge-rose"><span class="badge-icon">🔒</span> [🔒 CÁI GIÁ PHẢI TRẢ]</div>');
-  // Khối 5: Mức lương tham khảo (Emerald / Xanh lục)
+  // Khối 5: [4 · MỨC LƯƠNG] (Emerald / Xanh lục)
   html = html.replace(/\*\*(\[(?:5|4) · MỨC LƯƠNG[^\]]*\])\*\*/g,
     '<div class="chat-block-badge badge-emerald"><span class="badge-icon">💵</span> $1</div>');
 
@@ -1498,15 +1496,16 @@ const CAREER_CHATBOT_SYSTEM_PROMPT = {
   coreMission: "Đi thẳng vào vấn đề, không lý thuyết sáo rỗng. Giúp học sinh THPT KHÔNG CHỌN SAI NGÀNH.",
   tone: "Thực chiến, chân thành, khách quan, giàu năng lượng tích cực nhưng tuyệt đối trung thực về khó khăn",
   fiveBlocks: [
-    "[1 · KHỐI XÉT TUYỂN & MÔN CỐT LÕI]",
-    "[2 · CHỌN TRƯỜNG THEO NĂNG LỰC & ĐIỂM CHUẨN]",
-    "[3 · VÀO HỌC THỰC TẾ HỌC GÌ?]",
-    "[🔒 4 · CÁI GIÁ PHẢI TRẢ (3 ÁP LỰC LỚN NHẤT)]",
-    "[5 · MỨC LƯƠNG THAM KHẢO & TỐC ĐỘ BỨT PHÁ]"
+    "[1 · KHỐI XÉT]",
+    "[2 · TRƯỜNG & ĐIỂM CHUẨN]",
+    "[3 · VÀO HỌC THÌ HỌC GÌ?]",
+    "[🔒 CÁI GIÁ PHẢI TRẢ]",
+    "[4 · MỨC LƯƠNG]"
   ],
   rules: [
     "Mỗi ý chỉ 1–2 câu súc tích, gạch đầu dòng rõ ràng, in đậm con số và từ khóa quan trọng.",
-    "Luôn kết thúc bằng 1 câu hỏi gợi mở thiết thực (về học lực, điểm môn, sở thích hoặc mức độ chịu áp lực)."
+    "Bỏ hoàn toàn lời chào rào đón dài dòng, đi thẳng vào tên ngành và 5 khối.",
+    "Luôn kết thúc bằng đúng 1 câu hỏi ngắn trực diện về học lực hoặc môn thế mạnh của học sinh."
   ]
 };
 
@@ -1806,10 +1805,6 @@ function matchCareerFromQuery(text) {
 function generateCareerConsultation5Blocks(careerName, options = {}) {
   const insight = getCareerInsightData(careerName);
   const realName = insight.name || careerName;
-  const context = getChatContext();
-  const userName = (context.studentName && context.studentName !== 'bạn' && context.studentName !== 'Học sinh')
-    ? context.studentName
-    : 'bạn';
 
   // 1. Khối xét tuyển & môn cốt lõi
   const primaryCombos = (insight.combos || []).filter(c => c.isPrimary);
@@ -1824,68 +1819,56 @@ function generateCareerConsultation5Blocks(careerName, options = {}) {
 
   // 2. Chọn trường theo năng lực (Top đầu / Vừa sức / An toàn)
   const schoolTiers = getCareerSchoolTiers(realName);
-  const adviceFit = (insight.schoolAdvice && insight.schoolAdvice.abilityFit) || 'Chọn trường có điểm chuẩn các năm trước thấp hơn điểm thi thử của bạn từ 1.0 – 1.5 điểm để an toàn nguyện vọng.';
-  const adviceNotice = (insight.schoolAdvice && insight.schoolAdvice.admissionNotice) || 'Mỗi trường mỗi khác về chứng chỉ ngoại ngữ quy đổi, tiêu chí phụ xét môn chính và phân bổ chỉ tiêu.';
 
-  // 3. Vào học thực tế học gì? (Bản chất đời thường, công cụ / phần mềm, kỹ năng)
+  // 3. Vào học thì học gì? (Bản chất đời thường, công cụ / phần mềm, kỹ năng)
   const curr = insight.curriculum || {};
-  const duration = curr.duration || '4 – 4.5 NĂM';
-  const essence = curr.plainExplanation || 'Được đào tạo kiến thức nền tảng chuyên môn và áp dụng giải quyết bài toán thực tế.';
+  const duration = curr.duration || '4 – 4.5 năm';
+  const essence = curr.plainExplanation || 'Nắm vững nền tảng chuyên môn và áp dụng giải quyết bài toán thực tế.';
   const tools = (Array.isArray(curr.tools) && curr.tools.length > 0)
-    ? curr.tools.slice(0, 6).map(t => `\`${t}\``).join(' · ')
+    ? curr.tools.slice(0, 5).map(t => `\`${t}\``).join(' · ')
     : '`Bộ công cụ số chuyên ngành`';
-
-  let skillsList = '';
-  if (Array.isArray(curr.skills) && curr.skills.length > 0) {
-    skillsList = curr.skills.slice(0, 2).map(s => `• ${s.icon || '🧩'} **${s.name || s.title}:** ${s.desc || ''}`).join('\n');
-  } else {
-    skillsList = '• 🧩 **Tư duy phản biện & Kỹ năng số:** Áp dụng xử lý các tình huống thực tiễn chuyên ngành.';
-  }
 
   // 4. Cái giá phải trả (đúng 3 áp lực / mặt trái lớn nhất)
   const harsh = (Array.isArray(insight.harshRealities) && insight.harshRealities.length >= 3)
     ? insight.harshRealities.slice(0, 3)
     : [
-        { icon: '⏰', title: 'Áp lực chỉ tiêu & Tiến độ công việc', desc: 'Làm quen với cường độ làm việc cao và kỹ năng xử lý các sự cố phát sinh bất ngờ.' },
-        { icon: '🔄', title: 'Tốc độ đào thải cao — Bắt buộc tự học suốt đời', desc: 'Công nghệ thay đổi nhanh chóng, ngừng học hỏi là tụt hậu so với thị trường.' },
-        { icon: '⚖️', title: 'Cân bằng công việc & Nguy cơ kiệt sức', desc: 'Cần kỷ luật bản thân cao để tránh burnout trong những năm đầu khởi nghiệp.' }
+        { icon: '⏰', title: 'Áp lực tiến độ & Deadline', desc: 'Cường độ làm việc cao, liên tục đối mặt với áp lực thời gian.' },
+        { icon: '🔄', title: 'Tốc độ đào thải nhanh', desc: 'Kiến thức đổi mới liên tục, ngừng tự học là tụt hậu ngay lập tức.' },
+        { icon: '⚖️', title: 'Nguy cơ quá tải & Kiệt sức', desc: 'Dễ mất cân bằng trong 2–3 năm đầu nếu thiếu kỷ luật bản thân.' }
       ];
 
   // 5. Mức lương tham khảo (Mới ra trường vs Sau 5-8 năm)
-  const sal = insight.salary || { entry: '8 – 14 Triệu / tháng', experienced: '25 – 45 Triệu / tháng', multiplier: '×2.8', note: 'Chỉ để tham khảo: tùy thuộc năng lực và kỹ năng.' };
+  const sal = insight.salary || { entry: '8 – 14 Triệu / tháng', experienced: '25 – 45 Triệu / tháng', multiplier: '×3', note: 'Chỉ để tham khảo: tùy thuộc năng lực thực chiến và ngoại ngữ.' };
 
-  // Câu hỏi gợi mở thiết thực
-  const closingQ = insight.closingQuestion || 'Bạn cảm thấy điểm số môn thế mạnh của mình đã tự tin để theo đuổi ngành này chưa?';
-
-  let intro = options.intro;
-  if (!intro) {
-    intro = `🎯 **Tư vấn định hướng: ${realName}**\n*Lời khuyên từ chuyên gia hướng nghiệp NS AI (Người anh/chị đi trước đồng hành cùng bạn)*`;
+  // Câu hỏi ngắn trực diện về học lực / môn thế mạnh của học sinh (siết kiểm tra chặt chẽ)
+  let closingQ = (insight.closingQuestion && typeof insight.closingQuestion === 'string') ? insight.closingQuestion.trim() : '';
+  if (!closingQ || !/\b(điểm|học lực|môn thế mạnh|môn xét tuyển)\b/i.test(closingQ)) {
+    closingQ = `Điểm thi thử hoặc tổng kết các môn xét tuyển của bạn hiện khoảng mấy phẩy để mình gợi ý trường vừa sức nhất?`;
   }
 
-  return `${intro}\n\n` +
-    `**[1 · KHỐI XÉT TUYỂN & MÔN CỐT LÕI]**\n` +
-    `• **Tổ hợp môn trọng tâm:** ${primaryStr} · *Dự phòng:* ${otherStr}.\n` +
+  const heading = options.intro || `🎯 **Ngành ${realName}**`;
+
+  return `${heading}\n\n` +
+    `**[1 · KHỐI XÉT]**\n` +
+    `• **Tổ hợp chính:** ${primaryStr} · *Dự phòng:* ${otherStr}.\n` +
     `• ⚠️ **Môn cốt lõi bắt buộc:** ${coreWarn}\n\n` +
-    `**[2 · CHỌN TRƯỜNG THEO NĂNG LỰC & ĐIỂM CHUẨN]**\n` +
-    `• 🌟 **Top đầu (Khát vọng / 26–29đ):** ${schoolTiers.top}\n` +
-    `• ⚖️ **Vừa sức (Trọng tâm / 22–25đ):** ${schoolTiers.mid}\n` +
-    `• 🛡️ **An toàn (Bến đỗ / 18–21đ):** ${schoolTiers.safe}\n` +
-    `• 📌 **Nhắc nhở tuyển sinh:** ${adviceNotice} ${adviceFit}\n\n` +
-    `**[3 · VÀO HỌC THỰC TẾ HỌC GÌ?]**\n` +
-    `• ⏱️ **Thời gian đào tạo:** **${duration}**.\n` +
-    `• 💡 **Bản chất đào tạo:** ${essence}\n` +
-    `• 🛠️ **Công cụ & Phần mềm thực chiến:** ${tools}\n` +
-    `${skillsList}\n\n` +
-    `**[🔒 4 · CÁI GIÁ PHẢI TRẢ (3 ÁP LỰC LỚN NHẤT)]**\n` +
-    `1. ${harsh[0].icon} **${harsh[0].title}:** ${harsh[0].desc}\n` +
-    `2. ${harsh[1].icon} **${harsh[1].title}:** ${harsh[1].desc}\n` +
-    `3. ${harsh[2].icon} **${harsh[2].title}:** ${harsh[2].desc}\n\n` +
-    `**[5 · MỨC LƯƠNG THAM KHẢO & TỐC ĐỘ BỨT PHÁ]**\n` +
-    `• 💵 **Mới ra trường (Khởi điểm):** **${sal.entry}** (1–2 năm đầu học việc & tích lũy kinh nghiệm).\n` +
-    `• 🚀 **Sau 5–8 năm (Có kinh nghiệm / Quản lý):** **${sal.experienced}** (tốc độ bứt phá **${sal.multiplier || '×3.0'}**).\n` +
-    `• ⚠️ **Lưu ý:** ${sal.note || 'Con số mang tính tham khảo thực tế thị trường; phụ thuộc lớn vào năng lực thực chiến, ngoại ngữ và quy mô doanh nghiệp.'}\n\n` +
+    `**[2 · TRƯỜNG & ĐIỂM CHUẨN]**\n` +
+    `• 🌟 **Top đầu:** ${schoolTiers.top}\n` +
+    `• ⚖️ **Vừa sức:** ${schoolTiers.mid}\n` +
+    `• 🛡️ **An toàn:** ${schoolTiers.safe}\n` +
+    `• 📌 **Nhắc nhở:** Nhớ tra cứu **Đề án tuyển sinh** mới nhất của từng trường để nắm rõ chỉ tiêu và tiêu chí phụ.\n\n` +
+    `**[3 · VÀO HỌC THÌ HỌC GÌ?]**\n` +
+    `• 💡 **Bản chất đào tạo:** ${essence} (Thời gian: **${duration}**).\n` +
+    `• 🛠️ **Công cụ & Kỹ năng cốt lõi:** ${tools}.\n\n` +
+    `**[🔒 CÁI GIÁ PHẢI TRẢ]**\n` +
+    `• 1. ${harsh[0].icon} **${harsh[0].title}:** ${harsh[0].desc}\n` +
+    `• 2. ${harsh[1].icon} **${harsh[1].title}:** ${harsh[1].desc}\n` +
+    `• 3. ${harsh[2].icon} **${harsh[2].title}:** ${harsh[2].desc}\n\n` +
+    `**[4 · MỨC LƯƠNG]**\n` +
+    `• 💵 **Mới ra trường:** **${sal.entry}** vs **Sau 5–8 năm:** **${sal.experienced}** (Tốc độ bứt phá **${sal.multiplier || '×3'}**).\n` +
+    `• ⚠️ **Lưu ý:** Chỉ để tham khảo, mức lương thực tế phụ thuộc lớn vào năng lực thực chiến và ngoại ngữ.\n\n` +
     `---\n` +
-    `💬 **Góc gợi mở từ chuyên gia hướng nghiệp:** ${closingQ}`;
+    `💬 **Hỏi nhanh:** ${closingQ}`;
 }
 
 function answer(q) {
@@ -2009,33 +1992,20 @@ function answer(q) {
     if (c.bestCombo) summaryTraits.push(`Tổ hợp cao nhất **${c.bestCombo.code} (${c.bestCombo.score}đ)**`);
     if (c.hollandCode) summaryTraits.push(`Mã Holland **${c.hollandCode}**`);
     if (c.top) summaryTraits.push(`Ngành thế mạnh **${c.top.name}**`);
-    const traitStr = summaryTraits.length > 0 ? `\nHồ sơ năng lực của bạn đã được kết nối: ${summaryTraits.join(' · ')}.` : '';
+    const traitStr = summaryTraits.length > 0 ? ` Hồ sơ của bạn đã kết nối: ${summaryTraits.join(' · ')}.` : '';
 
-    return `Chào **${uName}**! Rất vui được đồng hành cùng bạn! 💚🌌\n\n` +
-      `Mình là **NS AI Assistant** – trợ lý cá nhân hóa về định hướng học đường và đồng hành tâm lý.${traitStr}\n\n` +
-      `Toàn bộ dữ liệu hồ sơ của bạn đã sẵn sàng và không cần nhập lại. Hôm nay bạn muốn mình hỗ trợ gì cho hành trình này? Hãy gõ câu hỏi hoặc bấm 🎙️ Micro để trò chuyện nhé!`;
+    return `Chào **${uName}**! Mình là **NS AI** – mentor hướng nghiệp thực chiến, giúp bạn chọn đúng ngành ngay từ đầu và không chọn sai.${traitStr}\n` +
+      `Bạn đang phân vân ngành nào, cứ gõ tên ngành hoặc bấm 🎙️ **Micro** để mình phân tích 5 khối trực quan ngay nhé! 🚀`;
   }
 
   // 1.0 MẤT ĐỘNG LỰC / HẾT ĐỘNG LỰC / TỤT MOOD / CHÁN HỌC / MÔNG LUNG (TƯ VẤN TÂM LÝ CHUYÊN SÂU)
   if (/mất động lực|hết động lực|thiếu động lực|không có động lực|chẳng có động lực|tụt mood|tụt cảm xúc|down mood|mất hứng|không có hứng|không còn hứng|chán nản|chán học|không muốn học|chán chả muốn học|lười học|muốn buông xuôi|buông xuôi|muốn từ bỏ|từ bỏ|nản quá|nản lòng|mông lung|mất phương hướng|học để làm gì|cố gắng vì điều gì|lấy lại động lực|bảo mất động lực/.test(s)) {
     recordTopic('motivation_recovery');
-    return `⚡ **Mình hiểu cảm xúc của bạn lúc này... Hãy dừng lại một nhịp và hít một hơi thật sâu cùng mình nhé!**\n\n` +
-      `Trước hết, mình muốn khẳng định với bạn một điều quan trọng:\n` +
-      `👉 **Mất động lực là một phản ứng sinh học hoàn toàn bình thường của não bộ, không phải do bạn kém cỏi, lười biếng hay vô dụng.**\n\n` +
-      `Động lực (Motivation) vốn như thời tiết, lúc nắng lúc mưa, không một ai trên đời có thể tràn đầy năng lượng suốt 365 ngày. Khi bạn ép bản thân chạy một chặng đường dài với bài vở, thi cử mà thiếu khoảng nghỉ nạp năng lượng, não bộ sẽ tự động "ngắt cầu dao" để bảo vệ bạn khỏi sự kiệt sức.\n\n` +
-      `💡 **Lộ trình 4 bước "Cấp cứu & Hồi sinh động lực" thực tế nhất:**\n\n` +
-      `1️⃣ **Quy tắc 5 phút (Đánh bại sức ỳ não bộ):**\n` +
-      `• Đừng ép bản thân phải "ngồi học cả buổi 3-4 tiếng" (não bạn sẽ thấy ngợp và trốn tránh ngay lập tức).\n` +
-      `• Hãy chỉ giao hẹn: *"Mình chỉ mở sách ra làm đúng 1 câu trắc nghiệm"* hoặc *"Đọc đúng 1 trang sách trong 5 phút"*. Khi đã vượt qua ngưỡng 5 phút đầu tiên, não bộ sẽ bắt đầu tiết Dopamine tự nhiên và cuốn bạn vào bài học một cách nhẹ nhàng.\n\n` +
-      `2️⃣ **Kỹ thuật Non-Zero Day (Ngày không-về-không):**\n` +
-      `• Những ngày cạn kiệt năng lượng nhất, chỉ cần bạn học thuộc 1 từ vựng Tiếng Anh, giải 1 phép tính nhỏ, hoặc đọc 1 công thức Toán. **Chỉ cần không phải là số 0, bạn đã là người chiến thắng ngày hôm đó!** Một bước tiến dù nhỏ vẫn đang đưa bạn về phía trước.\n\n` +
-      `3️⃣ **Dopamine Reset & Đổi mới không gian:**\n` +
-      `• Hãy cất điện thoại sang phòng khác ít nhất 45 phút để dứt khỏi vòng lặp lướt TikTok/Reels/mạng xã hội (nguyên nhân hàng đầu gây cạn kiệt dopamine học tập).\n` +
-      `• Dọn dẹp lại mặt bàn học cho thật gọn gàng, mở toang cửa sổ đón gió hoặc đổi chỗ học ra ban công, thư viện, quán cà phê yên tĩnh. Một không gian mới sẽ kích hoạt lại hứng khởi mới.\n\n` +
-      `4️⃣ **Tái kết nối với "Lý do bắt đầu":**\n` +
-      `• Hãy nhắm mắt lại 10 giây và tưởng tượng: Ngày bạn cầm tờ giấy báo trúng tuyển trường đại học mơ ước, được bước chân vào cánh cổng tự do tuổi 18, được sống tự lập và theo đuổi đam mê của riêng mình. Đó chính là lý do xứng đáng nhất để bạn tiếp tục nỗ lực hôm nay!\n\n` +
-      `🌿 *Lời nhắn từ NS AI:* "Nếu hôm nay bạn thực sự quá mệt, hãy cho phép bản thân gập sách lại, đi tắm nước ấm và đi ngủ một giấc thật sâu trước 11h đêm. Ngày mai là một trang mới tinh, chúng mình cùng bắt đầu lại từng bước nhỏ nhé!"\n\n` +
-      `Bạn đang thấy nản nhất ở môn học nào, hay đang mông lung về định hướng tương lai? Hãy kể cụ thể cho mình nghe, mình luôn ở đây gỡ rối cùng bạn! 🫂💚`;
+    return `⚡ **Hồi sinh động lực học tập (Chiến thuật 3 bước cho học sinh THPT):**\n\n` +
+      `• **Quy tắc 5 phút:** Đừng ép học 3-4 tiếng; chỉ cam kết mở sách làm đúng **1 câu trắc nghiệm** hoặc đọc **5 phút**. Não sẽ tự tiết Dopamine và cuốn vào bài học.\n` +
+      `• **Non-Zero Day (Ngày không-về-không):** Dù mệt mỏi nhất, chỉ cần thuộc **1 từ vựng** hay giải **1 phép tính**. Không phải số 0 là bạn đã tiến bước.\n` +
+      `• **Dopamine Reset:** Cất điện thoại xa bàn học ít nhất **45 phút**, dọn sạch góc học tập để não bộ thoát khỏi trạng thái quá tải số.\n\n` +
+      `💬 **Hỏi nhanh:** Bạn đang thấy nản nhất ở môn nào, hay điểm thi thử môn nào đang khiến bạn lo lắng?`;
   }
 
   // 1.0.1 TRÌ HOÃN, LƯỜI BIẾNG & KHÔNG TẬP TRUNG ĐƯỢC
@@ -2053,13 +2023,11 @@ function answer(q) {
   // 1.0.2 HỌC ĐỂ LÀM GÌ / Ý NGHĨA CỦA VIỆC HỌC / CÓ NÊN HỌC ĐẠI HỌC
   if (/học để làm gì|tại sao phải học|ý nghĩa của việc học|có nên học đại học|học đại học hay học nghề|không học đại học|đại học có phải con đường duy nhất/.test(s)) {
     recordTopic('purpose_of_study');
-    return `🌱 **"Học để làm gì và Đại học có phải con đường duy nhất?" - Một câu hỏi rất đáng trân trọng!**\n\n` +
-      `Ở lứa tuổi học sinh THPT, ai trong chúng ta cũng từng có lúc băn khoăn: *"Tại sao phải thức khuya dậy sớm giải những bài toán khó, học những kiến thức có vẻ chẳng dùng trong đời thực?"*\n\n` +
-      `💡 **3 góc nhìn thực tế từ NS AI:**\n` +
-      `1. **Học không chỉ là điểm số, mà là "tập thể dục cho não bộ":** Việc giải một bài toán hóc búa hay viết một bài văn lập luận rèn luyện cho bạn tính kiên nhẫn, khả năng tư duy logic và kỹ năng giải quyết vấn đề khi gặp khó khăn ngoài xã hội sau này.\n` +
-      `2. **Học là để "có quyền lựa chọn":** Khi bạn có học thức và năng lực tốt, bạn được quyền chọn công việc mình yêu thích, chọn mức thu nhập xứng đáng, chọn môi trường sống và người bạn muốn làm việc cùng, thay vì phải chấp nhận những gì người khác sắp đặt.\n` +
-      `3. **Đại học là con đường ngắn và an toàn nhất, nhưng không phải duy nhất:** Bên cạnh đại học, bạn hoàn toàn có thể chọn học nghề chuyên sâu (lập trình thực chiến, thiết kế đồ họa, làm đẹp, làm bánh, kỹ thuật ô tô...), du học nghề hoặc khởi nghiệp. Điều quan trọng nhất là bạn có một cái nghề thực chất và sự kiên trì theo đuổi đến cùng.\n\n` +
-      `Bạn đang muốn hướng tới sự nghiệp thực tế hay muốn trải nghiệm môi trường giảng đường đại học? Hãy chia sẻ với mình nhé! ✨`;
+    return `💡 **Góc nhìn mentor: Học để làm gì & Đại học có phải con đường duy nhất?**\n\n` +
+      `• **Học để có quyền lựa chọn:** Điểm số và học thức tốt cho bạn quyền chọn công việc, chọn mức thu nhập và môi trường sống mình muốn.\n` +
+      `• **Tập thể dục cho tư duy:** Giải toán hay phân tích văn học rèn luyện tính kiên trì, tư duy phản biện và khả năng xử lý bài toán thực tế.\n` +
+      `• **Đại học là bệ phóng an toàn, nhưng không duy nhất:** Học nghề chuyên sâu thực chiến (lập trình, đồ họa, kỹ thuật ô tô...) hay học đại học đều tốt nếu bạn sở hữu tay nghề thực chất.\n\n` +
+      `💬 **Hỏi nhanh:** Bạn đang có định hướng xét tuyển đại học hay muốn học nghề thực chiến, và môn thế mạnh của bạn là gì?`;
   }
 
   // 1.1 LẮNG NGHE & TƯ VẤN TÂM LÝ HỌC ĐƯỜNG (SAFE HAVEN)
@@ -2199,33 +2167,22 @@ function answer(q) {
         `• Đề thi thử các trường chuyên: Tải miễn phí tại *Tuyensinh247* hoặc *VietJack*.`;
     }
 
-    return `Có chứ bạn ơi! Mình có đầy đủ nguồn tài liệu học tập, ngân hàng đề thi có đáp án chi tiết và các kênh học miễn phí cực xịn dành cho học sinh THPT:\n\n` +
-      `📚 **1. Ngân hàng đề thi thử & Giải bài tập SGK chi tiết:**\n` +
-      `• **VietJack (vietjack.com) & VnDoc (vndoc.com):** Toàn bộ lời giải SGK, sách bài tập, tóm tắt lý thuyết và đề thi giữa kỳ/cuối kỳ các môn lớp 10, 11, 12 theo chương trình GDPT 2018 mới.\n` +
-      `• **Tuyensinh247 / ToanMath / Hoctot:** Kho đề thi thử tốt nghiệp THPT của các trường chuyên trên toàn quốc có giải chi tiết từng bước.\n` +
-      `• **Cổng thông tin Bộ GD&ĐT (thi.moet.gov.vn):** Nơi công bố đề thi tham khảo chính thức chuẩn cấu trúc.\n\n` +
-      `💻 **2. Tài liệu ôn thi Đánh giá năng lực (ĐGNL/ĐGTD):**\n` +
-      `• Đề thi mẫu trực tuyến của ĐHQG Hà Nội (HSA) và ĐHQG TP.HCM trên cổng khảo thí chính thức.\n\n` +
-      `🎥 **3. Kênh tự học YouTube miễn phí hàng đầu:**\n` +
-      `• **Toán:** Thầy Đỗ Văn Đức, Thầy Chí Toán, Thầy Thuận...\n` +
-      `• **Văn:** Thưởng Thức Sách, Văn Học Tuổi Trẻ, Cô Sương Mai...\n` +
-      `• **Tiếng Anh:** Cô Trang Anh, Cô Mai Phương...\n` +
-      `• **Lý - Hóa - Sinh:** Thầy Vũ Ngọc Anh, Thầy Phạm Thắng, Thầy Phan Khắc Nghệ...\n\n` +
-      `💡 Bạn đang cần tài liệu hay đề thi của **môn nào cụ thể** (Toán, Văn, Anh, Lý, Hóa, Sinh, Sử, Địa...)? Cứ nhắn tên môn cho mình nhé! ✨`;
+    return `📚 **Nguồn tài liệu & Đề thi THPT chuẩn GDPT 2018:**\n\n` +
+      `• **VietJack & VnDoc:** Lời giải SGK, tóm tắt công thức 12 và đề thi học kỳ có đáp án.\n` +
+      `• **ToanMath & Tuyensinh247:** Kho đề thi thử THPT Quốc gia các trường chuyên có ma trận giải chi tiết.\n` +
+      `• **Cổng HSA / VNU:** Đề thi mẫu Đánh giá năng lực chuẩn của ĐHQG Hà Nội & TP.HCM.\n` +
+      `• **Kênh YouTube trọng điểm:** Thầy Đỗ Văn Đức (Toán), Cô Trang Anh (Tiếng Anh), Thầy Vũ Ngọc Anh (Lý), Thầy Phạm Thắng (Hóa).\n\n` +
+      `💬 **Hỏi nhanh:** Bạn đang cần tài liệu ôn thi hoặc đề thi thử của môn cụ thể nào (Toán, Lý, Hóa, Văn, Anh, Sinh...)?`;
   }
 
   // 3. PHƯƠNG PHÁP HỌC / LẤY LẠI GỐC / HỌC GIỎI
   if (/mất gốc|học dốt|kém|làm sao để giỏi|cách học|học nhanh thuộc|bí quyết|kéo điểm|cải thiện|học bài/.test(s)) {
     recordTopic('study_method');
-    return `Đừng quá nản lòng bạn nhé, việc thấy mình "yếu" một môn thực ra là cơ hội tốt nhất để bạn bứt phá! Dưới đây là phương pháp giúp bạn lấy lại gốc và kéo điểm môn học nhanh nhất:\n\n` +
-      `🎯 **1. Quy tắc 80/20 (Tập trung kiến thức cơ bản):**\n` +
-      `• Đừng vội làm đề khó. Hãy mở sách giáo khoa, ghi chép lại toàn bộ công thức và định nghĩa cốt lõi của từng chương.\n` +
-      `• Chỉ cần nắm chắc phần cơ bản này, bạn đã cầm chắc 6.0 - 7.0 điểm trong tay.\n\n` +
-      `⏱️ **2. Học theo phương pháp Pomodoro:**\n` +
-      `• Ngồi vào bàn học tập trung cao độ 25 phút (tắt điện thoại), sau đó nghỉ xả hơi 5 phút rồi mới học tiếp.\n\n` +
-      `📝 **3. Cuốn sổ tay "Lỗi sai":**\n` +
-      `• Mỗi khi làm sai câu nào, hãy chép lại câu đó và ghi rõ: "Tại sao mình sai? Công thức đúng là gì?". Đọc lại cuốn sổ này trước mỗi bài kiểm tra sẽ giúp bạn không bao giờ mất điểm oan.\n\n` +
-      `Bạn đang muốn cải thiện điểm của môn nào nhất lúc này?`;
+    return `🎯 **Phương pháp lấy lại gốc & bứt phá điểm số (Chiến thuật 80/20):**\n\n` +
+      `• **Chắc phần cơ bản (Câu 1–38):** Đừng vội làm đề khó; tổng hợp toàn bộ công thức SGK từng chương để nắm chắc 6.0 – 7.5 điểm.\n` +
+      `• **Sổ tay bẫy & lỗi sai:** Mỗi lần giải sai câu nào, chép lại và ghi rõ nguyên nhân để không bao giờ mất điểm oan.\n` +
+      `• **Pomodoro 25/5:** Học tập trung cao độ 25 phút (không điện thoại), nghỉ 5 phút giúp não duy trì độ tập trung tối đa.\n\n` +
+      `💬 **Hỏi nhanh:** Điểm kiểm tra hiện tại của môn bạn đang muốn cải thiện khoảng mấy phẩy để mình hướng dẫn cụ thể?`;
   }
 
   // 3.5. ĐIỂM CHUẨN / BAO NHIÊU ĐIỂM THÌ ĐỖ
@@ -2237,13 +2194,11 @@ function answer(q) {
       return `• **${sch.name}:** ${items}`;
     }).filter(Boolean).join('\n');
 
-    return `📏 **Điểm chuẩn tham khảo (xét điểm thi tốt nghiệp THPT năm 2024):**\n\n` +
+    return `📏 **Điểm chuẩn tham khảo (Mốc xét điểm thi THPT gần nhất):**\n\n` +
       `${list}\n\n` +
-      `⚠️ **Lưu ý quan trọng:**\n` +
-      `• Đây là **mốc tham chiếu đã làm tròn**, KHÔNG phải điểm chuẩn chính thức. Điểm chuẩn thay đổi mỗi năm, mỗi ngành và mỗi tổ hợp.\n` +
-      `• Điểm chuẩn năm nay thường được công bố sau khi có kết quả thi — hãy theo dõi website chính thức của trường.\n` +
-      `• Nhiều trường còn xét **học bạ, ĐGNL/ĐGTD, chứng chỉ IELTS/SAT** với mức điểm khác — đó có thể là "cửa" dễ hơn cho bạn.\n\n` +
-      `👉 Bạn muốn mình đối chiếu **điểm tổ hợp hiện tại của bạn** với các mốc này không? Hãy xem ở trang **Kết quả** — mục "Đối chiếu năng lực với điểm chuẩn".`;
+      `• 📌 **Lưu ý:** Điểm chuẩn thay đổi theo năm và phương thức (THPT, Học bạ, ĐGNL, IELTS quy đổi).\n` +
+      `• ⚠️ Tra cứu kỹ **Đề án tuyển sinh** của từng trường để nắm rõ chỉ tiêu và tiêu chí phụ.\n\n` +
+      `💬 **Hỏi nhanh:** Điểm thi thử tổ hợp 3 môn của bạn hiện đạt khoảng bao nhiêu điểm để mình đối chiếu trường vừa sức?`;
   }
 
   // 4. MỨC LƯƠNG / CƠ HỘI VIỆC LÀM / XIN VIỆC / XU HƯỚNG NGHỀ NGHIỆP
@@ -2252,19 +2207,16 @@ function answer(q) {
     const matched = matchCareerFromQuery(s);
     if (matched) {
       chatState.lastConsultedCareer = matched;
-      const intro = `💵 **Phân tích mức lương & tiềm năng thu nhập ngành ${matched}:**\n*Lời khuyên thực tế từ chuyên gia hướng nghiệp NS AI giúp bạn hiểu rõ lộ trình thu nhập:*`;
+      const intro = `🎯 **Ngành ${matched}** · 💵 **Mức lương & Tiềm năng thu nhập**`;
       return generateCareerConsultation5Blocks(matched, { intro });
     }
-    return `Đây là một câu hỏi rất thực tế và quan trọng khi chọn nghề! Dưới đây là bức tranh toàn cảnh về thị trường việc làm hiện nay:\n\n` +
-      `📈 **1. Những nhóm ngành có nhu cầu tuyển dụng & thu nhập cao:**\n` +
-      `• **Công nghệ thông tin & Trí tuệ nhân tạo (AI):** Lương khởi điểm từ 10 - 18 triệu/tháng; kỹ sư 3-5 năm kinh nghiệm có thể đạt 30 - 60+ triệu/tháng.\n` +
-      `• **Logistics & Quản trị chuỗi cung ứng:** Nhu cầu rất lớn nhờ thương mại điện tử và xuất nhập khẩu phát triển mạnh.\n` +
-      `• **Kinh tế số & Digital Marketing:** Cơ hội việc làm rộng mở, thu nhập gắn liền với năng lực và doanh số.\n` +
-      `• **Khối ngành Y Dược & Chăm sóc sức khỏe:** Luôn có sự ổn định cao, không bao giờ lo thiếu việc làm.\n\n` +
-      `💡 **2. Lời khuyên vàng:**\n` +
-      `• "Không có ngành nào đảm bảo 100% giàu có nếu bản thân thụ động, và cũng không có ngành nào thất nghiệp nếu bạn thuộc top những người làm việc giỏi nhất."\n` +
-      `• Ngoại ngữ (đặc biệt là Tiếng Anh) và kỹ năng giao tiếp sẽ giúp tăng mức lương của bạn lên ít nhất 1.5 - 2 lần trong bất kỳ ngành nào!\n\n` +
-      `👉 *Bạn muốn xem mức lương chi tiết của ngành nào? Hãy gõ tên ngành (ví dụ: "Lương ngành CNTT", "Lương ngành Kinh tế"...) nhé!*`;
+    return `📈 **Bức tranh thị trường việc làm & Mức thu nhập thực tế:**\n\n` +
+      `• **Công nghệ thông tin & AI:** Khởi điểm **10 – 18 triệu/tháng**; 3–5 năm kinh nghiệm đạt **30 – 60+ triệu/tháng**.\n` +
+      `• **Logistics & Chuỗi cung ứng:** Khởi điểm **8 – 14 triệu/tháng**; quản lý chuỗi đạt **30 – 50 triệu/tháng**.\n` +
+      `• **Kinh tế số & Digital Marketing:** Khởi điểm **8 – 13 triệu/tháng**; tăng nhanh theo doanh số và năng lực.\n` +
+      `• **Khối ngành Y Dược & Sức khỏe:** Khởi điểm **7 – 12 triệu/tháng**; ổn định bền vững, sau 5 năm bứt phá mạnh.\n` +
+      `• 💡 **Quy tắc vàng:** Ngoại ngữ và kỹ năng số giúp nhân **×1.5 – ×2 lần** thu nhập ở mọi ngành nghề.\n\n` +
+      `💬 **Hỏi nhanh:** Bạn muốn mổ xẻ chi tiết mức lương của ngành nào, hoặc điểm môn thế mạnh của bạn là gì?`;
   }
 
   // 4.1 CÁI GIÁ PHẢI TRẢ & 3 ÁP LỰC LỚN NHẤT CỦA NGÀNH
@@ -2273,7 +2225,7 @@ function answer(q) {
     const targetCareer = matchCareerFromQuery(s) || chatState.lastConsultedCareer || (c.top && c.top.name);
     if (targetCareer) {
       chatState.lastConsultedCareer = targetCareer;
-      const intro = `🔒 **Nhìn thẳng vào sự thật: 3 Áp lực lớn nhất của ngành ${targetCareer}**\n*Chuyên gia hướng nghiệp NS AI phân tích chân thực, giúp bạn chuẩn bị tâm lý vững vàng:*`;
+      const intro = `🎯 **Ngành ${targetCareer}** · 🔒 **3 Áp lực lớn nhất & Cái giá phải trả**`;
       return generateCareerConsultation5Blocks(targetCareer, { intro });
     }
   }
@@ -2281,15 +2233,13 @@ function answer(q) {
   // 5. HỌC PHÍ ĐẠI HỌC / CHI PHÍ / HỌC BỔNG
   if (/học phí|chi phí|đắt không|tốn bao nhiêu|học bổng|sinh hoạt phí|tốn tiền/.test(s)) {
     recordTopic('tuition');
-    return `Về vấn đề học phí đại học, các trường hiện nay được chia thành các mức phổ biến sau:\n\n` +
-      `💰 **1. Mức học phí tham khảo theo nhóm trường:**\n` +
-      `• **Trường công lập truyền thống:** Khoảng 15 - 25 triệu VNĐ/năm học.\n` +
-      `• **Trường công lập tự chủ tài chính (Bách Khoa, Kinh tế Quốc dân, Ngoại thương, UEH...):** Dao động từ 28 - 50 triệu VNĐ/năm tùy chương trình chuẩn hay chất lượng cao.\n` +
-      `• **Khối Sư phạm:** Được **miễn 100% học phí** và hỗ trợ sinh hoạt phí 3.63 triệu/tháng theo Nghị định 116.\n` +
-      `• **Khối Y Dược công lập:** Khoảng 35 - 55 triệu VNĐ/năm.\n` +
-      `• **Trường tư thục & Quốc tế:** Từ 50 - 120+ triệu VNĐ/năm.\n\n` +
-      `🎁 **2. Cơ hội học bổng:**\n` +
-      `• Hầu như trường nào cũng có quỹ **Học bổng khuyến khích học tập** (dành cho top 10% sinh viên điểm cao mỗi kỳ) và học bổng doanh nghiệp tài trợ, có thể bao trọn học phí cả năm học!`;
+    return `💰 **Mặt bằng học phí đại học tham khảo theo nhóm trường:**\n\n` +
+      `• **Công lập truyền thống:** Khoảng **15 – 25 triệu/năm**.\n` +
+      `• **Công lập tự chủ (Bách Khoa, NEU, FTU, UEH...):** Khoảng **28 – 55 triệu/năm**.\n` +
+      `• **Khối Sư phạm:** **Miễn 100% học phí** + hỗ trợ sinh hoạt phí **3.63 triệu/tháng** (Nghị định 116).\n` +
+      `• **Y Dược công lập:** Khoảng **35 – 55 triệu/năm**.\n` +
+      `• **Tư thục & Quốc tế:** Từ **50 – 120+ triệu/năm** (nhiều học bổng 50–100% cho điểm cao).\n\n` +
+      `💬 **Hỏi nhanh:** Gia đình bạn dự kiến mức ngân sách học phí khoảng bao nhiêu triệu/năm để mình lọc trường vừa sức tài chính?`;
   }
 
   // 6. GIỚI TÍNH VÀ NGHỀ NGHIỆP (CON GÁI / CON TRAI NÊN HỌC GÌ)
@@ -2335,10 +2285,9 @@ function answer(q) {
   if (/^(chào|xin chào|hello|hi|hey|alo|bạn ơi|có ai không|bot ơi|ad ơi|chào bot)\b/.test(s) || /^(chào|hello|hi)$/.test(s)) {
     const count = recordTopic('greeting');
     const greetings = [
-      `Chào bạn! Rất vui được trò chuyện cùng bạn. Mình là NS AI, sẵn sàng lắng nghe và giải đáp mọi thắc mắc của bạn về chọn ngành, chọn trường, cách học hay bất kỳ điều gì bạn đang băn khoăn! ✨`,
-      `Xin chào bạn nhé! Mình đã ở đây rồi. Hôm nay việc học tập của bạn thế nào? Bạn muốn hỏi về ngành học, trường đại học hay cần tài liệu/mẹo ôn thi nào không?`,
-      `Chào bạn! Mình có thể giúp bạn giải đáp từ định hướng nghề nghiệp, xem xét điểm số đến chia sẻ phương pháp học tập hiệu quả. Cứ thoải mái hỏi mình nhé! 🚀`,
-      `Chào bạn nha! Rất vui được đồng hành cùng một học sinh năng động như bạn. Bạn đang quan tâm điều gì nhất hôm nay?`
+      `Chào bạn! Mình là **NS AI** – mentor hướng nghiệp thực chiến. Bạn đang phân vân ngành nào, muốn tra điểm chuẩn trường nào hay cần tháo gỡ áp lực môn học? Cứ nói mình nghe nhé! 🚀`,
+      `Chào bạn! Mình ở đây để giúp bạn chọn đúng ngành và không chọn sai. Bạn muốn phân tích ngành nào hay cần kiểm tra tổ hợp môn thế mạnh hôm nay?`,
+      `Chào bạn! Cứ thoải mái chia sẻ ngành bạn thích hoặc điểm số các môn hiện tại, mình sẽ mổ xẻ 5 khối thực chiến giúp bạn ngay! ✨`
     ];
     return greetings[(count - 1) % greetings.length];
   }
@@ -2347,9 +2296,9 @@ function answer(q) {
   if (/cảm ơn|cam on|thanks|thank you|tks|tks bot|tuyệt vời|hay quá|ok bot|cảm ơn bạn|bot xịn|thông minh thế/.test(s)) {
     const count = recordTopic('thanks');
     const thanksReplies = [
-      'Không có gì nè! Rất vui vì giúp ích được cho bạn. Cứ thoải mái hỏi thêm bất cứ điều gì bạn tò mò nhé! Chúc bạn học thật vui và tự tin! ✨',
-      'Được trò chuyện và hỗ trợ bạn là niềm vui của mình. Bạn cố gắng lên nhé, hành trình phía trước rất nhiều điều thú vị đang chờ bạn! 🚀',
-      'Cảm ơn lời khen của bạn nha! Nếu có bài học nào khó hiểu hay phân vân chọn trường thì cứ nhắn mình bất kỳ lúc nào nhé! 🌟'
+      'Rất vui vì đã hỗ trợ được bạn! Bạn còn băn khoăn về ngành nào, điểm chuẩn trường nào hay môn học nào nữa không, cứ nhắn mình nhé! 🚀',
+      'Không có gì bạn nhé! Hãy tập trung tối ưu tổ hợp môn thế mạnh. Khi nào cần đối chiếu trường vừa sức, cứ quay lại hỏi mình! ✨',
+      'Cố gắng lên nhé! Chọn đúng ngành ngay từ đầu là bước đi quan trọng nhất. Cần thêm phân tích nào, mình luôn ở đây hỗ trợ bạn! 🌟'
     ];
     return thanksReplies[(count - 1) % thanksReplies.length];
   }
@@ -2440,17 +2389,17 @@ function answer(q) {
 
     if (targetCareer) {
       chatState.lastConsultedCareer = targetCareer;
-      const intro = `📚 **Tư vấn khối xét tuyển & tổ hợp môn cho ngành ${targetCareer}:**\n*Lời khuyên thực chiến từ chuyên gia hướng nghiệp NS AI giúp bạn chọn đúng khối môn*`;
+      const intro = `🎯 **Ngành ${targetCareer}** · 📚 **Khối xét tuyển & Môn cốt lõi**`;
       return generateCareerConsultation5Blocks(targetCareer, { intro });
     }
 
-    return `💡 **Gợi ý các khối thi đại học trọng điểm:**\n\n` +
-      `• **Khối A00 (Toán - Lý - Hóa):** Phù hợp Công nghệ thông tin, Kỹ thuật, Xây dựng.\n` +
-      `• **Khối A01 (Toán - Lý - Anh):** Phù hợp CNTT, Logistics, Kinh tế, Ngoại thương.\n` +
-      `• **Khối D01 (Toán - Văn - Anh):** Phù hợp Kinh tế, Quản trị, Luật, Ngôn ngữ, Truyền thông.\n` +
-      `• **Khối B00 (Toán - Hóa - Sinh):** Dành riêng cho Y đa khoa, Dược, Nông nghiệp.\n` +
-      `• **Khối C00 (Văn - Sử - Địa):** Dành cho Báo chí, Luật, Khoa học xã hội, Sư phạm.\n\n` +
-      `👉 *Bạn muốn mình phân tích sâu khối xét tuyển và môn cốt lõi của ngành nào trong số này? Hãy gõ tên ngành nhé!*`;
+    return `📚 **Các khối xét tuyển đại học trọng điểm:**\n\n` +
+      `• **Khối A00 (Toán - Lý - Hóa):** CNTT, Kỹ thuật cơ điện tử, Xây dựng, Khoa học dữ liệu.\n` +
+      `• **Khối A01 (Toán - Lý - Anh):** CNTT, Logistics, Kinh tế quốc tế, Quản trị kinh doanh.\n` +
+      `• **Khối D01 (Toán - Văn - Anh):** Kinh tế, Marketing, Truyền thông, Ngôn ngữ, Luật.\n` +
+      `• **Khối B00 (Toán - Hóa - Sinh):** Y đa khoa, Dược học, Công nghệ sinh học, Thực phẩm.\n` +
+      `• **Khối C00 (Văn - Sử - Địa):** Báo chí, Luật pháp lý, Xã hội học, Sư phạm Văn.\n\n` +
+      `💬 **Hỏi nhanh:** Điểm trung bình các môn tự nhiên hay xã hội của bạn đang tốt hơn để mình gợi ý tổ hợp tối ưu?`;
   }
 
   // 16. CHỌN NGÀNH PHÙ HỢP / GỢI Ý NGÀNH NGHỀ
@@ -2472,26 +2421,20 @@ function answer(q) {
     ).join('\n\n');
 
     return `🎯 **Các ngành tiềm năng tiếp theo trong hồ sơ của bạn:**\n\n${list}\n\n` +
-      `💡 Bạn muốn mình mổ xẻ chi tiết **5 khối trực quan** cho ngành nào trong các ngành trên? Cứ gõ tên ngành nhé!`;
+      `💬 **Hỏi nhanh:** Trong các ngành trên, bạn quan tâm ngành nào nhất để mình mổ xẻ 5 khối và đối chiếu điểm chuẩn cho bạn?`;
   }
 
   if (/chọn ngành|ngành gì|nghề gì|nghề|định hướng|ngành nào phù hợp|ngành hợp với em|tư vấn ngành|tư vấn chọn ngành/.test(s) && !matchCareerFromQuery(s)) {
     recordTopic('career');
     if (!c.top) {
-      return 'Chào bạn! Để mình có thể đưa ra phân tích chuyên sâu 5 khối chính xác nhất cho bạn, bạn hãy hoàn thành các mục Thông tin, Điểm số, Sở thích, Tính cách và Mục tiêu trước nhé. Hoặc bạn có thể gõ tên bất kỳ ngành học nào bạn đang băn khoăn (ví dụ: *Công nghệ thông tin, Kinh tế, Y khoa, Thiết kế đồ họa...*), mình sẽ mổ xẻ cặn kẽ ngay!';
+      return 'Bạn hãy hoàn thành các bước Điểm số, Sở thích và Tính cách để mình có đủ dữ liệu gợi ý chuẩn xác nhất. Hoặc bạn cứ gõ thẳng tên ngành đang băn khoăn (ví dụ: **CNTT, Kinh tế, Y khoa...**), mình sẽ phân tích 5 khối trực quan ngay!';
     }
 
     const topCareerName = c.top.name;
     chatState.lastConsultedCareer = topCareerName;
-    const uName = (c.studentName && c.studentName !== 'bạn' && c.studentName !== 'Học sinh') ? c.studentName : 'bạn';
-    const intro = `🎯 **Phân tích định hướng cho ${uName}: Bạn phù hợp nhất với ngành ${topCareerName}!**\n\n` +
-      `• **Mức độ tương thích:** **${c.top.fitLevel || '🌟 Phù hợp nhất'}**\n` +
-      `• **Cơ sở đánh giá:** Dựa trên tính cách **${c.p.personality || 'nổi trội'}**, sở thích **${c.hobbies}${c.custom}**, và điểm tựa học tập các môn thế mạnh của bạn.\n` +
-      `• **Lời khuyên chiến lược:** ${c.top.advice || 'Tập trung tối ưu tổ hợp môn thế mạnh để bứt phá nguyện vọng 1.'}\n\n` +
-      `Dưới đây là cẩm nang phân tích thực chiến 5 khối giúp bạn thấu hiểu toàn diện và **KHÔNG CHỌN SAI NGÀNH**:`;
+    const intro = `🎯 **Ngành ${topCareerName}**`;
 
-    const fiveBlocks = generateCareerConsultation5Blocks(topCareerName, { intro });
-    return fiveBlocks + `\n\n👉 *Bạn có muốn xem tiếp các ngành ở vị trí Top 2, Top 3 không? Hãy gõ "Xem ngành khác" nhé!*`;
+    return generateCareerConsultation5Blocks(topCareerName, { intro });
   }
 
   // 17. GỢI Ý TRƯỜNG ĐẠI HỌC THEO KẾT QUẢ, MỤC TIÊU VÀ TỈNH / VÙNG MIỀN
@@ -2744,25 +2687,28 @@ function answer(q) {
 
   // Nếu câu hỏi có từ khóa liên quan đến "tại sao", "như thế nào", "có nên", "làm gì"
   if (/tại sao|vi sao|như thế nào|thế nào|có nên|phải làm gì|làm sao/.test(s)) {
-    return `Đây là một câu hỏi rất hay và sâu sắc! Dưới góc độ đồng hành và định hướng cho học sinh THPT, mình nghĩ điều quan trọng nhất là bạn cần cân bằng giữa **sở thích thực sự**, **năng lực học tập hiện tại** và **nhu cầu của xã hội**.\n\n` +
-      `Bạn có thể chia sẻ cụ thể hơn hoàn cảnh hoặc suy nghĩ của bạn về điều này không? Mình luôn sẵn sàng lắng nghe và cùng bạn tháo gỡ từng bước một nhé! ✨`;
+    return `💡 **Góc nhìn mentor hướng nghiệp thực chiến:**\n\n` +
+      `Khi đứng trước quyết định chọn ngành hay chọn trường, nguyên tắc cốt lõi là cân bằng thế kiềng 3 chân:\n` +
+      `• **Năng lực học tập:** Điểm các môn xét tuyển có đủ cạnh tranh vào trường mục tiêu không.\n` +
+      `• **Sở thích & Kỷ luật:** Có chịu được áp lực đào tạo 4 năm và yêu cầu nghề nghiệp thực tế không.\n` +
+      `• **Thị trường lao động:** Cơ hội việc làm và tiềm năng bứt phá thu nhập sau 3–5 năm.\n\n` +
+      `💬 **Hỏi nhanh:** Bạn đang phân vân giữa ngành nào với ngành nào, hoặc điểm môn thế mạnh của bạn là gì?`;
   }
 
   if (s.length < 15) {
-    return `Mình đã nghe rõ bạn nói rồi nè! Bạn đang băn khoăn về vấn đề gì liên quan đến việc học, chọn ngành hay chọn trường? Cứ chia sẻ chi tiết hơn một chút để mình hỗ trợ bạn thật tốt nhé! 😊`;
+    return `Mình đã nghe rõ bạn nói. Bạn đang quan tâm ngành học nào, hay cần đối chiếu điểm chuẩn trường nào? Gõ tên ngành để mình phân tích 5 khối thực chiến ngay nhé! 🚀`;
   }
 
   const naturalReplies = [
-    `Cảm ơn câu hỏi rất thú vị của bạn! Với tư cách là một trợ lý AI đồng hành cùng học sinh THPT, mình luôn sẵn sàng hỗ trợ bạn về:\n\n` +
-    `• 🎯 **Định hướng nghề nghiệp & Khối thi xét tuyển**\n` +
-    `• 🏫 **Tra cứu thông tin các trường đại học & học phí**\n` +
-    `• 📚 **Phương pháp học tập & Nguồn tài liệu ôn thi hiệu quả**\n` +
-    `• 💬 **Lắng nghe, chia sẻ và giải tỏa áp lực học đường**\n\n` +
-    `Bạn muốn chúng mình cùng bàn luận sâu hơn về chủ đề nào? Hãy kể cho mình nghe nhé!`,
+    `🎯 **Mentor NS AI luôn sẵn sàng đồng hành cùng bạn:**\n\n` +
+    `• **Tư vấn ngành học chuẩn 5 khối:** Gõ tên bất kỳ ngành nào (ví dụ: *CNTT, Kinh tế, Y khoa, Thiết kế đồ họa...*).\n` +
+    `• **Đối chiếu điểm chuẩn & Chọn trường:** Gõ tên trường hoặc khu vực bạn muốn học.\n` +
+    `• **Tháo gỡ áp lực thi cử:** Chia sẻ về môn bạn đang lo lắng nhất.\n\n` +
+    `💬 **Hỏi nhanh:** Điểm thi thử hoặc tổng kết môn thế mạnh của bạn hiện khoảng bao nhiêu để mình gợi ý hướng đi phù hợp nhất?`,
 
-    `Mình rất thích cách bạn chủ động đặt câu hỏi để tìm hiểu tương lai! Để mình có thể đưa ra câu trả lời sát thực tế nhất cho bạn, bạn có thể nói rõ hơn về ngành nghề, trường học hay môn học bạn đang băn khoăn không? Mình đang ở đây và lắng nghe bạn nè! 🌟`,
+    `Mình đã ghi nhận câu hỏi của bạn. Để mình phân tích sát thực tế nhất, bạn hãy cho mình biết bạn đang nhắm tới ngành học nào, hoặc điểm tổ hợp 3 môn của bạn hiện khoảng mấy phẩy? 🚀`,
 
-    `Một góc nhìn rất đáng để suy ngẫm! Trong học tập và định hướng nghề nghiệp, mỗi thắc mắc của bạn đều là một bước tiến gần hơn đến mục tiêu. Bạn muốn mình phân tích thêm về khía cạnh nào: cơ hội việc làm, cách chọn trường hay cách cải thiện điểm số?`
+    `Mỗi băn khoăn của bạn đều là cơ hội để xác định đúng đường đi. Bạn muốn mình mổ xẻ về cơ hội việc làm, khối xét tuyển, hay gợi ý trường đại học vừa sức điểm số hiện tại?`
   ];
 
   return naturalReplies[(chatState.fallbackIndex - 1) % naturalReplies.length];
@@ -2877,7 +2823,7 @@ function getInitialGreetingMessage() {
   if (!profile || !profile.hasProfile) {
     const sName = getStudentGreetingName();
     const salutation = (sName && sName !== 'bạn' && sName !== 'Học sinh') ? `Chào ${sName}!` : 'Chào bạn!';
-    return `${salutation} Mình là NS AI – trợ lý định hướng và tư vấn tâm lý học đường. Mình luôn ở đây để lắng nghe bạn tâm sự về áp lực thi cử, chuyện gia đình, những ngày mệt mỏi hay băn khoăn về chọn ngành, chọn trường. Bạn có thể gõ phím hoặc bấm nút 🎙️ Micro để tâm sự trực tiếp bằng giọng nói nhé! 💚🌌`;
+    return `${salutation} Mình là **NS AI** – mentor hướng nghiệp thực chiến, giúp bạn chọn đúng ngành ngay từ đầu và không chọn sai. Bạn đang phân vân ngành nào, cứ gõ tên ngành hoặc bấm 🎙️ **Micro** để mình phân tích 5 khối trực quan ngay nhé! 🚀`;
   }
 
   const name = (profile.name && profile.name !== 'bạn' && profile.name !== 'Học sinh')
@@ -2885,58 +2831,14 @@ function getInitialGreetingMessage() {
     : getStudentGreetingName();
   const salutation = (name && name !== 'bạn' && name !== 'Học sinh') ? `Chào **${name}**!` : 'Chào bạn!';
 
-  const traits = [];
-  if (profile.bestCombo) {
-    const avgText = profile.avgScore != null ? ` (Điểm trung bình các môn: **${profile.avgScore}/10**)` : '';
-    traits.push(`• 📊 **Thế mạnh học tập & Tổ hợp:** Tổ hợp cao nhất **${profile.bestCombo.code} (${profile.bestCombo.name})** đạt **${profile.bestCombo.score}đ**${avgText}.`);
-  } else if (profile.scoreCount > 0) {
-    const avgText = profile.avgScore != null ? ` Điểm trung bình: **${profile.avgScore}/10**.` : '';
-    traits.push(`• 📊 **Học lực ghi nhận:** Đã nhập ${profile.scoreCount} môn học.${avgText}`);
-  }
-
-  if (profile.hollandCode) {
-    const titleText = profile.hollandTitle ? ` (Nhóm ${profile.hollandTitle})` : '';
-    traits.push(`• 🧭 **Mã tính cách Holland (RIASEC):** **${profile.hollandCode}**${titleText}.`);
-  }
-
-  if (profile.interests && profile.interests.length > 0) {
-    const intList = profile.interests.slice(0, 4).join(', ');
-    const customText = profile.customInterests ? `; ${profile.customInterests}` : '';
-    traits.push(`• ❤️ **Sở thích & Đam mê:** ${intList}${customText}.`);
-  } else if (profile.customInterests) {
-    traits.push(`• ❤️ **Sở thích nổi bật:** ${profile.customInterests}.`);
-  }
-
-  if (profile.goals) {
-    const g = profile.goals;
-    if (g.isStudyAbroad) {
-      const countryStr = g.studyAbroadCountry ? ` tại **${g.studyAbroadCountry}**` : '';
-      const certStr = g.studyAbroadCert ? ` (Chứng chỉ: **${g.studyAbroadCert}**)` : '';
-      const majorStr = g.dreamMajor ? ` - Ngành **${g.dreamMajor}**` : '';
-      traits.push(`• ✈️ **Định hướng mục tiêu:** **Du học quốc tế**${countryStr}${majorStr}${certStr}.`);
-    } else {
-      const majorStr = g.dreamMajor ? `Ngành **${g.dreamMajor}**` : '';
-      const schoolStr = g.dreamSchool ? ` tại **${g.dreamSchool}**` : '';
-      const targetStr = (majorStr || schoolStr) ? ` (${[majorStr, schoolStr].filter(Boolean).join('')})` : '';
-      traits.push(`• 🎯 **Định hướng mục tiêu:** Xét tuyển đại học trong nước${targetStr}.`);
-    }
-  }
-
+  let summary = '';
   if (profile.topCareer) {
-    traits.push(`• 🌟 **Gợi ý nghề nghiệp phù hợp nhất:** **${profile.topCareer}**.`);
+    summary = ` Ngành thế mạnh gợi ý cho bạn là **${profile.topCareer}**${profile.bestCombo ? ` (tổ hợp **${profile.bestCombo.code}** đạt **${profile.bestCombo.score}đ**)` : ''}.`;
+  } else if (profile.bestCombo) {
+    summary = ` Hồ sơ ghi nhận tổ hợp cao nhất của bạn là **${profile.bestCombo.code} (${profile.bestCombo.score}đ)**.`;
   }
 
-  const traitsBlock = traits.length > 0 ? traits.join('\n') + '\n\n' : '';
-
-  return `${salutation} 🌟 Mình là **NS AI Assistant** – trợ lý cá nhân hóa về định hướng học đường và đồng hành tâm lý của bạn.\n\n` +
-    `Hệ thống đã nhận diện và đồng bộ đầy đủ hồ sơ của bạn:\n` +
-    `${traitsBlock}` +
-    `Toàn bộ dữ liệu trên đã được nạp sẵn trong phiên làm việc, bạn **không cần phải nhập lại bất kỳ thông tin nào**!\n\n` +
-    `Hôm nay bạn muốn mình hỗ trợ bạn điều gì nhất trên hành trình này? Bạn có thể yêu cầu mình:\n` +
-    `1. 🎯 *Phân tích chi tiết cơ hội xét tuyển theo điểm số & tổ hợp*\n` +
-    `2. ⚖️ *Gợi ý danh sách trường đại học Thử thách (Reach), Vừa sức (Match) và An toàn (Safety)*\n` +
-    `3. 💚 *Tâm sự, giải tỏa áp lực thi cử và duy trì năng lượng học tập*\n\n` +
-    `Hãy gõ câu hỏi hoặc bấm 🎙️ Micro để trò chuyện cùng mình nhé!`;
+  return `${salutation} Mình là **NS AI** – mentor hướng nghiệp thực chiến, giúp bạn chọn đúng ngành và không chọn sai.${summary} Bạn muốn mổ xẻ ngành nào, hãy gõ tên ngành hoặc bấm 🎙️ **Micro** để mình phân tích 5 khối trực quan ngay nhé! 🚀`;
 }
 
 function initChatHistory() {
@@ -3798,17 +3700,16 @@ async function callGeminiAPI(query, sessionHistory = []) {
   const systemInstruction = `Bạn là NS AI - Chuyên gia hướng nghiệp thực tế, gần gũi như người anh/chị đi trước (Mentor) dành cho học sinh THPT Việt Nam.
 MỤC TIÊU TỐI THƯỢNG: Giúp học sinh KHÔNG CHỌN SAI NGÀNH, nắm rõ thực tế thị trường lao động và năng lực bản thân.
 TÍNH CÁCH & PHONG CÁCH:
-- Đi thẳng vào vấn đề, chân thành, khách quan, không lý thuyết sáo rỗng.
-- Ngôn ngữ gần gũi với học sinh THPT (xưng mình - bạn).
-- Khi học sinh hỏi hoặc cần tư vấn về bất kỳ ngành nghề nào, BẮT BUỘC phản hồi ngắn gọn theo đúng 5 khối trực quan sau:
-  **[1 · KHỐI XÉT TUYỂN & MÔN CỐT LÕI]**: Nêu rõ tổ hợp môn chính và môn bắt buộc phải học tốt.
-  **[2 · CHỌN TRƯỜNG THEO NĂNG LỰC & ĐIỂM CHUẨN]**: Phân tầng Top đầu / Vừa sức / An toàn, kèm lời nhắc tra cứu Đề án tuyển sinh mới nhất.
-  **[3 · VÀO HỌC THỰC TẾ HỌC GÌ?]**: Giải thích đời thường, nêu công cụ / phần mềm và kỹ năng thực tế.
-  **[🔒 4 · CÁI GIÁ PHẢI TRẢ]**: Thẳng thắn nêu đúng 3 áp lực / mặt trái lớn nhất của ngành.
-  **[5 · MỨC LƯƠNG THAM KHẢO & TỐC ĐỘ BỨT PHÁ]**: Mới ra trường vs Sau 5-8 năm + lưu ý chỉ mang tính tham khảo.
-- Mỗi ý chỉ 1-2 câu súc tích, gạch đầu dòng rõ ràng, in đậm các con số và từ khóa quan trọng.
-- Luôn kết thúc bằng 1 câu hỏi gợi mở thiết thực (về học lực, điểm môn thế mạnh, sở thích hoặc mức độ chịu được áp lực của ngành).
-- TUYỆT ĐỐI AN TOÀN: Nếu học sinh có biểu hiện khủng hoảng tâm lý, trầm cảm, hãy ưu tiên an ủi và giới thiệu Tổng đài Quốc gia 111 và Đường dây Ngày Mai 096 306 1414.${profileContext}`;
+- Đi thẳng vào vấn đề, chân thành, khách quan, tuyệt đối không lý thuyết sáo rỗng.
+- Ngôn ngữ gần gũi với học sinh THPT (xưng mình - bạn). Không rào đón, đi thẳng vào tên ngành (1 dòng) rồi đến 5 khối:
+  **[1 · KHỐI XÉT]**: Tổ hợp chính/dự phòng + Môn cốt lõi bắt buộc phải học tốt (1–2 câu).
+  **[2 · TRƯỜNG & ĐIỂM CHUẨN]**: Phân tầng Top đầu / Vừa sức / An toàn theo năng lực + nhắc tra cứu Đề án tuyển sinh mới nhất (1–2 câu, in đậm điểm chuẩn).
+  **[3 · VÀO HỌC THỰC TẾ HỌC GÌ?]**: Bản chất đào tạo đời thường, nêu cụ thể công cụ / phần mềm và kỹ năng cốt lõi (1–2 câu).
+  **[🔒 CÁI GIÁ PHẢI TRẢ]**: Đúng 3 áp lực / mặt trái thực tế gạch đầu dòng ngắn (mỗi ý đúng 1 câu).
+  **[4 · MỨC LƯƠNG]**: Mới ra trường vs Sau 5–8 năm (kèm hệ số tăng trưởng VD ×3) + lưu ý chỉ để tham khảo (1 câu).
+- Mỗi ý tối đa 1–2 câu súc tích, gạch đầu dòng rõ ràng, in đậm các con số và từ khóa quan trọng.
+- Luôn kết thúc bằng ĐÚNG 1 CÂU HỎI NGẮN liên quan trực tiếp đến học lực hoặc điểm môn thế mạnh của học sinh để gợi ý trường vừa sức.
+- TUYỆT ĐỐI AN TOÀN: Nếu học sinh có biểu hiện khủng hoảng tâm lý, áp lực thi cử trầm trọng, hãy ưu tiên an ủi và giới thiệu Tổng đài Quốc gia 111 và Đường dây Ngày Mai 096 306 1414.${profileContext}`;
 
   const payload = {
     system_instruction: {

@@ -489,7 +489,7 @@ a.feature:hover{
 /* ================= PAGE ================= */
 
 .page{
-    max-width:1050px;
+    max-width:1120px;
     margin:35px auto;
     padding:20px;
 }
@@ -499,8 +499,8 @@ a.feature:hover{
 }
 
 .form-card.wide{
-    max-width:950px;
-    margin:auto;
+    max-width:1080px;
+    margin:0 auto;
 }
 
 .form-card h1{
@@ -7302,10 +7302,9 @@ input[type="reset"] {
     transform: scale(0.95) !important;
   }
 
-  /* 6. Khoảng đệm an toàn padding-bottom: 75px cho các khối actions */
+  /* 6. Khoảng đệm an toàn padding-bottom: 75px cho các khối actions ở đáy trang */
   .actions,
   .form-card .actions,
-  .result-toolbar,
   .page > .actions,
   .page-bottom-actions {
     padding-bottom: 75px !important;
@@ -7324,16 +7323,16 @@ input[type="reset"] {
 
   /* 8. Tối ưu giao diện 5 khối kết quả ngành nghề trên Mobile (< 768px) */
   .career-v2-card {
-    padding: 16px 14px !important;
+    padding: 14px !important;
     margin-bottom: 20px !important;
     border-radius: 16px !important;
   }
   .career-v2-header {
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 10px !important;
   }
   .career-v2-title {
-    font-size: 18.5px !important;
+    font-size: 19px !important;
   }
   .career-v2-score-box {
     width: 100% !important;
@@ -7350,12 +7349,79 @@ input[type="reset"] {
     gap: 8px !important;
   }
   .combo-card-horizontal {
+    min-height: 44px !important;
+    padding: 10px 12px !important;
+  }
+  .school-cutoff-row {
+    min-height: 44px !important;
+    padding: 10px 12px !important;
+  }
+  .skill-card {
+    min-height: 44px !important;
+    padding: 10px 12px !important;
+  }
+  .tradeoff-card {
     padding: 10px 12px !important;
   }
   .core-warning-banner {
     padding: 10px 12px !important;
   }
   .block-tradeoffs-wrapper {
-    padding: 14px 12px !important;
+    padding: 14px !important;
+  }
+  .curriculum-essence-box {
+    padding: 12px 14px !important;
+  }
+  .salary-col {
+    padding: 12px 14px !important;
+  }
+  .result-toolbar .btn,
+  .result-toolbar a.btn,
+  .actions .btn,
+  .actions a.btn {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+/* ==========================================================================
+   TABLET RESPONSIVE RULES (768px - 1024px)
+   ========================================================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .combo-cards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .school-notes-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .curriculum-timeline-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .salary-visual-comparison {
+    grid-template-columns: 1fr 120px 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP CENTERING (> 1024px)
+   ========================================================================== */
+@media (min-width: 1025px) {
+  .page {
+    max-width: 1120px !important;
+    margin: 35px auto !important;
+  }
+  .form-card.wide {
+    max-width: 1080px !important;
+    margin: 0 auto !important;
   }
 }
